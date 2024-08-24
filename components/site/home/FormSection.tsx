@@ -1,11 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { CalendarIcon, Frown, Smile } from "lucide-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { Frown, Plus, Smile } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -27,14 +22,17 @@ import { UploadIcon } from "./Icons";
 import { useProfessionalDetails } from "@/store/usePersonalDetails";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
-import { Button } from "react-day-picker";
 import SortableEmployment from "@/components/sortable/SortableEmployment";
+import { Button } from "@/components/ui/button";
 
 const FormSection = () => {
+  const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
-  const form = useForm();
+  const [sortableEmploymentList, setSortableEmploymentList] = useState<
+    number[]
+  >([1]);
+
   const {
     setAddress,
     setCity,
@@ -68,6 +66,13 @@ const FormSection = () => {
 
   const handleToggled = () => {
     setToggled(!toggled);
+  };
+
+  const handleAddSortableEmploymentList = () => {
+    setSortableEmploymentList((sortableEmploymentList) => [
+      ...sortableEmploymentList,
+      sortableEmploymentList.length + 1,
+    ]);
   };
 
   return (
@@ -344,6 +349,7 @@ const FormSection = () => {
                   name="jobTitle"
                   className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
                   rows={6}
+                  maxLength={600}
                   onChange={(e) => SetCharCount(e.target.value.length)}
                 />
                 <div className="flex justify-between items-center">
@@ -374,7 +380,26 @@ const FormSection = () => {
                   point to note your achievement. if possible - use no./facts
                   (Achived X, measured by Y. by doing Z)
                 </Label>
-                <SortableEmployment />
+                <div
+                  className={`${
+                    sortableEmploymentList.length > 1 ? "space-y-4" : ""
+                  }`}
+                >
+                  <SortableEmployment
+                    sortableEmploymentList={sortableEmploymentList}
+                    setSortableEmploymentList={setSortableEmploymentList}
+                  />
+                </div>
+              </div>
+              <div>
+                <Button
+                  onClick={handleAddSortableEmploymentList}
+                  type="button"
+                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                >
+                  <Plus className="text-aquamarine-100" />
+                  add employment
+                </Button>
               </div>
             </div>
           </form>
