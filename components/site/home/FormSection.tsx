@@ -24,6 +24,8 @@ import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import SortableEmployment from "@/components/sortable/SortableEmployment";
 import SortableEducation from "@/components/sortable/SortableEducation";
+import SortableWebNSocialLinks from "@/components/sortable/SortableWebNSocialLinks";
+import SortableSkills from "@/components/sortable/SortableSkills";
 import { Button } from "@/components/ui/button";
 
 const FormSection = () => {
@@ -36,6 +38,9 @@ const FormSection = () => {
   const [sortableEducationList, setSortableEducationList] = useState<number[]>(
     []
   );
+  const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
+    useState<number[]>([]);
+  const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
 
   const {
     setAddress,
@@ -83,6 +88,20 @@ const FormSection = () => {
     setSortableEducationList((sortableEducationList) => [
       ...sortableEducationList,
       sortableEducationList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableWebNSocialLinksList = () => {
+    setSortableWebNSocialLinksList((sortableWebNSocialLinksList) => [
+      ...sortableWebNSocialLinksList,
+      sortableWebNSocialLinksList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableSkillsList = () => {
+    setSortableSkillsList((sortableSkillsList) => [
+      ...sortableSkillsList,
+      sortableSkillsList.length + 1,
     ]);
   };
 
@@ -409,7 +428,9 @@ const FormSection = () => {
                   className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                 >
                   <Plus className="text-aquamarine-100" />
-                  {sortableEmploymentList.length > 0 ? "add one more employment" : "add employment"}
+                  {sortableEmploymentList.length > 0
+                    ? "add one more employment"
+                    : "add employment"}
                 </Button>
               </div>
             </div>
@@ -443,7 +464,81 @@ const FormSection = () => {
                   className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                 >
                   <Plus className="text-aquamarine-100" />
-                  {sortableEducationList.length > 0 ? "add one more education" : "add education"}
+                  {sortableEducationList.length > 0
+                    ? "add one more education"
+                    : "add education"}
+                </Button>
+              </div>
+            </div>
+            {/* Website & Social Links */}
+            <div className="flex flex-col gap-4 mb-7">
+              <div>
+                <h1 className="text-lg font-semibold text-black/85">
+                  Website & Social Links
+                </h1>
+              </div>
+              <div className="w-full space-y-2">
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  You can add links to websites you wants hiring managers to
+                  see! Perphaps It will be a link to your portfoliio, Linkedin
+                  profile or personal website
+                </Label>
+                <div
+                  className={`${
+                    sortableWebNSocialLinksList.length > 1 && "space-y-4"
+                  }`}
+                >
+                  <SortableWebNSocialLinks
+                    sortableWebNSocialLinksList={sortableWebNSocialLinksList}
+                    setSortableWebNSocialLinksList={
+                      setSortableWebNSocialLinksList
+                    }
+                  />
+                </div>
+              </div>
+              <div>
+                <Button
+                  onClick={handleAddSortableWebNSocialLinksList}
+                  type="button"
+                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                >
+                  <Plus className="text-aquamarine-100" />
+                  {sortableWebNSocialLinksList.length > 0
+                    ? "add one more link"
+                    : "add link"}
+                </Button>
+              </div>
+            </div>
+            {/* Skills */}
+            <div className="flex flex-col gap-4 mb-7">
+              <div>
+                <h1 className="text-lg font-semibold text-black/85">Skills</h1>
+              </div>
+              <div className="w-full space-y-2">
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  Choose 5 of the most important skills to show your talents!
+                  Make sure they match the keywords of the job listing if
+                  applying via on online system.
+                </Label>
+                <div
+                  className={`${sortableSkillsList.length > 1 && "space-y-4"}`}
+                >
+                  <SortableSkills
+                    sortableSkillsList={sortableSkillsList}
+                    setSortableSkillsList={setSortableSkillsList}
+                  />
+                </div>
+              </div>
+              <div>
+                <Button
+                  onClick={handleAddSortableSkillsList}
+                  type="button"
+                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                >
+                  <Plus className="text-aquamarine-100" />
+                  {sortableSkillsList.length > 0
+                    ? "add one more skill"
+                    : "add skill"}
                 </Button>
               </div>
             </div>

@@ -168,7 +168,7 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)} id={index}>
+          <div onClick={() => handleDeleteDiv(index)} >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>
