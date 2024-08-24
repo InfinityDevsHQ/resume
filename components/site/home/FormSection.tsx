@@ -1,6 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { ChevronDown, Upload } from "lucide-react";
+import { CalendarIcon, Frown, Smile } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Accordion,
   AccordionContent,
@@ -21,8 +26,14 @@ import { HelpCircle } from "lucide-react";
 import { UploadIcon } from "./Icons";
 import { useProfessionalDetails } from "@/store/usePersonalDetails";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "react-day-picker";
+import SortableEmployment from "@/components/sortable/SortableEmployment";
 
 const FormSection = () => {
+  const [toggled, setToggled] = useState(false);
+  const [charCount, SetCharCount] = useState(0);
   const form = useForm();
   const {
     setAddress,
@@ -42,19 +53,6 @@ const FormSection = () => {
     selectedImage,
   } = useProfessionalDetails();
 
-  //   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       if (typeof reader.result === "string") {
-  //         setSelectedImage(reader.result); // reader.result is cast to string
-  //       }
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -66,6 +64,10 @@ const FormSection = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleToggled = () => {
+    setToggled(!toggled);
   };
 
   return (
@@ -82,7 +84,7 @@ const FormSection = () => {
               />
             </div>
             {/* Personal Details */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 mb-7">
               <div>
                 <h1 className="text-lg font-semibold text-black/85">
                   Personal Details
@@ -314,11 +316,66 @@ const FormSection = () => {
                       </div>
                     </div>
                   </AccordionContent>
-                  <AccordionTrigger className="max-w-[170px] text-aquamarine-100 hover:text-aquamarine-200 capitalize text-sm font-normal hover:no-underline">
-                    edit additiona details
+                  <AccordionTrigger
+                    onClick={handleToggled}
+                    className="max-w-[180px] text-aquamarine-100 hover:text-aquamarine-200 capitalize text-sm font-normal hover:no-underline"
+                  >
+                    {toggled
+                      ? "hide additional details"
+                      : "edit additional details"}
                   </AccordionTrigger>
                 </AccordionItem>
               </Accordion>
+            </div>
+            {/* Professional Summary */}
+            <div className="flex flex-col gap-4 mb-7">
+              <div>
+                <h1 className="text-lg font-semibold text-black/85">
+                  Professional Summary
+                </h1>
+              </div>
+              <div className="w-full space-y-2">
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  Write 2-4 short & energetic sentences to interest the reader!
+                  Mention your role, experience & most importantly - your
+                  biggest achievements, best qualities and skills.
+                </Label>
+                <Textarea
+                  name="jobTitle"
+                  className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
+                  rows={6}
+                  onChange={(e) => SetCharCount(e.target.value.length)}
+                />
+                <div className="flex justify-between items-center">
+                  <p className="font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                    Write 400-600 characters to increase interview chances
+                  </p>
+                  <p className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                    {charCount} / 400+
+                    {charCount >= 400 ? (
+                      <Smile className="text-green-400" />
+                    ) : (
+                      <Frown className="text-red-400" />
+                    )}
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* Employment History */}
+            <div className="flex flex-col gap-4 mb-7">
+              <div>
+                <h1 className="text-lg font-semibold text-black/85">
+                  Employment History
+                </h1>
+              </div>
+              <div className="w-full space-y-2">
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  Show your relevant experience (last 10 years). Use bullet
+                  point to note your achievement. if possible - use no./facts
+                  (Achived X, measured by Y. by doing Z)
+                </Label>
+                <SortableEmployment />
+              </div>
             </div>
           </form>
         </Form>
