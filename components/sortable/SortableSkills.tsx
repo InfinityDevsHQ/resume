@@ -12,7 +12,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import LevelIndicator from "../site/home/SkillsBadge";
 
 interface SortableSkillsProps {
   sortableSkillsList: any;

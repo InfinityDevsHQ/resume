@@ -51,6 +51,7 @@ const FormSection = () => {
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
+  const [disabledBadges, setDisabledBadges] = useState<boolean>(false);
 
   const {
     setAddress,
@@ -113,6 +114,7 @@ const FormSection = () => {
       ...sortableSkillsList,
       sortableSkillsList.length + 1,
     ]);
+    // setDisabledBadges(!disabledBadges);
   };
 
   return (
@@ -531,7 +533,11 @@ const FormSection = () => {
                   applying via on online system.
                 </Label>
                 <div>
-                  <SkillsBadge setSortableSkillsList={setSortableSkillsList} />
+                  <SkillsBadge
+                    setDisabledBadges={setDisabledBadges}
+                    disabledBadges={disabledBadges}
+                    handleAddSortableSkillsList={handleAddSortableSkillsList}
+                  />
                 </div>
                 <div
                   className={`${sortableSkillsList.length > 1 && "space-y-4"}`}
