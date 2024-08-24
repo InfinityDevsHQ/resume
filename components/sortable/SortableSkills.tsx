@@ -12,7 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import LevelIndicator from "../site/home/LevelIndicator";
+import LevelIndicator from "../site/home/SkillsBadge";
 
 interface SortableSkillsProps {
   sortableSkillsList: any;
@@ -57,7 +57,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                     <Input name="employmentJobTitle" />
                   </div>
                   <div className="w-1/2 space-y-2">
-                    <Tabs defaultValue="beginner" className="w-full">
+                    <Tabs defaultValue="skillful" className="w-full">
                       <TabsContent
                         className="capitalize font-normal text-sm text-charcoal"
                         value="novice"
@@ -98,7 +98,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
-                          className="h-[60%] bg-charcoal"
+                          className="h-[40%] bg-charcoal"
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#f68559] rounded-md"
@@ -106,7 +106,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
-                          className="h-[60%] bg-charcoal"
+                          className="h-[40%] bg-charcoal"
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#f9ba44] rounded-md"
@@ -114,7 +114,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
-                          className="h-[60%] bg-charcoal"
+                          className="h-[40%] bg-charcoal"
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#48ba75] rounded-md"
@@ -122,7 +122,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
-                          className="h-[60%] bg-charcoal"
+                          className="h-[40%] bg-charcoal"
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#9ba1fb] rounded-md"

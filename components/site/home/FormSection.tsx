@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { Frown, Plus, Smile } from "lucide-react";
 import {
   Accordion,
@@ -18,7 +18,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { HelpCircle } from "lucide-react";
-import { UploadIcon } from "./Icons";
+import {
+  ActivitiesIcon,
+  CoursesIcon,
+  CustomeSectionIcon,
+  HobbyIcon,
+  InternshipIcon,
+  LanguageIcon,
+  ReferenceIcon,
+  UploadIcon,
+} from "./Icons";
 import { useProfessionalDetails } from "@/store/usePersonalDetails";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,6 +36,7 @@ import SortableEducation from "@/components/sortable/SortableEducation";
 import SortableWebNSocialLinks from "@/components/sortable/SortableWebNSocialLinks";
 import SortableSkills from "@/components/sortable/SortableSkills";
 import { Button } from "@/components/ui/button";
+import SkillsBadge from "./SkillsBadge";
 
 const FormSection = () => {
   const form = useForm();
@@ -520,6 +530,9 @@ const FormSection = () => {
                   Make sure they match the keywords of the job listing if
                   applying via on online system.
                 </Label>
+                <div>
+                  <SkillsBadge setSortableSkillsList={setSortableSkillsList} />
+                </div>
                 <div
                   className={`${sortableSkillsList.length > 1 && "space-y-4"}`}
                 >
@@ -539,6 +552,65 @@ const FormSection = () => {
                   {sortableSkillsList.length > 0
                     ? "add one more skill"
                     : "add skill"}
+                </Button>
+              </div>
+            </div>
+            {/* Add Section */}
+            <div className="flex flex-col gap-4 mb-7">
+              <div>
+                <h1 className="text-xl font-semibold text-black/85">
+                  Add Section
+                </h1>
+              </div>
+              <div className="grid sm:grid-cols-2 grid-cols-1">
+                <Button
+                  type="button"
+                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                >
+                  <CustomeSectionIcon className="fill-aquamarine-100 w-[40px]" />
+                  custome sections
+                </Button>
+                <Button
+                  type="button"
+                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                >
+                  <CoursesIcon className="fill-aquamarine-100 w-[40px]" />
+                  Courses
+                </Button>
+                <Button
+                  type="button"
+                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                >
+                  <ActivitiesIcon className="fill-aquamarine-100 w-[40px]" />
+                  extra curricular activities
+                </Button>
+                <Button
+                  type="button"
+                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                >
+                  <InternshipIcon className="fill-aquamarine-100 w-[40px]" />
+                  internships
+                </Button>
+                <Button
+                  type="button"
+                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                >
+                  <HobbyIcon className="fill-aquamarine-100 w-[40px]" />
+                  hobbies
+                </Button>
+                <Button
+                  type="button"
+                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                >
+                  <LanguageIcon className="fill-aquamarine-100 w-[40px]" />
+                  languages
+                </Button>
+                <Button
+                  type="button"
+                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                >
+                  <ReferenceIcon className="fill-aquamarine-100 w-[40px]" />
+                  References
                 </Button>
               </div>
             </div>
