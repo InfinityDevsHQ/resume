@@ -1,0 +1,24 @@
+type ProfessionalDetails = {
+  jobTitle: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  countryName: string;
+  city: string;
+  address: string;
+  nationality: string;
+  placeOfBirth: string;
+  dateOfBirth: string;
+  setJobTitle: (jobTitle: string) => void;
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
+  setEmail: (email: string) => void;
+  setPhone: (phone: string) => void;
+  setCountryName: (countryName: string) => void;
+  setCity: (city: string) => void;
+  setAddress: (address: string) => void;
+  setNationality: (nationality: string) => void;
+  setPlaceOfBirth: (placeOfBirth: string) => void;
+  setDateOfBirth: (dateOfBirth: string) => void;
+};
