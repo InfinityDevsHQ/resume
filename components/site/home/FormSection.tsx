@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { HelpCircle } from "lucide-react";
 import { UploadIcon } from "./Icons";
 import { useProfessionalDetails } from "@/store/usePersonalDetails";
+import Image from "next/image";
 
 const FormSection = () => {
   const form = useForm();
@@ -38,6 +39,7 @@ const FormSection = () => {
     setDrivingLicense,
     setPostalCode,
     setSelectedImage,
+    selectedImage,
   } = useProfessionalDetails();
 
   //   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -115,7 +117,20 @@ const FormSection = () => {
                 </div>
                 <div className="w-1/2 space-y-2">
                   <div className="flex justify-start items-center gap-2">
-                    <UploadIcon className="w-9" />
+                    {selectedImage ? (
+                      <div className="size-16">
+                        <Image
+                          src={selectedImage}
+                          width={60}
+                          height={60}
+                          className="w-full"
+                          alt="avatar"
+                        />
+                      </div>
+                    ) : (
+                      <UploadIcon className="w-9" />
+                    )}
+
                     <Label className="capitalize font-normal text-sm text-aquamarine-100 hover:text-aquamarine-200 cursor-pointer">
                       Upload Photo
                       <Input
