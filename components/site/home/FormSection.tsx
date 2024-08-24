@@ -23,6 +23,7 @@ import { useProfessionalDetails } from "@/store/usePersonalDetails";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import SortableEmployment from "@/components/sortable/SortableEmployment";
+import SortableEducation from "@/components/sortable/SortableEducation";
 import { Button } from "@/components/ui/button";
 
 const FormSection = () => {
@@ -31,7 +32,10 @@ const FormSection = () => {
   const [charCount, SetCharCount] = useState(0);
   const [sortableEmploymentList, setSortableEmploymentList] = useState<
     number[]
-  >([1]);
+  >([]);
+  const [sortableEducationList, setSortableEducationList] = useState<number[]>(
+    []
+  );
 
   const {
     setAddress,
@@ -72,6 +76,13 @@ const FormSection = () => {
     setSortableEmploymentList((sortableEmploymentList) => [
       ...sortableEmploymentList,
       sortableEmploymentList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableEducationList = () => {
+    setSortableEducationList((sortableEducationList) => [
+      ...sortableEducationList,
+      sortableEducationList.length + 1,
     ]);
   };
 
@@ -382,7 +393,7 @@ const FormSection = () => {
                 </Label>
                 <div
                   className={`${
-                    sortableEmploymentList.length > 1 ? "space-y-4" : ""
+                    sortableEmploymentList.length > 1 && "space-y-4"
                   }`}
                 >
                   <SortableEmployment
@@ -398,7 +409,41 @@ const FormSection = () => {
                   className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                 >
                   <Plus className="text-aquamarine-100" />
-                  add employment
+                  {sortableEmploymentList.length > 0 ? "add one more employment" : "add employment"}
+                </Button>
+              </div>
+            </div>
+            {/* Education */}
+            <div className="flex flex-col gap-4 mb-7">
+              <div>
+                <h1 className="text-lg font-semibold text-black/85">
+                  Education
+                </h1>
+              </div>
+              <div className="w-full space-y-2">
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  A varied education on your resume sums up the value that you
+                  are learning and background will bring to job
+                </Label>
+                <div
+                  className={`${
+                    sortableEducationList.length > 1 && "space-y-4"
+                  }`}
+                >
+                  <SortableEducation
+                    sortableEducationList={sortableEducationList}
+                    setSortableEducationList={setSortableEducationList}
+                  />
+                </div>
+              </div>
+              <div>
+                <Button
+                  onClick={handleAddSortableEducationList}
+                  type="button"
+                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                >
+                  <Plus className="text-aquamarine-100" />
+                  {sortableEducationList.length > 0 ? "add one more education" : "add education"}
                 </Button>
               </div>
             </div>
