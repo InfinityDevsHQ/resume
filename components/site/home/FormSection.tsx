@@ -40,14 +40,27 @@ const FormSection = () => {
     setSelectedImage,
   } = useProfessionalDetails();
 
-  const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e: any
-  ) => {
-    const file = e.target.files[0];
+  //   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       if (typeof reader.result === "string") {
+  //         setSelectedImage(reader.result); // reader.result is cast to string
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setSelectedImage(reader.result);
+        if (typeof reader.result === "string") {
+          setSelectedImage(reader.result);
+        }
       };
       reader.readAsDataURL(file);
     }
