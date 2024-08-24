@@ -33,10 +33,12 @@ import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import SortableEmployment from "@/components/sortable/SortableEmployment";
 import SortableEducation from "@/components/sortable/SortableEducation";
+import SortableCourse from "@/components/sortable/SortableCourse";
 import SortableWebNSocialLinks from "@/components/sortable/SortableWebNSocialLinks";
 import SortableSkills from "@/components/sortable/SortableSkills";
 import { Button } from "@/components/ui/button";
 import SkillsBadge from "./SkillsBadge";
+import SortableInternship from "@/components/sortable/SortableInternship";
 
 const FormSection = () => {
   const form = useForm();
@@ -48,10 +50,16 @@ const FormSection = () => {
   const [sortableEducationList, setSortableEducationList] = useState<number[]>(
     []
   );
+  const [sortableInternshipList, setSortableInternshipList] = useState<
+    number[]
+  >([]);
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
+  const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
   const [disabledBadges, setDisabledBadges] = useState<boolean>(false);
+  const [toggledCourse, setToggledCourse] = useState<boolean>(false);
+  const [toggledInternship, setToggledInternship] = useState<boolean>(false);
 
   const {
     setAddress,
@@ -115,6 +123,20 @@ const FormSection = () => {
       sortableSkillsList.length + 1,
     ]);
     // setDisabledBadges(!disabledBadges);
+  };
+
+  const handleAddSortableCourseList = () => {
+    setSortableCourseList((sortableCourseList) => [
+      ...sortableCourseList,
+      sortableCourseList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableInternshipList = () => {
+    setSortableInternshipList((sortableInternshipList) => [
+      ...sortableInternshipList,
+      sortableInternshipList.length + 1,
+    ]);
   };
 
   return (
@@ -561,6 +583,78 @@ const FormSection = () => {
                 </Button>
               </div>
             </div>
+            {/* Course */}
+            {toggledCourse && (
+              <div className="flex flex-col gap-4 mb-7">
+                <div>
+                  <h1 className="text-lg font-semibold text-black/85">
+                    Course
+                  </h1>
+                </div>
+                <div className="w-full">
+                  <div
+                    className={`${
+                      sortableCourseList.length > 1 && "space-y-4"
+                    }`}
+                  >
+                    <SortableCourse
+                      sortableCourseList={sortableCourseList}
+                      setSortableCourseList={setSortableCourseList}
+                      setToggledCourse={setToggledCourse}
+                      toggledCourse={toggledCourse}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Button
+                    onClick={handleAddSortableCourseList}
+                    type="button"
+                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  >
+                    <Plus className="text-aquamarine-100" />
+                    {sortableCourseList.length > 0
+                      ? "add one more education"
+                      : "add education"}
+                  </Button>
+                </div>
+              </div>
+            )}
+            {/* Internship */}
+            {toggledInternship && (
+              <div className="flex flex-col gap-4 mb-7">
+                <div>
+                  <h1 className="text-lg font-semibold text-black/85">
+                    Internship
+                  </h1>
+                </div>
+                <div className="w-full">
+                  <div
+                    className={`${
+                      sortableInternshipList.length > 1 && "space-y-4"
+                    }`}
+                  >
+                    <SortableInternship
+                      sortableInternshipList={sortableInternshipList}
+                      setSortableInternshipList={setSortableInternshipList}
+                      toggledInternship={toggledInternship}
+                      setToggledInternship={setToggledInternship}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Button
+                    onClick={handleAddSortableInternshipList}
+                    type="button"
+                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  >
+                    <Plus className="text-aquamarine-100" />
+                    {sortableInternshipList.length > 0
+                      ? "add one more internship"
+                      : "add internship"}
+                  </Button>
+                </div>
+              </div>
+            )}
             {/* Add Section */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -577,6 +671,10 @@ const FormSection = () => {
                   custome sections
                 </Button>
                 <Button
+                  onClick={() => {
+                    setToggledCourse(true);
+                  }}
+                  disabled={toggledCourse}
                   type="button"
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
@@ -592,6 +690,10 @@ const FormSection = () => {
                 </Button>
                 <Button
                   type="button"
+                  onClick={() => {
+                    setToggledInternship(true);
+                  }}
+                  disabled={toggledInternship}
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
                   <InternshipIcon className="fill-aquamarine-100 w-[40px]" />
