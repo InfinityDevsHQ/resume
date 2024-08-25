@@ -53,6 +53,9 @@ interface FormSecyionProps {
   handleAddSortableEducationList: any;
   sortableEducationList: any;
   setSortableEducationList: any;
+  handleAddSortableWebNSocialLinksList: any;
+  sortableWebNSocialLinksList: any;
+  setSortableWebNSocialLinksList: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -62,6 +65,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableEducationList,
   sortableEducationList,
   setSortableEducationList,
+  handleAddSortableWebNSocialLinksList,
+  sortableWebNSocialLinksList,
+  setSortableWebNSocialLinksList,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
@@ -83,8 +89,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [sortableActivitiesList, setSortableActivitiesList] = useState<
     number[]
   >([]);
-  const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
-    useState<number[]>([]);
+
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
   const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
 
@@ -144,13 +149,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
   };
 
   // Add More
-
-  const handleAddSortableWebNSocialLinksList = () => {
-    setSortableWebNSocialLinksList((sortableWebNSocialLinksList) => [
-      ...sortableWebNSocialLinksList,
-      sortableWebNSocialLinksList.length + 1,
-    ]);
-  };
 
   const handleAddSortableSkillsList = () => {
     setSortableSkillsList((sortableSkillsList) => [

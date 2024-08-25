@@ -8,15 +8,18 @@ import { useProfessionalSummary } from "@/statemanagement/useProfessionalSummary
 import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 import { Button } from "@/components/ui/button";
 import { useEducation } from "@/statemanagement/useEducation";
+import { useWebNSocialLinks } from "@/statemanagement/useWebNSocialLink";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
   sortableEducationList: any;
+  sortableWebNSocialLinksList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableEmploymentList,
   sortableEducationList,
+  sortableWebNSocialLinksList,
 }) => {
   // Employment History
 
@@ -29,6 +32,10 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   // Professional Summary
 
   const { professionalSummary } = useProfessionalSummary();
+
+  // Web and Social Links
+
+  const { webNSocialLinksHistory } = useWebNSocialLinks();
 
   // Professional Details
 
@@ -135,6 +142,29 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                 </h6>
               </div>
             )}
+            {/*  Web and Social Links */}
+            {sortableWebNSocialLinksList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                  Links
+                </h1>
+                {sortableWebNSocialLinksList.map((item: any, index: any) => (
+                  <div key={index}>
+                    <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                      <Link
+                        href={
+                          webNSocialLinksHistory[index]?.webNSocialLink
+                            ? webNSocialLinksHistory[index].webNSocialLink
+                            : "#"
+                        }
+                      >
+                        {webNSocialLinksHistory[index]?.webNSocialLinkLabel}
+                      </Link>
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <div className="w-[70%] bg-white h-full py-8 px-4 space-y-3">
             {/* Professional Summary */}
@@ -156,7 +186,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                   Employment History
                 </h1>
                 {sortableEmploymentList.map((item: any, index: any) => (
-                  <div>
+                  <div key={index}>
                     <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
                       {employmentHistory[index]?.employmentJobTitle}
                       {employmentHistory[index]?.employer && (
@@ -194,7 +224,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                   Education
                 </h1>
                 {sortableEducationList.map((item: any, index: any) => (
-                  <div>
+                  <div key={index}>
                     <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
                       {educationHistory[index]?.educationSchool}
                       {educationHistory[index]?.educationDegree && (

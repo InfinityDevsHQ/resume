@@ -15,6 +15,7 @@ import {
 } from "../ui/accordion";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
+import { useWebNSocialLinks } from "@/statemanagement/useWebNSocialLink";
 
 interface SortableWebNSocialLinksProps {
   sortableWebNSocialLinksList: any;
@@ -35,6 +36,9 @@ const SortableWebNSocialLinks: React.FC<SortableWebNSocialLinksProps> = ({
     );
   };
 
+  const { setWebNSocialLink, setWebNSocialLinkLabel, webNSocialLinksHistory } =
+    useWebNSocialLinks();
+
   return (
     <>
       {sortableWebNSocialLinksList.map((item: any, index: any) => (
@@ -46,8 +50,16 @@ const SortableWebNSocialLinks: React.FC<SortableWebNSocialLinksProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black">Not specified</span>
-                  <span className="block text-charcoal">Not specified</span>
+                  <span className="block text-black text-left">
+                    {webNSocialLinksHistory[index]?.webNSocialLinkLabel
+                      ? webNSocialLinksHistory[index]?.webNSocialLinkLabel
+                      : "Not specified"}
+                  </span>
+                  <span className="block text-charcoal text-left">
+                    {webNSocialLinksHistory[index]?.webNSocialLink
+                      ? webNSocialLinksHistory[index]?.webNSocialLink
+                      : "Not specified"}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
@@ -56,19 +68,37 @@ const SortableWebNSocialLinks: React.FC<SortableWebNSocialLinksProps> = ({
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       label
                     </Label>
-                    <Input name="label" />
+                    <Input
+                      value={webNSocialLinksHistory[index]?.webNSocialLinkLabel}
+                      onChange={(e) => {
+                        setWebNSocialLinkLabel(index, e.target.value);
+                      }}
+                      name="webNSocialLinkLabel"
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       link
                     </Label>
-                    <Input name="link" />
+                    <Input
+                      value={webNSocialLinksHistory[index]?.webNSocialLink}
+                      onChange={(e) => {
+                        setWebNSocialLink(index, e.target.value);
+                      }}
+                      name="webNSocialLink"
+                    />
                   </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)} >
+          <div
+            onClick={() => {
+              handleDeleteDiv(index);
+              setWebNSocialLinkLabel(index, "");
+              setWebNSocialLink(index, "");
+            }}
+          >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>
