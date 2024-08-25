@@ -43,6 +43,7 @@ import SortableLanguage from "@/components/sortable/SortableLanguage";
 import SortableReference from "@/components/sortable/SortableReference";
 import SortableActivities from "@/components/sortable/SortableActivities";
 import SortableCustomSection from "@/components/sortable/SortableCustomSection";
+import SortableHobbies from "@/components/sortable/SortableHobbies";
 
 const FormSection = () => {
   const form = useForm();
@@ -66,6 +67,7 @@ const FormSection = () => {
   const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
     number[]
   >([]);
+  const [sortableHobbiesList, setSortableHobbiesList] = useState<number[]>([]);
   const [sortableActivitiesList, setSortableActivitiesList] = useState<
     number[]
   >([]);
@@ -82,6 +84,7 @@ const FormSection = () => {
   const [toggledActivities, setToggledActivities] = useState<boolean>(false);
   const [toggledCustomSection, setToggledCustomSection] =
     useState<boolean>(false);
+  const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
 
   const {
     setAddress,
@@ -186,6 +189,13 @@ const FormSection = () => {
     setSortableCustomSectionList((sortableCustomSectionList) => [
       ...sortableCustomSectionList,
       sortableCustomSectionList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableHobbiesList = () => {
+    setSortableHobbiesList((sortableHobbiesList) => [
+      ...sortableHobbiesList,
+      sortableHobbiesList.length + 1,
     ]);
   };
 
@@ -814,6 +824,35 @@ const FormSection = () => {
               </div>
             )}
 
+            {/* Hobbies */}
+            {toggledHobbies && (
+              <div className="flex flex-col gap-4 mb-7">
+                <div>
+                  <h1 className="text-lg font-semibold text-black/85">
+                    Custom Section
+                  </h1>
+                </div>
+                <SortableHobbies
+                  sortableHobbiesList={sortableHobbiesList}
+                  setSortableHobbiesList={setSortableHobbiesList}
+                  toggledHobbies={toggledHobbies}
+                  setToggledHobbies={setToggledHobbies}
+                />
+                <div>
+                  <Button
+                    onClick={handleAddSortableHobbiesList}
+                    type="button"
+                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  >
+                    <Plus className="text-aquamarine-100" />
+                    {sortableReferenceList.length > 0
+                      ? "add one more hobbies"
+                      : "add hobbies"}
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {/* Add Section */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -868,6 +907,10 @@ const FormSection = () => {
                 </Button>
                 <Button
                   type="button"
+                  onClick={() => {
+                    setToggledHobbies(true);
+                  }}
+                  disabled={toggledHobbies}
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
                   <HobbyIcon className="fill-aquamarine-100 w-[40px]" />
