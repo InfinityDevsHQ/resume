@@ -21,7 +21,7 @@ import { HelpCircle } from "lucide-react";
 import {
   ActivitiesIcon,
   CoursesIcon,
-  CustomeSectionIcon,
+  CustomSectionIcon,
   HobbyIcon,
   InternshipIcon,
   LanguageIcon,
@@ -39,6 +39,10 @@ import SortableSkills from "@/components/sortable/SortableSkills";
 import { Button } from "@/components/ui/button";
 import SkillsBadge from "./SkillsBadge";
 import SortableInternship from "@/components/sortable/SortableInternship";
+import SortableLanguage from "@/components/sortable/SortableLanguage";
+import SortableReference from "@/components/sortable/SortableReference";
+import SortableActivities from "@/components/sortable/SortableActivities";
+import SortableCustomSection from "@/components/sortable/SortableCustomSection";
 
 const FormSection = () => {
   const form = useForm();
@@ -53,13 +57,31 @@ const FormSection = () => {
   const [sortableInternshipList, setSortableInternshipList] = useState<
     number[]
   >([]);
+  const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
+    []
+  );
+  const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
+    []
+  );
+  const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
+    number[]
+  >([]);
+  const [sortableActivitiesList, setSortableActivitiesList] = useState<
+    number[]
+  >([]);
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
   const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
+
   const [disabledBadges, setDisabledBadges] = useState<boolean>(false);
   const [toggledCourse, setToggledCourse] = useState<boolean>(false);
   const [toggledInternship, setToggledInternship] = useState<boolean>(false);
+  const [toggledLanguage, setToggledLanguage] = useState<boolean>(false);
+  const [toggledReference, setToggledReference] = useState<boolean>(false);
+  const [toggledActivities, setToggledActivities] = useState<boolean>(false);
+  const [toggledCustomSection, setToggledCustomSection] =
+    useState<boolean>(false);
 
   const {
     setAddress,
@@ -139,6 +161,34 @@ const FormSection = () => {
     ]);
   };
 
+  const handleAddSortableLanguageList = () => {
+    setSortableLanguageList((sortableLanguageList) => [
+      ...sortableLanguageList,
+      sortableLanguageList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableReferenceList = () => {
+    setSortableReferenceList((sortableReferenceList) => [
+      ...sortableReferenceList,
+      sortableReferenceList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableActivitiesList = () => {
+    setSortableActivitiesList((sortableActivitiesList) => [
+      ...sortableActivitiesList,
+      sortableActivitiesList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableCustomSectionList = () => {
+    setSortableCustomSectionList((sortableCustomSectionList) => [
+      ...sortableCustomSectionList,
+      sortableCustomSectionList.length + 1,
+    ]);
+  };
+
   return (
     <>
       <div className="bg-white w-1/2 h-full p-12">
@@ -152,6 +202,7 @@ const FormSection = () => {
                 autoComplete="off"
               />
             </div>
+
             {/* Personal Details */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -396,6 +447,7 @@ const FormSection = () => {
                 </AccordionItem>
               </Accordion>
             </div>
+
             {/* Professional Summary */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -431,6 +483,7 @@ const FormSection = () => {
                 </div>
               </div>
             </div>
+
             {/* Employment History */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -468,6 +521,7 @@ const FormSection = () => {
                 </Button>
               </div>
             </div>
+
             {/* Education */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -504,6 +558,7 @@ const FormSection = () => {
                 </Button>
               </div>
             </div>
+
             {/* Website & Social Links */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -543,6 +598,7 @@ const FormSection = () => {
                 </Button>
               </div>
             </div>
+
             {/* Skills */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -583,6 +639,7 @@ const FormSection = () => {
                 </Button>
               </div>
             </div>
+
             {/* Course */}
             {toggledCourse && (
               <div className="flex flex-col gap-4 mb-7">
@@ -591,20 +648,12 @@ const FormSection = () => {
                     Course
                   </h1>
                 </div>
-                <div className="w-full">
-                  <div
-                    className={`${
-                      sortableCourseList.length > 1 && "space-y-4"
-                    }`}
-                  >
-                    <SortableCourse
-                      sortableCourseList={sortableCourseList}
-                      setSortableCourseList={setSortableCourseList}
-                      setToggledCourse={setToggledCourse}
-                      toggledCourse={toggledCourse}
-                    />
-                  </div>
-                </div>
+                <SortableCourse
+                  sortableCourseList={sortableCourseList}
+                  setSortableCourseList={setSortableCourseList}
+                  setToggledCourse={setToggledCourse}
+                  toggledCourse={toggledCourse}
+                />
                 <div>
                   <Button
                     onClick={handleAddSortableCourseList}
@@ -619,6 +668,7 @@ const FormSection = () => {
                 </div>
               </div>
             )}
+
             {/* Internship */}
             {toggledInternship && (
               <div className="flex flex-col gap-4 mb-7">
@@ -627,20 +677,12 @@ const FormSection = () => {
                     Internship
                   </h1>
                 </div>
-                <div className="w-full">
-                  <div
-                    className={`${
-                      sortableInternshipList.length > 1 && "space-y-4"
-                    }`}
-                  >
-                    <SortableInternship
-                      sortableInternshipList={sortableInternshipList}
-                      setSortableInternshipList={setSortableInternshipList}
-                      toggledInternship={toggledInternship}
-                      setToggledInternship={setToggledInternship}
-                    />
-                  </div>
-                </div>
+                <SortableInternship
+                  sortableInternshipList={sortableInternshipList}
+                  setSortableInternshipList={setSortableInternshipList}
+                  toggledInternship={toggledInternship}
+                  setToggledInternship={setToggledInternship}
+                />
                 <div>
                   <Button
                     onClick={handleAddSortableInternshipList}
@@ -655,6 +697,123 @@ const FormSection = () => {
                 </div>
               </div>
             )}
+
+            {/* Language */}
+            {toggledLanguage && (
+              <div className="flex flex-col gap-4 mb-7">
+                <div>
+                  <h1 className="text-lg font-semibold text-black/85">
+                    Internship
+                  </h1>
+                </div>
+                <SortableLanguage
+                  sortableLanguageList={sortableLanguageList}
+                  setSortableLanguageList={setSortableLanguageList}
+                  toggledLanguage={toggledLanguage}
+                  setToggledLanguage={setToggledLanguage}
+                />
+                <div>
+                  <Button
+                    onClick={handleAddSortableLanguageList}
+                    type="button"
+                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  >
+                    <Plus className="text-aquamarine-100" />
+                    {sortableLanguageList.length > 0
+                      ? "add one more language"
+                      : "add language"}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* References */}
+            {toggledReference && (
+              <div className="flex flex-col gap-4 mb-7">
+                <div>
+                  <h1 className="text-lg font-semibold text-black/85">
+                    References
+                  </h1>
+                </div>
+                <SortableReference
+                  sortableReferenceList={sortableReferenceList}
+                  setSortableReferenceList={setSortableReferenceList}
+                  toggledReference={toggledReference}
+                  setToggledReference={setToggledReference}
+                />
+                <div>
+                  <Button
+                    onClick={handleAddSortableReferenceList}
+                    type="button"
+                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  >
+                    <Plus className="text-aquamarine-100" />
+                    {sortableReferenceList.length > 0
+                      ? "add one more reference"
+                      : "add reference"}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Activities */}
+            {toggledActivities && (
+              <div className="flex flex-col gap-4 mb-7">
+                <div>
+                  <h1 className="text-lg font-semibold text-black/85">
+                    Activitiess
+                  </h1>
+                </div>
+                <SortableActivities
+                  sortableActivitiesList={sortableActivitiesList}
+                  setSortableActivitiesList={setSortableActivitiesList}
+                  toggledActivities={toggledActivities}
+                  setToggledActivities={setToggledActivities}
+                />
+                <div>
+                  <Button
+                    onClick={handleAddSortableActivitiesList}
+                    type="button"
+                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  >
+                    <Plus className="text-aquamarine-100" />
+                    {sortableReferenceList.length > 0
+                      ? "add one more activities"
+                      : "add activities"}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Custom Section */}
+            {toggledCustomSection && (
+              <div className="flex flex-col gap-4 mb-7">
+                <div>
+                  <h1 className="text-lg font-semibold text-black/85">
+                    Custom Section
+                  </h1>
+                </div>
+                <SortableCustomSection
+                  sortableCustomSectionList={sortableCustomSectionList}
+                  setSortableCustomSectionList={setSortableCustomSectionList}
+                  toggledCustomSection={toggledCustomSection}
+                  setToggledCustomSection={setToggledCustomSection}
+                />
+                <div>
+                  <Button
+                    onClick={handleAddSortableCustomSectionList}
+                    type="button"
+                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  >
+                    <Plus className="text-aquamarine-100" />
+                    {sortableReferenceList.length > 0
+                      ? "add one more custome section"
+                      : "add custome section"}
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {/* Add Section */}
             <div className="flex flex-col gap-4 mb-7">
               <div>
@@ -665,9 +824,13 @@ const FormSection = () => {
               <div className="grid sm:grid-cols-2 grid-cols-1">
                 <Button
                   type="button"
+                  onClick={() => {
+                    setToggledCustomSection(true);
+                  }}
+                  disabled={toggledCustomSection}
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
-                  <CustomeSectionIcon className="fill-aquamarine-100 w-[40px]" />
+                  <CustomSectionIcon className="fill-aquamarine-100 w-[40px]" />
                   custome sections
                 </Button>
                 <Button
@@ -683,6 +846,10 @@ const FormSection = () => {
                 </Button>
                 <Button
                   type="button"
+                  onClick={() => {
+                    setToggledActivities(true);
+                  }}
+                  disabled={toggledActivities}
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
                   <ActivitiesIcon className="fill-aquamarine-100 w-[40px]" />
@@ -708,6 +875,10 @@ const FormSection = () => {
                 </Button>
                 <Button
                   type="button"
+                  onClick={() => {
+                    setToggledLanguage(true);
+                  }}
+                  disabled={toggledLanguage}
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
                   <LanguageIcon className="fill-aquamarine-100 w-[40px]" />
@@ -715,6 +886,10 @@ const FormSection = () => {
                 </Button>
                 <Button
                   type="button"
+                  onClick={() => {
+                    setToggledReference(true);
+                  }}
+                  disabled={toggledReference}
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
                   <ReferenceIcon className="fill-aquamarine-100 w-[40px]" />

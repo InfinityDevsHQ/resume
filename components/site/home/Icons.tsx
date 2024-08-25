@@ -52,7 +52,7 @@ export function CoursesIcon({ className }: IconProps) {
   );
 }
 
-export function CustomeSectionIcon({ className }: IconProps) {
+export function CustomSectionIcon({ className }: IconProps) {
   return (
     <svg
       className={`${className}`}
