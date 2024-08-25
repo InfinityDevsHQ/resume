@@ -156,7 +156,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                       {employmentHistory[index]?.employmentCity}
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
-                      {employmentHistory[index]?.employmentDescription}
+                      {employmentHistory[
+                        index
+                      ]?.employmentStartDate?.toLocaleDateString()}
+                      {employmentHistory[
+                        index
+                      ]?.employmentEndDate?.toLocaleDateString()}
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {employmentHistory[index]?.employmentDescription}

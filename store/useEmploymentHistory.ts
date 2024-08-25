@@ -32,6 +32,7 @@
 import { create } from "zustand";
 
 type EmploymentEntry = {
+  format(employmentEndDate: any, arg1: string): import("react").ReactNode;
   employmentJobTitle: string;
   employer: string;
   employmentCity: string;
