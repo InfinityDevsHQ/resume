@@ -3,21 +3,28 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { useProfessionalDetails } from "@/store/usePersonalDetails";
-import { useProfessionalSummary } from "@/store/useProfessionalSummary";
-import { useEmploymentHistory } from "@/store/useEmploymentHistory";
+import { useProfessionalDetails } from "@/statemanagement/usePersonalDetails";
+import { useProfessionalSummary } from "@/statemanagement/useProfessionalSummary";
+import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 import { Button } from "@/components/ui/button";
+import { useEducation } from "@/statemanagement/useEducation";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
+  sortableEducationList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableEmploymentList,
+  sortableEducationList,
 }) => {
   // Employment History
 
   const { employmentHistory } = useEmploymentHistory();
+
+  // Education History
+
+  const { educationHistory } = useEducation();
 
   // Professional Summary
 
@@ -174,6 +181,44 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {employmentHistory[index]?.employmentDescription}
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Education */}
+            {sortableEducationList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                  Education
+                </h1>
+                {sortableEducationList.map((item: any, index: any) => (
+                  <div>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {educationHistory[index]?.educationSchool}
+                      {educationHistory[index]?.educationDegree && (
+                        <>, {educationHistory[index]?.educationDegree}</>
+                      )}
+                      {educationHistory[index]?.educationCity && (
+                        <>, {educationHistory[index]?.educationCity}</>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {educationHistory[
+                        index
+                      ]?.educationStartDate?.toLocaleDateString()}{" "}
+                      {educationHistory[index]?.educationEndDate && (
+                        <>
+                          -{" "}
+                          {educationHistory[
+                            index
+                          ]?.educationEndDate?.toLocaleDateString()}
+                        </>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {educationHistory[index]?.educationDescription}
                     </h6>
                   </div>
                 ))}

@@ -15,7 +15,7 @@ import {
 } from "../ui/accordion";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
-import { useEmploymentHistory } from "@/store/useEmploymentHistory";
+import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 
 interface SortableEmploymentProps {
   sortableEmploymentList: any;

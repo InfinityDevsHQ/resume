@@ -28,7 +28,7 @@ import {
   ReferenceIcon,
   UploadIcon,
 } from "./Icons";
-import { useProfessionalDetails } from "@/store/usePersonalDetails";
+import { useProfessionalDetails } from "@/statemanagement/usePersonalDetails";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import SortableEmployment from "@/components/sortable/SortableEmployment";
@@ -44,26 +44,29 @@ import SortableReference from "@/components/sortable/SortableReference";
 import SortableActivities from "@/components/sortable/SortableActivities";
 import SortableCustomSection from "@/components/sortable/SortableCustomSection";
 import SortableHobbies from "@/components/sortable/SortableHobbies";
-import { useProfessionalSummary } from "@/store/useProfessionalSummary";
+import { useProfessionalSummary } from "@/statemanagement/useProfessionalSummary";
 
 interface FormSecyionProps {
   handleAddSortableEmploymentList: any;
   setSortableEmploymentList: any;
   sortableEmploymentList: any;
+  handleAddSortableEducationList: any;
+  sortableEducationList: any;
+  setSortableEducationList: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableEmploymentList,
   setSortableEmploymentList,
   sortableEmploymentList,
+  handleAddSortableEducationList,
+  sortableEducationList,
+  setSortableEducationList,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
 
-  const [sortableEducationList, setSortableEducationList] = useState<number[]>(
-    []
-  );
   const [sortableInternshipList, setSortableInternshipList] = useState<
     number[]
   >([]);
@@ -141,13 +144,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
   };
 
   // Add More
-
-  const handleAddSortableEducationList = () => {
-    setSortableEducationList((sortableEducationList) => [
-      ...sortableEducationList,
-      sortableEducationList.length + 1,
-    ]);
-  };
 
   const handleAddSortableWebNSocialLinksList = () => {
     setSortableWebNSocialLinksList((sortableWebNSocialLinksList) => [

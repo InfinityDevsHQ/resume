@@ -3,7 +3,7 @@ import React, { Dispatch, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { CalendarIcon, Delete, Frown, Smile, TrashIcon } from "lucide-react";
+import { CalendarIcon, Frown, Smile, TrashIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -15,6 +15,7 @@ import {
 } from "../ui/accordion";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
+import { useEducation } from "@/statemanagement/useEducation";
 
 interface SortableEducationProps {
   sortableEducationList: any;
@@ -35,6 +36,16 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
     );
   };
 
+  const {
+    educationHistory,
+    setEducationDegree,
+    setEducationDescription,
+    setEducationCity,
+    setEducationEndDate,
+    setEducationSchool,
+    setEducationStartDate,
+  } = useEducation();
+
   return (
     <>
       {sortableEducationList.map((item: any, index: any) => (
@@ -46,23 +57,75 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black">Not specified</span>
-                  <span className="block text-charcoal">Not specified</span>
+                  <span className="block text-black text-left">
+                    {educationHistory[index]?.educationSchool ||
+                    educationHistory[index]?.educationDegree ? (
+                      <>
+                        {educationHistory[index]?.educationDegree && (
+                          <>{educationHistory[index]?.educationDegree} at</>
+                        )}{" "}
+                        {educationHistory[index]?.educationSchool}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
+                  </span>
+                  <span className="block text-charcoal text-left">
+                    {educationHistory[index]?.educationEndDate ||
+                    educationHistory[index]?.educationStartDate ? (
+                      <>
+                        {educationHistory[index]?.educationStartDate &&
+                          educationHistory[
+                            index
+                          ]?.educationStartDate?.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                          })}{" "}
+                        {educationHistory[index]?.educationEndDate && (
+                          <>
+                            -{" "}
+                            {educationHistory[
+                              index
+                            ]?.educationEndDate?.toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            })}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
                 <div className="w-full flex justify-start items-center gap-8">
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      job title
+                      school
                     </Label>
-                    <Input name="employmentJobTitle" />
+                    <Input
+                      name="educationSchool"
+                      value={educationHistory[index]?.educationSchool || ""}
+                      onChange={(e) => {
+                        setEducationSchool(index, e.target.value);
+                      }}
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      employer
+                      degree
                     </Label>
-                    <Input name="employer" />
+                    <Input
+                      name="educationDegree"
+                      value={educationHistory[index]?.educationDegree || ""}
+                      onChange={(e) => {
+                        setEducationDegree(index, e.target.value);
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="w-full flex justify-start items-center gap-8">
@@ -77,11 +140,15 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !startDate && "text-charcoal"
+                              !educationHistory[index]?.educationStartDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {startDate ? (
-                              format(startDate, "PPP")
+                            {educationHistory[index]?.educationStartDate ? (
+                              format(
+                                educationHistory[index]?.educationStartDate,
+                                "PP"
+                              )
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -91,8 +158,12 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={startDate}
-                            onSelect={setStartDate}
+                            selected={
+                              educationHistory[index]?.educationStartDate
+                            }
+                            onSelect={(date) =>
+                              setEducationStartDate(index, date)
+                            }
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -111,11 +182,15 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !endDate && "text-charcoal"
+                              !educationHistory[index]?.educationEndDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {endDate ? (
-                              format(endDate, "PPP")
+                            {educationHistory[index]?.educationEndDate ? (
+                              format(
+                                educationHistory[index]?.educationEndDate,
+                                "PP"
+                              )
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -125,8 +200,10 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={endDate}
-                            onSelect={setEndDate}
+                            selected={educationHistory[index]?.educationEndDate}
+                            onSelect={(date) =>
+                              setEducationEndDate(index, date)
+                            }
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -140,16 +217,25 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       city
                     </Label>
-                    <Input name="employmentCity" />
+                    <Input
+                      value={educationHistory[index]?.educationCity || ""}
+                      onChange={(e) => {
+                        setEducationCity(index, e.target.value);
+                      }}
+                      name="educationCity"
+                    />
                   </div>
                 </div>
                 <div className="w-full space-y-2">
                   <Textarea
-                    name="jobTitle"
-                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
+                    name="educationDescription"
+                    className="capitalize font-normal text-sm text-charcoal resize-none"
                     rows={6}
-                    maxLength={400}
-                    onChange={(e) => SetCharCount(e.target.value.length)}
+                    value={educationHistory[index]?.educationDescription || ""}
+                    onChange={(e) => {
+                      SetCharCount(e.target.value.length);
+                      setEducationDescription(index, e.target.value);
+                    }}
                   />
                   <div className="flex justify-between items-center">
                     <p className="font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -168,7 +254,17 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)} >
+          <div
+            onClick={() => {
+              handleDeleteDiv(index);
+              setEducationDegree(index, "");
+              setEducationDescription(index, "");
+              setEducationStartDate(index, null);
+              setEducationEndDate(index, null);
+              setEducationSchool(index, "");
+              setEducationCity(index, "");
+            }}
+          >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>

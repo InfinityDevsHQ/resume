@@ -1,38 +1,8 @@
-// "use client";
-
-// import { create } from "zustand";
-
-// type EmploymentHistoryTypes = {
-//   employmentJobTitle: string;
-//   employer: string;
-//   employmentCity: string;
-//   employmentDescription: string;
-
-//   setEmploymentJobTitle: (employmentJobTitle: string) => void;
-//   setEmployer: (employer: string) => void;
-//   setemploymentCity: (employmentCity: string) => void;
-//   setEmploymentDescription: (employmentDescription: string) => void;
-// };
-
-// export const useEmploymentHistory = create<EmploymentHistoryTypes>((set) => ({
-//   employmentJobTitle: "",
-//   employer: "",
-//   employmentCity: "",
-//   employmentDescription: "",
-
-//   setEmploymentJobTitle: (employmentJobTitle) => set({ employmentJobTitle }),
-//   setEmployer: (employer) => set({ employer }),
-//   setemploymentCity: (employmentCity) => set({ employmentCity }),
-//   setEmploymentDescription: (employmentDescription) =>
-//     set({ employmentDescription }),
-// }));
-
 "use client";
 
 import { create } from "zustand";
 
-type EmploymentEntry = {
-  format(employmentEndDate: any, arg1: string): import("react").ReactNode;
+type EmploymentEntryTypes = {
   employmentJobTitle: string;
   employer: string;
   employmentCity: string;
@@ -42,7 +12,7 @@ type EmploymentEntry = {
 };
 
 type EmploymentHistoryTypes = {
-  employmentHistory: { [key: number]: EmploymentEntry };
+  employmentHistory: { [key: number]: EmploymentEntryTypes };
   setEmploymentJobTitle: (index: number, employmentJobTitle: string) => void;
   setEmployer: (index: number, employer: string) => void;
   setEmploymentCity: (index: number, employmentCity: string) => void;
@@ -54,7 +24,10 @@ type EmploymentHistoryTypes = {
     index: number,
     employmentStartDate: Date | null | any
   ) => void;
-  setEmploymentEndDate: (index: number, employmentEndDate: Date | null | any) => void;
+  setEmploymentEndDate: (
+    index: number,
+    employmentEndDate: Date | null | any
+  ) => void;
 };
 
 export const useEmploymentHistory = create<EmploymentHistoryTypes>((set) => ({
