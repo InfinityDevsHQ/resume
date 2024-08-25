@@ -152,16 +152,25 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                   <div>
                     <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
                       {employmentHistory[index]?.employmentJobTitle}
-                      {employmentHistory[index]?.employer}
-                      {employmentHistory[index]?.employmentCity}
+                      {employmentHistory[index]?.employer && (
+                        <>, {employmentHistory[index]?.employer}</>
+                      )}
+                      {employmentHistory[index]?.employmentCity && (
+                        <>, {employmentHistory[index]?.employmentCity}</>
+                      )}
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {employmentHistory[
                         index
-                      ]?.employmentStartDate?.toLocaleDateString()}
-                      {employmentHistory[
-                        index
-                      ]?.employmentEndDate?.toLocaleDateString()}
+                      ]?.employmentStartDate?.toLocaleDateString()}{" "}
+                      {employmentHistory[index]?.employmentEndDate && (
+                        <>
+                          -{" "}
+                          {employmentHistory[
+                            index
+                          ]?.employmentEndDate?.toLocaleDateString()}
+                        </>
+                      )}
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {employmentHistory[index]?.employmentDescription}
