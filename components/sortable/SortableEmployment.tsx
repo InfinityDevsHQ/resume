@@ -26,8 +26,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
   sortableEmploymentList,
   setSortableEmploymentList,
 }) => {
-  const [employmentStartDate, setEmploymentStartDate] = useState<Date>();
-  const [employmentEndDate, setEmploymentEndDate] = useState<Date>();
+  // const [employmentStartDate, setEmploymentStartDate] = useState<Date>();
+  // const [employmentEndDate, setEmploymentEndDate] = useState<Date>();
   const [charCount, SetCharCount] = useState(0);
 
   const handleDeleteDiv = (index: any) => {
@@ -41,6 +41,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
     setEmploymentDescription,
     setEmploymentJobTitle,
     setEmploymentCity,
+    setEmploymentEndDate,
+    setEmploymentStartDate,
     employmentHistory,
   } = useEmploymentHistory();
 
@@ -63,17 +65,22 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                       : "Not specified"}
                   </span>
                   <span className="block text-charcoal text-left">
-                    {employmentEndDate || employmentStartDate ? (
+                    {employmentHistory[index]?.employmentEndDate ||
+                    employmentHistory[index]?.employmentStartDate ? (
                       <>
-                        {employmentStartDate &&
-                          employmentStartDate?.toLocaleDateString("en-US", {
+                        {employmentHistory[index]?.employmentStartDate &&
+                          employmentHistory[
+                            index
+                          ]?.employmentStartDate?.toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "short",
                             day: "2-digit",
                           })}
                         {" - "}
-                        {employmentEndDate &&
-                          employmentEndDate?.toLocaleDateString("en-US", {
+                        {employmentHistory[index]?.employmentEndDate &&
+                          employmentHistory[
+                            index
+                          ]?.employmentEndDate?.toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "short",
                             day: "2-digit",
@@ -124,11 +131,15 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !employmentStartDate && "text-charcoal"
+                              !employmentHistory[index]?.employmentStartDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {employmentStartDate ? (
-                              format(employmentStartDate, "PP")
+                            {employmentHistory[index]?.employmentStartDate ? (
+                              format(
+                                employmentHistory[index]?.employmentStartDate,
+                                "PP"
+                              )
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -138,8 +149,12 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={employmentStartDate}
-                            onSelect={setEmploymentStartDate}
+                            selected={
+                              employmentHistory[index]?.employmentStartDate
+                            }
+                            onSelect={(date) =>
+                              setEmploymentStartDate(index, date)
+                            }
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -158,11 +173,15 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !employmentEndDate && "text-charcoal"
+                              !employmentHistory[index]?.employmentEndDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {employmentEndDate ? (
-                              format(employmentEndDate, "PP")
+                            {employmentHistory[index]?.employmentEndDate ? (
+                              format(
+                                employmentHistory[index]?.employmentEndDate,
+                                "PP"
+                              )
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -172,8 +191,12 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={employmentEndDate}
-                            onSelect={setEmploymentEndDate}
+                            selected={
+                              employmentHistory[index]?.employmentEndDate
+                            }
+                            onSelect={(date) =>
+                              setEmploymentEndDate(index, date)
+                            }
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -189,6 +212,7 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     </Label>
                     <Input
                       name="employmentCity"
+                      value={employmentHistory[index]?.employmentCity || ""}
                       onChange={(e) => {
                         setEmploymentCity(index, e.target.value);
                       }}

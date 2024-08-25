@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useProfessionalDetails } from "@/store/usePersonalDetails";
 import { useProfessionalSummary } from "@/store/useProfessionalSummary";
 import { useEmploymentHistory } from "@/store/useEmploymentHistory";
+import { Button } from "@/components/ui/button";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -43,14 +44,22 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
   return (
     <>
-      <div className="bg-misty w-1/2 h-full fixed top-0 bottom-0 right-0 flex justify-center items-center">
-        <div className="aspect-[1/1.3] absolute w-[480px] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-red-300 rounded-xl overflow-hidden flex">
+      <div className="bg-misty w-1/2 h-full fixed top-0 bottom-0 right-0">
+        <div className="absolute left-[50%] translate-x-[-50%] text-right w-[480px] pt-5">
+          <Button
+            type="button"
+            className="text-white bg-aquamarine-100 hover:bg-aquamarine-200 px-8 font-normal text-base"
+          >
+            Download PDF
+          </Button>
+        </div>
+        <div className="aspect-[1/1.2] absolute w-[480px] top-[65%] left-[50%] translate-x-[-50%] translate-y-[-65%] bg-red-300 rounded-xl overflow-hidden flex">
           <div className="w-[30%] bg-[#1d473a] h-full py-8 px-4">
             {/* Personal Details */}
             <div>
               <div>
                 {selectedImage && (
-                  <Avatar className="mx-auto">
+                  <Avatar className="mx-auto h-14 w-14">
                     <AvatarImage src={selectedImage} />
                   </Avatar>
                 )}
@@ -120,37 +129,41 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
               </div>
             )}
           </div>
-          <div className="w-[70%] bg-white h-full py-8 px-4">
+          <div className="w-[70%] bg-white h-full py-8 px-4 space-y-3">
             {/* Professional Summary */}
             {professionalSummary && (
               <div>
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Professional Summary
                 </h1>
-                <h6 className="text-black/95 font-normal text-[8px] leading-[13px] mt-1">
+                <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                   {professionalSummary}
                 </h6>
               </div>
             )}
+
             {/* Employment History */}
             {employmentHistory && (
-              <>
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold">
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Employment History
                 </h1>
                 {sortableEmploymentList.map((item: any, index: any) => (
                   <div>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-bold">
-                      {employmentHistory[index]?.employmentJobTitle} -{" "}
-                      {employmentHistory[index]?.employer},{" "}
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {employmentHistory[index]?.employmentJobTitle}
+                      {employmentHistory[index]?.employer}
                       {employmentHistory[index]?.employmentCity}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px] mt-1">
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {employmentHistory[index]?.employmentDescription}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {employmentHistory[index]?.employmentDescription}
                     </h6>
                   </div>
                 ))}
-              </>
+              </div>
             )}
           </div>
         </div>

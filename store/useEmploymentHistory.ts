@@ -36,6 +36,8 @@ type EmploymentEntry = {
   employer: string;
   employmentCity: string;
   employmentDescription: string;
+  employmentStartDate: Date | null | any;
+  employmentEndDate: Date | null | any;
 };
 
 type EmploymentHistoryTypes = {
@@ -47,6 +49,11 @@ type EmploymentHistoryTypes = {
     index: number,
     employmentDescription: string
   ) => void;
+  setEmploymentStartDate: (
+    index: number,
+    employmentStartDate: Date | null | any
+  ) => void;
+  setEmploymentEndDate: (index: number, employmentEndDate: Date | null | any) => void;
 };
 
 export const useEmploymentHistory = create<EmploymentHistoryTypes>((set) => ({
@@ -92,6 +99,28 @@ export const useEmploymentHistory = create<EmploymentHistoryTypes>((set) => ({
         [index]: {
           ...state.employmentHistory[index],
           employmentDescription,
+        },
+      },
+    })),
+
+  setEmploymentEndDate: (index, employmentEndDate) =>
+    set((state) => ({
+      employmentHistory: {
+        ...state.employmentHistory,
+        [index]: {
+          ...state.employmentHistory[index],
+          employmentEndDate,
+        },
+      },
+    })),
+
+  setEmploymentStartDate: (index, employmentStartDate) =>
+    set((state) => ({
+      employmentHistory: {
+        ...state.employmentHistory,
+        [index]: {
+          ...state.employmentHistory[index],
+          employmentStartDate,
         },
       },
     })),

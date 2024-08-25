@@ -60,9 +60,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
-  // const [sortableEmploymentList, setSortableEmploymentList] = useState<
-  //   number[]
-  // >([]);
+
   const [sortableEducationList, setSortableEducationList] = useState<number[]>(
     []
   );
@@ -143,13 +141,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
   };
 
   // Add More
-
-  // const handleAddSortableEmploymentList = () => {
-  //   setSortableEmploymentList((sortableEmploymentList) => [
-  //     ...sortableEmploymentList,
-  //     sortableEmploymentList.length + 1,
-  //   ]);
-  // };
 
   const handleAddSortableEducationList = () => {
     setSortableEducationList((sortableEducationList) => [
