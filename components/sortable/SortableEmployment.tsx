@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, useState } from "react";
+import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
@@ -26,8 +26,6 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
   sortableEmploymentList,
   setSortableEmploymentList,
 }) => {
-  // const [employmentStartDate, setEmploymentStartDate] = useState<Date>();
-  // const [employmentEndDate, setEmploymentEndDate] = useState<Date>();
   const [charCount, SetCharCount] = useState(0);
 
   const handleDeleteDiv = (index: any) => {
@@ -58,11 +56,17 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
                   <span className="block text-black text-left">
-                    {index}
                     {employmentHistory[index]?.employmentJobTitle ||
-                    employmentHistory[index]?.employer
-                      ? `${employmentHistory[index]?.employmentJobTitle} - ${employmentHistory[index]?.employer}`
-                      : "Not specified"}
+                    employmentHistory[index]?.employer ? (
+                      <>
+                        {employmentHistory[index]?.employmentJobTitle}{" "}
+                        {employmentHistory[index]?.employer && (
+                          <>- {employmentHistory[index]?.employer}</>
+                        )}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
                   </span>
                   <span className="block text-charcoal text-left">
                     {employmentHistory[index]?.employmentEndDate ||
@@ -75,16 +79,19 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                             year: "numeric",
                             month: "short",
                             day: "2-digit",
-                          })}
-                        {" - "}
-                        {employmentHistory[index]?.employmentEndDate &&
-                          employmentHistory[
-                            index
-                          ]?.employmentEndDate?.toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                          })}
+                          })}{" "}
+                        {employmentHistory[index]?.employmentEndDate && (
+                          <>
+                            -{" "}
+                            {employmentHistory[
+                              index
+                            ]?.employmentEndDate?.toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            })}
+                          </>
+                        )}
                       </>
                     ) : (
                       "Not specified"
@@ -222,9 +229,12 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                 <div className="w-full space-y-2">
                   <Textarea
                     name="employemntDiscription"
-                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
+                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
                     rows={6}
                     maxLength={400}
+                    value={
+                      employmentHistory[index]?.employmentDescription || ""
+                    }
                     onChange={(e) => {
                       SetCharCount(e.target.value.length);
                       setEmploymentDescription(index, e.target.value);
@@ -247,7 +257,17 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)}>
+          <div
+            onClick={() => {
+              handleDeleteDiv(index);
+              setEmployer(index, "");
+              setEmploymentCity(index, "");
+              setEmploymentDescription(index, "");
+              setEmploymentEndDate(index, null);
+              setEmploymentJobTitle(index, "");
+              setEmploymentStartDate(index, null);
+            }}
+          >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>

@@ -143,7 +143,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             )}
 
             {/* Employment History */}
-            {employmentHistory && (
+            {sortableEmploymentList.length > 0 && (
               <div className="space-y-2">
                 <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Employment History
