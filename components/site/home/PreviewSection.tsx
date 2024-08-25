@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
@@ -53,7 +53,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             Download PDF
           </Button>
         </div>
-        <div className="aspect-[1/1.2] absolute w-[480px] top-[65%] left-[50%] translate-x-[-50%] translate-y-[-65%] bg-red-300 rounded-xl overflow-hidden flex">
+        <div className="aspect-[1/1.2] absolute w-[480px] top-[65%] left-[50%] translate-x-[-50%] translate-y-[-65%] rounded-xl overflow-hidden flex">
           <div className="w-[30%] bg-[#1d473a] h-full py-8 px-4">
             {/* Personal Details */}
             <div>
