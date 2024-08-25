@@ -1,36 +1,98 @@
+// "use client";
+
+// import { create } from "zustand";
+
+// type EmploymentHistoryTypes = {
+//   employmentJobTitle: string;
+//   employer: string;
+//   employmentCity: string;
+//   employmentDescription: string;
+
+//   setEmploymentJobTitle: (employmentJobTitle: string) => void;
+//   setEmployer: (employer: string) => void;
+//   setemploymentCity: (employmentCity: string) => void;
+//   setEmploymentDescription: (employmentDescription: string) => void;
+// };
+
+// export const useEmploymentHistory = create<EmploymentHistoryTypes>((set) => ({
+//   employmentJobTitle: "",
+//   employer: "",
+//   employmentCity: "",
+//   employmentDescription: "",
+
+//   setEmploymentJobTitle: (employmentJobTitle) => set({ employmentJobTitle }),
+//   setEmployer: (employer) => set({ employer }),
+//   setemploymentCity: (employmentCity) => set({ employmentCity }),
+//   setEmploymentDescription: (employmentDescription) =>
+//     set({ employmentDescription }),
+// }));
+
 "use client";
 
 import { create } from "zustand";
 
-type EmploymentHistoryTypes = {
+type EmploymentEntry = {
   employmentJobTitle: string;
   employer: string;
-  //   employmentStartDate: Date | null;
-  //   employmentEndDate: Date | null;
   employmentCity: string;
   employmentDescription: string;
+};
 
-  setEmploymentJobTitle: (employmentJobTitle: string) => void;
-  setEmployer: (employer: string) => void;
-  //   setEmploymentStartDate: (startDate: Date | null) => void;
-  //   setEmploymentEndDate: (endDate: Date | null) => void;
-  setemploymentCity: (employmentCity: string) => void;
-  setEmploymentDescription: (employmentDescription: string) => void;
+type EmploymentHistoryTypes = {
+  employmentHistory: { [key: number]: EmploymentEntry };
+  setEmploymentJobTitle: (index: number, employmentJobTitle: string) => void;
+  setEmployer: (index: number, employer: string) => void;
+  setEmploymentCity: (index: number, employmentCity: string) => void;
+  setEmploymentDescription: (
+    index: number,
+    employmentDescription: string
+  ) => void;
 };
 
 export const useEmploymentHistory = create<EmploymentHistoryTypes>((set) => ({
-  employmentJobTitle: "",
-  employer: "",
-  //   employmentStartDate: null,
-  //   employmentEndDate: null,
-  employmentCity: "",
-  employmentDescription: "",
+  employmentHistory: {},
 
-  setEmploymentJobTitle: (employmentJobTitle) => set({ employmentJobTitle }),
-  setEmployer: (employer) => set({ employer }),
-  //   setEmploymentStartDate: (employmentStartDate) => set({ employmentStartDate }),
-  //   setEmploymentEndDate: (employmentEndDate) => set({ employmentEndDate }),
-  setemploymentCity: (employmentCity) => set({ employmentCity }),
-  setEmploymentDescription: (employmentDescription) =>
-    set({ employmentDescription }),
+  setEmploymentJobTitle: (index, employmentJobTitle) =>
+    set((state) => ({
+      employmentHistory: {
+        ...state.employmentHistory,
+        [index]: {
+          ...state.employmentHistory[index],
+          employmentJobTitle,
+        },
+      },
+    })),
+
+  setEmployer: (index, employer) =>
+    set((state) => ({
+      employmentHistory: {
+        ...state.employmentHistory,
+        [index]: {
+          ...state.employmentHistory[index],
+          employer,
+        },
+      },
+    })),
+
+  setEmploymentCity: (index, employmentCity) =>
+    set((state) => ({
+      employmentHistory: {
+        ...state.employmentHistory,
+        [index]: {
+          ...state.employmentHistory[index],
+          employmentCity,
+        },
+      },
+    })),
+
+  setEmploymentDescription: (index, employmentDescription) =>
+    set((state) => ({
+      employmentHistory: {
+        ...state.employmentHistory,
+        [index]: {
+          ...state.employmentHistory[index],
+          employmentDescription,
+        },
+      },
+    })),
 }));

@@ -46,13 +46,23 @@ import SortableCustomSection from "@/components/sortable/SortableCustomSection";
 import SortableHobbies from "@/components/sortable/SortableHobbies";
 import { useProfessionalSummary } from "@/store/useProfessionalSummary";
 
-const FormSection = () => {
+interface FormSecyionProps {
+  handleAddSortableEmploymentList: any;
+  setSortableEmploymentList: any;
+  sortableEmploymentList: any;
+}
+
+const FormSection: React.FC<FormSecyionProps> = ({
+  handleAddSortableEmploymentList,
+  setSortableEmploymentList,
+  sortableEmploymentList,
+}) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
-  const [sortableEmploymentList, setSortableEmploymentList] = useState<
-    number[]
-  >([]);
+  // const [sortableEmploymentList, setSortableEmploymentList] = useState<
+  //   number[]
+  // >([]);
   const [sortableEducationList, setSortableEducationList] = useState<number[]>(
     []
   );
@@ -134,12 +144,12 @@ const FormSection = () => {
 
   // Add More
 
-  const handleAddSortableEmploymentList = () => {
-    setSortableEmploymentList((sortableEmploymentList) => [
-      ...sortableEmploymentList,
-      sortableEmploymentList.length + 1,
-    ]);
-  };
+  // const handleAddSortableEmploymentList = () => {
+  //   setSortableEmploymentList((sortableEmploymentList) => [
+  //     ...sortableEmploymentList,
+  //     sortableEmploymentList.length + 1,
+  //   ]);
+  // };
 
   const handleAddSortableEducationList = () => {
     setSortableEducationList((sortableEducationList) => [

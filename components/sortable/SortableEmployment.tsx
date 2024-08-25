@@ -40,9 +40,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
     setEmployer,
     setEmploymentDescription,
     setEmploymentJobTitle,
-    setemploymentCity,
-    employmentJobTitle,
-    employer,
+    setEmploymentCity,
+    employmentHistory,
   } = useEmploymentHistory();
 
   return (
@@ -57,8 +56,10 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
                   <span className="block text-black text-left">
-                    {employmentJobTitle || employer
-                      ? `${employmentJobTitle} - ${employer}`
+                    {index}
+                    {employmentHistory[index]?.employmentJobTitle ||
+                    employmentHistory[index]?.employer
+                      ? `${employmentHistory[index]?.employmentJobTitle} - ${employmentHistory[index]?.employer}`
                       : "Not specified"}
                   </span>
                   <span className="block text-charcoal text-left">
@@ -92,8 +93,9 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     </Label>
                     <Input
                       name="employmentJobTitle"
+                      value={employmentHistory[index]?.employmentJobTitle || ""}
                       onChange={(e) => {
-                        setEmploymentJobTitle(e.target.value);
+                        setEmploymentJobTitle(index, e.target.value);
                       }}
                     />
                   </div>
@@ -103,8 +105,9 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     </Label>
                     <Input
                       name="employer"
+                      value={employmentHistory[index]?.employer || ""}
                       onChange={(e) => {
-                        setEmployer(e.target.value);
+                        setEmployer(index, e.target.value);
                       }}
                     />
                   </div>
@@ -187,7 +190,7 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     <Input
                       name="employmentCity"
                       onChange={(e) => {
-                        setemploymentCity(e.target.value);
+                        setEmploymentCity(index, e.target.value);
                       }}
                     />
                   </div>
@@ -200,7 +203,7 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     maxLength={400}
                     onChange={(e) => {
                       SetCharCount(e.target.value.length);
-                      setEmploymentDescription(e.target.value);
+                      setEmploymentDescription(index, e.target.value);
                     }}
                   />
                   <div className="flex justify-between items-center">

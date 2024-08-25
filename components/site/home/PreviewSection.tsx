@@ -5,8 +5,19 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useProfessionalDetails } from "@/store/usePersonalDetails";
 import { useProfessionalSummary } from "@/store/useProfessionalSummary";
+import { useEmploymentHistory } from "@/store/useEmploymentHistory";
 
-const PreviewSection = () => {
+interface PreviewSectionProps {
+  sortableEmploymentList: any;
+}
+
+const PreviewSection: React.FC<PreviewSectionProps> = ({
+  sortableEmploymentList,
+}) => {
+  // Employment History
+
+  const { employmentHistory } = useEmploymentHistory();
+
   // Professional Summary
 
   const { professionalSummary } = useProfessionalSummary();
@@ -120,6 +131,26 @@ const PreviewSection = () => {
                   {professionalSummary}
                 </h6>
               </div>
+            )}
+            {/* Employment History */}
+            {employmentHistory && (
+              <>
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold">
+                  Employment History
+                </h1>
+                {sortableEmploymentList.map((item: any, index: any) => (
+                  <div>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-bold">
+                      {employmentHistory[index]?.employmentJobTitle} -{" "}
+                      {employmentHistory[index]?.employer},{" "}
+                      {employmentHistory[index]?.employmentCity}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px] mt-1">
+                      {employmentHistory[index]?.employmentDescription}
+                    </h6>
+                  </div>
+                ))}
+              </>
             )}
           </div>
         </div>
