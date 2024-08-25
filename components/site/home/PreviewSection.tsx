@@ -1,12 +1,18 @@
 "use client";
 import React from "react";
-import PdfViewer from "./PdfViewer";
 import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useProfessionalDetails } from "@/store/usePersonalDetails";
+import { useProfessionalSummary } from "@/store/useProfessionalSummary";
 
 const PreviewSection = () => {
+  // Professional Summary
+
+  const { professionalSummary } = useProfessionalSummary();
+
+  // Professional Details
+
   const {
     selectedImage,
     address,
@@ -23,7 +29,7 @@ const PreviewSection = () => {
     placeOfBirth,
     postalCode,
   } = useProfessionalDetails();
-  const pdfUrl = "/sample.pdf";
+
   return (
     <>
       <div className="bg-misty w-1/2 h-full fixed top-0 bottom-0 right-0 flex justify-center items-center">
@@ -105,25 +111,18 @@ const PreviewSection = () => {
           </div>
           <div className="w-[70%] bg-white h-full py-8 px-4">
             {/* Professional Summary */}
-            <div>
-              <h1 className="text-black/85 text-[10px] leading-[14px] font-bold">
-                Professional Summary
-              </h1>
-              <h6 className="text-black/95 font-normal text-[8px] leading-[13px] mt-1">
-                is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industrys standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived
-                not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised
-                in the 1960s with the release of Letraset sheets containing
-                Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.
-              </h6>
-            </div>
+            {professionalSummary && (
+              <div>
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold">
+                  Professional Summary
+                </h1>
+                <h6 className="text-black/95 font-normal text-[8px] leading-[13px] mt-1">
+                  {professionalSummary}
+                </h6>
+              </div>
+            )}
           </div>
         </div>
-        {/* <PdfViewer pdfUrl={pdfUrl} /> */}
       </div>
     </>
   );

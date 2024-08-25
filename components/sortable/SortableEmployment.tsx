@@ -15,6 +15,7 @@ import {
 } from "../ui/accordion";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
+import { useEmploymentHistory } from "@/store/useEmploymentHistory";
 
 interface SortableEmploymentProps {
   sortableEmploymentList: any;
@@ -25,8 +26,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
   sortableEmploymentList,
   setSortableEmploymentList,
 }) => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+  const [employmentStartDate, setEmploymentStartDate] = useState<Date>();
+  const [employmentEndDate, setEmploymentEndDate] = useState<Date>();
   const [charCount, SetCharCount] = useState(0);
 
   const handleDeleteDiv = (index: any) => {
@@ -34,6 +35,15 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
       sortableEmploymentList.filter((_: any, i: any) => i !== index)
     );
   };
+
+  const {
+    setEmployer,
+    setEmploymentDescription,
+    setEmploymentJobTitle,
+    setemploymentCity,
+    employmentJobTitle,
+    employer,
+  } = useEmploymentHistory();
 
   return (
     <>
@@ -46,8 +56,32 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black">Not specified</span>
-                  <span className="block text-charcoal">Not specified</span>
+                  <span className="block text-black text-left">
+                    {employmentJobTitle || employer
+                      ? `${employmentJobTitle} - ${employer}`
+                      : "Not specified"}
+                  </span>
+                  <span className="block text-charcoal text-left">
+                    {employmentEndDate || employmentStartDate ? (
+                      <>
+                        {employmentStartDate &&
+                          employmentStartDate?.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                          })}
+                        {" - "}
+                        {employmentEndDate &&
+                          employmentEndDate?.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                          })}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
@@ -56,13 +90,23 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       job title
                     </Label>
-                    <Input name="employmentJobTitle" />
+                    <Input
+                      name="employmentJobTitle"
+                      onChange={(e) => {
+                        setEmploymentJobTitle(e.target.value);
+                      }}
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       employer
                     </Label>
-                    <Input name="employer" />
+                    <Input
+                      name="employer"
+                      onChange={(e) => {
+                        setEmployer(e.target.value);
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="w-full flex justify-start items-center gap-8">
@@ -77,11 +121,11 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !startDate && "text-charcoal"
+                              !employmentStartDate && "text-charcoal"
                             )}
                           >
-                            {startDate ? (
-                              format(startDate, "PPP")
+                            {employmentStartDate ? (
+                              format(employmentStartDate, "PP")
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -91,8 +135,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={startDate}
-                            onSelect={setStartDate}
+                            selected={employmentStartDate}
+                            onSelect={setEmploymentStartDate}
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -111,11 +155,11 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !endDate && "text-charcoal"
+                              !employmentEndDate && "text-charcoal"
                             )}
                           >
-                            {endDate ? (
-                              format(endDate, "PPP")
+                            {employmentEndDate ? (
+                              format(employmentEndDate, "PP")
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -125,8 +169,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={endDate}
-                            onSelect={setEndDate}
+                            selected={employmentEndDate}
+                            onSelect={setEmploymentEndDate}
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -140,16 +184,24 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       city
                     </Label>
-                    <Input name="employmentCity" />
+                    <Input
+                      name="employmentCity"
+                      onChange={(e) => {
+                        setemploymentCity(e.target.value);
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="w-full space-y-2">
                   <Textarea
-                    name="jobTitle"
+                    name="employemntDiscription"
                     className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
                     rows={6}
                     maxLength={400}
-                    onChange={(e) => SetCharCount(e.target.value.length)}
+                    onChange={(e) => {
+                      SetCharCount(e.target.value.length);
+                      setEmploymentDescription(e.target.value);
+                    }}
                   />
                   <div className="flex justify-between items-center">
                     <p className="font-normal text-sm text-charcoal flex gap-2 justify-start items-center">

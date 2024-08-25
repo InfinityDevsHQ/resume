@@ -44,6 +44,7 @@ import SortableReference from "@/components/sortable/SortableReference";
 import SortableActivities from "@/components/sortable/SortableActivities";
 import SortableCustomSection from "@/components/sortable/SortableCustomSection";
 import SortableHobbies from "@/components/sortable/SortableHobbies";
+import { useProfessionalSummary } from "@/store/useProfessionalSummary";
 
 const FormSection = () => {
   const form = useForm();
@@ -86,6 +87,12 @@ const FormSection = () => {
     useState<boolean>(false);
   const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
 
+  // Professional Summary
+
+  const { setProfessionalSummary } = useProfessionalSummary();
+
+  // Professional Details
+
   const {
     setAddress,
     setCity,
@@ -104,6 +111,8 @@ const FormSection = () => {
     selectedImage,
   } = useProfessionalDetails();
 
+  // Handle Avatar Image
+
   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -117,9 +126,13 @@ const FormSection = () => {
     }
   };
 
+  // Handle Toggled
+
   const handleToggled = () => {
     setToggled(!toggled);
   };
+
+  // Add More
 
   const handleAddSortableEmploymentList = () => {
     setSortableEmploymentList((sortableEmploymentList) => [
@@ -243,6 +256,7 @@ const FormSection = () => {
                     </TooltipProvider>
                   </Label>
                   <Input
+                    autoComplete="off"
                     name="jobTitle"
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
@@ -472,11 +486,13 @@ const FormSection = () => {
                   biggest achievements, best qualities and skills.
                 </Label>
                 <Textarea
-                  name="jobTitle"
-                  className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
+                  name="professionalSummary"
+                  className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
                   rows={6}
-                  maxLength={600}
-                  onChange={(e) => SetCharCount(e.target.value.length)}
+                  onChange={(e) => {
+                    SetCharCount(e.target.value.length);
+                    setProfessionalSummary(e.target.value);
+                  }}
                 />
                 <div className="flex justify-between items-center">
                   <p className="font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -509,7 +525,7 @@ const FormSection = () => {
                 </Label>
                 <div
                   className={`${
-                    sortableEmploymentList.length > 1 && "space-y-4"
+                    sortableEmploymentList.length > 1 ? "space-y-4" : ""
                   }`}
                 >
                   <SortableEmployment
@@ -870,7 +886,7 @@ const FormSection = () => {
                   className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
                 >
                   <CustomSectionIcon className="fill-aquamarine-100 w-[40px]" />
-                  custome sections
+                  custom sections
                 </Button>
                 <Button
                   onClick={() => {
