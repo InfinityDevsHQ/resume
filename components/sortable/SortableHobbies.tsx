@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import { useHobbies } from "@/statemanagement/useHobbies";
 
 const SortableHobbies = () => {

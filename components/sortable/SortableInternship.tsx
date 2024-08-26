@@ -1,20 +1,20 @@
 "use client";
 import React, { useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CalendarIcon, Delete, Frown, Smile, TrashIcon } from "lucide-react";
-import { Calendar } from "../ui/calendar";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../ui/accordion";
+} from "@/components/ui/accordion";
 import { format } from "date-fns";
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import { useInternship } from "@/statemanagement/useInternship";
 
 interface SortableInternshipProps {

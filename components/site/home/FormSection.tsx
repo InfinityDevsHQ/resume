@@ -74,6 +74,12 @@ interface FormSecyionProps {
   handleAddSortableCustomSectionList: any;
   sortableCustomSectionList: any;
   setSortableCustomSectionList: any;
+  handleAddSortableSkillsList: any;
+  sortableSkillsList: any;
+  setSortableSkillsList: any;
+  handleAddSortableLanguageList: any;
+  sortableLanguageList: any;
+  setSortableLanguageList: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -103,19 +109,18 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableCustomSectionList,
   sortableCustomSectionList,
   setSortableCustomSectionList,
+  handleAddSortableSkillsList,
+  sortableSkillsList,
+  setSortableSkillsList,
+  handleAddSortableLanguageList,
+  sortableLanguageList,
+  setSortableLanguageList,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
 
-  const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
-    []
-  );
-
   const { setHobbiesDescription } = useHobbies();
-
-  const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
-
   const [disabledBadges, setDisabledBadges] = useState<boolean>(false);
   const [toggledCourse, setToggledCourse] = useState<boolean>(false);
   const [toggledInternship, setToggledInternship] = useState<boolean>(false);
@@ -174,23 +179,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
   const handleDeleteDiv = () => {
     setToggledHobbies(!toggledHobbies);
-  };
-
-  // Add More
-
-  const handleAddSortableSkillsList = () => {
-    setSortableSkillsList((sortableSkillsList) => [
-      ...sortableSkillsList,
-      sortableSkillsList.length + 1,
-    ]);
-    // setDisabledBadges(!disabledBadges);
-  };
-
-  const handleAddSortableLanguageList = () => {
-    setSortableLanguageList((sortableLanguageList) => [
-      ...sortableLanguageList,
-      sortableLanguageList.length + 1,
-    ]);
   };
 
   return (
@@ -619,8 +607,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 </Label>
                 <div>
                   <SkillsBadge
-                    setDisabledBadges={setDisabledBadges}
-                    disabledBadges={disabledBadges}
                     handleAddSortableSkillsList={handleAddSortableSkillsList}
                   />
                 </div>
@@ -710,7 +696,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
               <div className="flex flex-col gap-4 mb-7">
                 <div>
                   <h1 className="text-lg font-semibold text-black/85">
-                    Internship
+                    Language
                   </h1>
                 </div>
                 <SortableLanguage

@@ -3,8 +3,6 @@ import { Plus } from "lucide-react";
 import React, { useState } from "react";
 
 interface SkillsBadgeProps {
-  setDisabledBadges: any;
-  disabledBadges: any;
   handleAddSortableSkillsList: any;
 }
 
@@ -24,16 +22,14 @@ const badges = [
 ];
 
 const SkillsBadge: React.FC<SkillsBadgeProps> = ({
-  setDisabledBadges,
   handleAddSortableSkillsList,
-  disabledBadges,
 }) => {
   return (
     <>
       <div className="flex flex-wrap gap-3">
         {badges.map((item, index) => (
           <Button
-            onClick={handleAddSortableSkillsList}
+            // onClick={handleAddSortableSkillsList}
             type="button"
             key={index}
             className={`bg-[#eff2f9] text-[#424242] hover:bg-[#eff2f9] hover:text-aquamarine-100 gap-x-2 $`}

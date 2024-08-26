@@ -15,6 +15,9 @@ import { useReference } from "@/statemanagement/useReference";
 import { useHobbies } from "@/statemanagement/useHobbies";
 import { useActivity } from "@/statemanagement/useActivities";
 import { useCustom } from "@/statemanagement/useCustom";
+import { useSkills } from "@/statemanagement/useSkills";
+import { Progress } from "@/components/ui/progress";
+import { useLanguage } from "@/statemanagement/useLanguage";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -26,6 +29,8 @@ interface PreviewSectionProps {
   toggledHobbies: any;
   sortableActivitiesList: any;
   sortableCustomSectionList: any;
+  sortableSkillsList: any;
+  sortableLanguageList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -38,14 +43,24 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   toggledHobbies,
   sortableActivitiesList,
   sortableCustomSectionList,
+  sortableSkillsList,
+  sortableLanguageList,
 }) => {
+  // Language
+
+  const { languageHistory } = useLanguage();
+
   // Internship History
 
   const { activityHistory } = useActivity();
 
-  // Internship History
+  // Reference
 
   const { referenceHistory } = useReference();
+
+  // Skills
+
+  const { skillsHistory } = useSkills();
 
   // Hobbies
 
@@ -207,6 +222,25 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                 ))}
               </>
             )}
+            {/*  Skills */}
+            {sortableSkillsList.length > 0 && (
+              <>
+                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                  Skills
+                </h1>
+                {sortableSkillsList.map((item: any, index: any) => (
+                  <div key={index} className="space-y-1 mt-1">
+                    <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                      {skillsHistory[index]?.skillsTitle}
+                    </h6>
+                    <Progress
+                      value={skillsHistory[index]?.skillsLevel || 60}
+                      className="w-[100%] h-1 bg-[#808080]"
+                    />
+                  </div>
+                ))}
+              </>
+            )}
             {/*  Hobbies */}
             {toggledHobbies && (
               <>
@@ -218,6 +252,25 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     {hobbiesDescription}
                   </h6>
                 </div>
+              </>
+            )}
+            {/*  Languages */}
+            {sortableLanguageList.length > 0 && (
+              <>
+                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                  Languages
+                </h1>
+                {sortableLanguageList.map((item: any, index: any) => (
+                  <div key={index} className="space-y-1 mt-1">
+                    <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                      {languageHistory[index]?.languageTitle}
+                    </h6>
+                    <Progress
+                      value={languageHistory[index]?.languageLevel || 66}
+                      className="w-[100%] h-1 bg-[#808080]"
+                    />
+                  </div>
+                ))}
               </>
             )}
           </div>
@@ -310,38 +363,6 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
               </div>
             )}
 
-            {/* Course */}
-            {sortableCourseList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                  Course
-                </h1>
-                {sortableCourseList.map((item: any, index: any) => (
-                  <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
-                      {courseHistory[index]?.course}
-                      {courseHistory[index]?.courseInstitution && (
-                        <>, {courseHistory[index]?.courseInstitution}</>
-                      )}
-                    </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
-                      {courseHistory[
-                        index
-                      ]?.courseStartDate?.toLocaleDateString()}{" "}
-                      {courseHistory[index]?.courseEndDate && (
-                        <>
-                          -{" "}
-                          {courseHistory[
-                            index
-                          ]?.courseEndDate?.toLocaleDateString()}
-                        </>
-                      )}
-                    </h6>
-                  </div>
-                ))}
-              </div>
-            )}
-
             {/* Internship */}
             {sortableInternshipList.length > 0 && (
               <div className="space-y-2">
@@ -374,6 +395,38 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {internshipHistory[index]?.internshipDescription}
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Course */}
+            {sortableCourseList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                  Course
+                </h1>
+                {sortableCourseList.map((item: any, index: any) => (
+                  <div key={index}>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {courseHistory[index]?.course}
+                      {courseHistory[index]?.courseInstitution && (
+                        <>, {courseHistory[index]?.courseInstitution}</>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {courseHistory[
+                        index
+                      ]?.courseStartDate?.toLocaleDateString()}{" "}
+                      {courseHistory[index]?.courseEndDate && (
+                        <>
+                          -{" "}
+                          {courseHistory[
+                            index
+                          ]?.courseEndDate?.toLocaleDateString()}
+                        </>
+                      )}
                     </h6>
                   </div>
                 ))}

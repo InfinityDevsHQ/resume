@@ -9,10 +9,14 @@ const HomeWrapper = () => {
   const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
 
   const [sortableActivitiesList, setSortableActivitiesList] = useState<
-  number[]
->([]);
+    number[]
+  >([]);
 
   const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
+    []
+  );
+
+  const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
     []
   );
 
@@ -31,11 +35,13 @@ const HomeWrapper = () => {
   );
 
   const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
-  number[]
->([]);
+    number[]
+  >([]);
 
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
+
+  const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
 
   // Add More
 
@@ -95,6 +101,20 @@ const HomeWrapper = () => {
     ]);
   };
 
+  const handleAddSortableSkillsList = () => {
+    setSortableSkillsList((sortableSkillsList) => [
+      ...sortableSkillsList,
+      sortableSkillsList.length + 1,
+    ]);
+  };
+
+  const handleAddSortableLanguageList = () => {
+    setSortableLanguageList((sortableLanguageList) => [
+      ...sortableLanguageList,
+      sortableLanguageList.length + 1,
+    ]);
+  };
+
   return (
     <>
       <section className="w-full h-full flex">
@@ -124,9 +144,17 @@ const HomeWrapper = () => {
           handleAddSortableActivitiesList={handleAddSortableActivitiesList}
           sortableActivitiesList={sortableActivitiesList}
           setSortableActivitiesList={setSortableActivitiesList}
-          handleAddSortableCustomSectionList={handleAddSortableCustomSectionList}
+          handleAddSortableCustomSectionList={
+            handleAddSortableCustomSectionList
+          }
           sortableCustomSectionList={sortableCustomSectionList}
           setSortableCustomSectionList={setSortableCustomSectionList}
+          handleAddSortableSkillsList={handleAddSortableSkillsList}
+          sortableSkillsList={sortableSkillsList}
+          setSortableSkillsList={setSortableSkillsList}
+          handleAddSortableLanguageList={handleAddSortableLanguageList}
+          sortableLanguageList={sortableLanguageList}
+          setSortableLanguageList={setSortableLanguageList}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
@@ -138,6 +166,8 @@ const HomeWrapper = () => {
           toggledHobbies={toggledHobbies}
           sortableActivitiesList={sortableActivitiesList}
           sortableCustomSectionList={sortableCustomSectionList}
+          sortableSkillsList={sortableSkillsList}
+          sortableLanguageList={sortableLanguageList}
         />
       </section>
     </>

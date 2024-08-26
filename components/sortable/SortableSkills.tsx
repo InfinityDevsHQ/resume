@@ -1,17 +1,18 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../ui/accordion";
+} from "@/components/ui/accordion";
+import { useSkills } from "@/statemanagement/useSkills";
 
 interface SortableSkillsProps {
   sortableSkillsList: any;
@@ -22,15 +23,13 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
   sortableSkillsList,
   setSortableSkillsList,
 }) => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-  const [charCount, SetCharCount] = useState(0);
-
   const handleDeleteDiv = (index: any) => {
     setSortableSkillsList((sortableSkillsList: any[]) =>
       sortableSkillsList.filter((_: any, i: any) => i !== index)
     );
   };
+
+  const { skillsHistory, setSkillsTitle, setSkillsLevel } = useSkills();
 
   return (
     <>
@@ -43,8 +42,25 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black">Not specified</span>
-                  <span className="block text-charcoal">Not specified</span>
+                  <span className="block text-black text-left">
+                    {skillsHistory[index]?.skillsTitle
+                      ? skillsHistory[index]?.skillsTitle
+                      : "Not specified"}
+                  </span>
+                  <span className="block text-charcoal text-left">
+                    {skillsHistory[index]?.skillsLevel
+                      ? (skillsHistory[index]?.skillsLevel == "20" &&
+                          "novice") ||
+                        (skillsHistory[index]?.skillsLevel == "40" &&
+                          "beginner") ||
+                        (skillsHistory[index]?.skillsLevel == "60" &&
+                          "skillful") ||
+                        (skillsHistory[index]?.skillsLevel == "80" &&
+                          "experienced") ||
+                        (skillsHistory[index]?.skillsLevel == "100" &&
+                          "advance")
+                      : "skillful"}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
@@ -53,47 +69,59 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       skill
                     </Label>
-                    <Input name="employmentJobTitle" />
+                    <Input
+                      value={skillsHistory[index]?.skillsTitle || ""}
+                      onChange={(e) => {
+                        setSkillsTitle(index, e.target.value);
+                      }}
+                      name="skillsTitle"
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
-                    <Tabs defaultValue="skillful" className="w-full">
+                    <Tabs
+                      defaultValue="60"
+                      className="w-full"
+                      onValueChange={(value) => {
+                        setSkillsLevel(index, value);
+                      }}
+                    >
                       <TabsContent
                         className="capitalize font-normal text-sm text-charcoal"
-                        value="novice"
+                        value="20"
                       >
                         Level -- <span className="text-[#fe7d8b]">novice</span>
                       </TabsContent>
                       <TabsContent
                         className="capitalize font-normal text-sm text-charcoal"
-                        value="beginner"
+                        value="40"
                       >
                         Level --{" "}
                         <span className="text-[#f68559]">beginner</span>
                       </TabsContent>
                       <TabsContent
                         className="capitalize font-normal text-sm text-charcoal"
-                        value="skillful"
+                        value="60"
                       >
                         Level --{" "}
                         <span className="text-[#f9ba44]">skillful</span>
                       </TabsContent>
                       <TabsContent
                         className="capitalize font-normal text-sm text-charcoal"
-                        value="experienced"
+                        value="80"
                       >
                         Level --{" "}
                         <span className="text-[#48ba75]">experienced</span>
                       </TabsContent>
                       <TabsContent
                         className="capitalize font-normal text-sm text-charcoal"
-                        value="advance"
+                        value="100"
                       >
                         Level -- <span className="text-[#9ba1fb]">advance</span>
                       </TabsContent>
                       <TabsList className="w-full flex h-12 p-0">
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#fe7d8b] rounded-md"
-                          value="novice"
+                          value="20"
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
@@ -101,7 +129,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#f68559] rounded-md"
-                          value="beginner"
+                          value="40"
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
@@ -109,7 +137,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#f9ba44] rounded-md"
-                          value="skillful"
+                          value="60"
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
@@ -117,7 +145,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#48ba75] rounded-md"
-                          value="experienced"
+                          value="80"
                         ></TabsTrigger>
                         <Separator
                           orientation="vertical"
@@ -125,7 +153,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
                         />
                         <TabsTrigger
                           className="w-[20%] h-12  data-[state=active]:bg-[#9ba1fb] rounded-md"
-                          value="advance"
+                          value="100"
                         ></TabsTrigger>
                       </TabsList>
                     </Tabs>
@@ -134,7 +162,13 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)}>
+          <div
+            onClick={() => {
+              handleDeleteDiv(index);
+              setSkillsTitle(index, "");
+              setSkillsLevel(index, "");
+            }}
+          >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>
