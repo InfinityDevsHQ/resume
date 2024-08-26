@@ -59,6 +59,9 @@ interface FormSecyionProps {
   handleAddSortableCourseList: any;
   sortableCourseList: any;
   setSortableCourseList: any;
+  handleAddSortableInternshipList: any;
+  sortableInternshipList: any;
+  setSortableInternshipList: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -74,14 +77,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableCourseList,
   sortableCourseList,
   setSortableCourseList,
+  handleAddSortableInternshipList,
+  sortableInternshipList,
+  setSortableInternshipList,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
 
-  const [sortableInternshipList, setSortableInternshipList] = useState<
-    number[]
-  >([]);
   const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
     []
   );
@@ -161,13 +164,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
       sortableSkillsList.length + 1,
     ]);
     // setDisabledBadges(!disabledBadges);
-  };
-
-  const handleAddSortableInternshipList = () => {
-    setSortableInternshipList((sortableInternshipList) => [
-      ...sortableInternshipList,
-      sortableInternshipList.length + 1,
-    ]);
   };
 
   const handleAddSortableLanguageList = () => {

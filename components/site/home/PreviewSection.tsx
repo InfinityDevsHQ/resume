@@ -10,12 +10,14 @@ import { Button } from "@/components/ui/button";
 import { useEducation } from "@/statemanagement/useEducation";
 import { useWebNSocialLinks } from "@/statemanagement/useWebNSocialLink";
 import { useCourse } from "@/statemanagement/useCourse";
+import { useInternship } from "@/statemanagement/useInternship";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
   sortableEducationList: any;
   sortableWebNSocialLinksList: any;
   sortableCourseList: any;
+  sortableInternshipList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -23,7 +25,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableEducationList,
   sortableWebNSocialLinksList,
   sortableCourseList,
+  sortableInternshipList,
 }) => {
+  // Internship History
+
+  const { internshipHistory } = useInternship();
+
   // Employment History
 
   const { employmentHistory } = useEmploymentHistory();
@@ -288,6 +295,44 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                           ]?.courseEndDate?.toLocaleDateString()}
                         </>
                       )}
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Internship */}
+            {sortableInternshipList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                  Internship
+                </h1>
+                {sortableInternshipList.map((item: any, index: any) => (
+                  <div key={index}>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {internshipHistory[index]?.internshipJobTitle}
+                      {internshipHistory[index]?.internshipEmployer && (
+                        <>, {internshipHistory[index]?.internshipEmployer}</>
+                      )}
+                      {internshipHistory[index]?.internshipCity && (
+                        <>, {internshipHistory[index]?.internshipCity}</>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {internshipHistory[
+                        index
+                      ]?.internshipStartDate?.toLocaleDateString()}{" "}
+                      {internshipHistory[index]?.internshipEndDate && (
+                        <>
+                          -{" "}
+                          {internshipHistory[
+                            index
+                          ]?.internshipEndDate?.toLocaleDateString()}
+                        </>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {internshipHistory[index]?.internshipDescription}
                     </h6>
                   </div>
                 ))}

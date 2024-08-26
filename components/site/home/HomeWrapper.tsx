@@ -10,6 +10,10 @@ const HomeWrapper = () => {
     number[]
   >([]);
 
+  const [sortableInternshipList, setSortableInternshipList] = useState<
+    number[]
+  >([]);
+
   const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
 
   const [sortableEducationList, setSortableEducationList] = useState<number[]>(
@@ -49,6 +53,13 @@ const HomeWrapper = () => {
     ]);
   };
 
+  const handleAddSortableInternshipList = () => {
+    setSortableInternshipList((sortableInternshipList) => [
+      ...sortableInternshipList,
+      sortableInternshipList.length + 1,
+    ]);
+  };
+
   return (
     <>
       <section className="w-full h-full flex">
@@ -67,12 +78,16 @@ const HomeWrapper = () => {
           handleAddSortableCourseList={handleAddSortableCourseList}
           sortableCourseList={sortableCourseList}
           setSortableCourseList={setSortableCourseList}
+          handleAddSortableInternshipList={handleAddSortableInternshipList}
+          sortableInternshipList={sortableInternshipList}
+          setSortableInternshipList={setSortableInternshipList}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
           sortableEducationList={sortableEducationList}
           sortableWebNSocialLinksList={sortableWebNSocialLinksList}
           sortableCourseList={sortableCourseList}
+          sortableInternshipList={sortableInternshipList}
         />
       </section>
     </>

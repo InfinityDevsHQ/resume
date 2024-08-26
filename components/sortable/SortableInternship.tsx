@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, useState } from "react";
+import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,7 @@ import {
 } from "../ui/accordion";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
+import { useInternship } from "@/statemanagement/useInternship";
 
 interface SortableInternshipProps {
   sortableInternshipList: any;
@@ -42,6 +43,16 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
     }
   };
 
+  const {
+    internshipHistory,
+    setInternshipCity,
+    setInternshipDescription,
+    setInternshipEmployer,
+    setInternshipEndDate,
+    setInternshipStartDate,
+    setInternshipJobTitle,
+  } = useInternship();
+
   return (
     <>
       {sortableInternshipList.map((item: any, index: any) => (
@@ -53,8 +64,48 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black">Not specified</span>
-                  <span className="block text-charcoal">Not specified</span>
+                  <span className="block text-black text-left">
+                    {internshipHistory[index]?.internshipJobTitle ||
+                    internshipHistory[index]?.internshipEmployer ? (
+                      <>
+                        {internshipHistory[index]?.internshipJobTitle}{" "}
+                        {internshipHistory[index]?.internshipEmployer && (
+                          <>- {internshipHistory[index]?.internshipEmployer}</>
+                        )}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
+                  </span>
+                  <span className="block text-charcoal text-left">
+                    {internshipHistory[index]?.internshipEndDate ||
+                    internshipHistory[index]?.internshipStartDate ? (
+                      <>
+                        {internshipHistory[index]?.internshipStartDate &&
+                          internshipHistory[
+                            index
+                          ]?.internshipStartDate?.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                          })}{" "}
+                        {internshipHistory[index]?.internshipEndDate && (
+                          <>
+                            -{" "}
+                            {internshipHistory[
+                              index
+                            ]?.internshipEndDate?.toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            })}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
@@ -63,13 +114,25 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       job title
                     </Label>
-                    <Input name="employmentJobTitle" />
+                    <Input
+                      value={internshipHistory[index]?.internshipJobTitle || ""}
+                      onChange={(e) => {
+                        setInternshipJobTitle(index, e.target.value);
+                      }}
+                      name="internshipJobTitle"
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       employer
                     </Label>
-                    <Input name="employer" />
+                    <Input
+                      value={internshipHistory[index]?.internshipEmployer || ""}
+                      onChange={(e) => {
+                        setInternshipEmployer(index, e.target.value);
+                      }}
+                      name="internshipEmployer"
+                    />
                   </div>
                 </div>
                 <div className="w-full flex justify-start items-center gap-8">
@@ -84,11 +147,15 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !startDate && "text-charcoal"
+                              !internshipHistory[index]?.internshipStartDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {startDate ? (
-                              format(startDate, "PPP")
+                            {internshipHistory[index]?.internshipStartDate ? (
+                              format(
+                                internshipHistory[index]?.internshipStartDate,
+                                "PP"
+                              )
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -98,8 +165,12 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={startDate}
-                            onSelect={setStartDate}
+                            selected={
+                              internshipHistory[index]?.internshipStartDate
+                            }
+                            onSelect={(date) =>
+                              setInternshipStartDate(index, date)
+                            }
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -118,11 +189,15 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !endDate && "text-charcoal"
+                              !internshipHistory[index]?.internshipEndDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {endDate ? (
-                              format(endDate, "PPP")
+                            {internshipHistory[index]?.internshipEndDate ? (
+                              format(
+                                internshipHistory[index]?.internshipEndDate,
+                                "PP"
+                              )
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -132,8 +207,12 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={endDate}
-                            onSelect={setEndDate}
+                            selected={
+                              internshipHistory[index]?.internshipEndDate
+                            }
+                            onSelect={(date) => {
+                              setInternshipEndDate(index, date);
+                            }}
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -147,16 +226,27 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       city
                     </Label>
-                    <Input name="employmentCity" />
+                    <Input
+                      value={internshipHistory[index]?.internshipCity || ""}
+                      onChange={(e) => {
+                        setInternshipCity(index, e.target.value);
+                      }}
+                      name="internshipCity"
+                    />
                   </div>
                 </div>
                 <div className="w-full space-y-2">
                   <Textarea
-                    name="jobTitle"
-                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
+                    name="internshipDescription"
+                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
                     rows={6}
-                    maxLength={400}
-                    onChange={(e) => SetCharCount(e.target.value.length)}
+                    value={
+                      internshipHistory[index]?.internshipDescription || ""
+                    }
+                    onChange={(e) => {
+                      SetCharCount(e.target.value.length);
+                      setInternshipDescription(index, e.target.value);
+                    }}
                   />
                   <div className="flex justify-between items-center">
                     <p className="font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -175,7 +265,17 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)}>
+          <div
+            onClick={() => {
+              handleDeleteDiv(index);
+              setInternshipCity(index, "");
+              setInternshipDescription(index, "");
+              setInternshipEmployer(index, "");
+              setInternshipEndDate(index, null);
+              setInternshipJobTitle(index, "");
+              setInternshipStartDate(index, null);
+            }}
+          >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>
