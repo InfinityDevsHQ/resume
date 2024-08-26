@@ -71,6 +71,9 @@ interface FormSecyionProps {
   handleAddSortableActivitiesList: any;
   sortableActivitiesList: any;
   setSortableActivitiesList: any;
+  handleAddSortableCustomSectionList: any;
+  sortableCustomSectionList: any;
+  setSortableCustomSectionList: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -97,6 +100,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableActivitiesList,
   sortableActivitiesList,
   setSortableActivitiesList,
+  handleAddSortableCustomSectionList,
+  sortableCustomSectionList,
+  setSortableCustomSectionList,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
@@ -105,9 +111,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
     []
   );
-  const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
-    number[]
-  >([]);
 
   const { setHobbiesDescription } = useHobbies();
 
@@ -167,6 +170,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setToggled(!toggled);
   };
 
+  // Handle Delete Hobbies
+
   const handleDeleteDiv = () => {
     setToggledHobbies(!toggledHobbies);
   };
@@ -185,13 +190,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setSortableLanguageList((sortableLanguageList) => [
       ...sortableLanguageList,
       sortableLanguageList.length + 1,
-    ]);
-  };
-
-  const handleAddSortableCustomSectionList = () => {
-    setSortableCustomSectionList((sortableCustomSectionList) => [
-      ...sortableCustomSectionList,
-      sortableCustomSectionList.length + 1,
     ]);
   };
 

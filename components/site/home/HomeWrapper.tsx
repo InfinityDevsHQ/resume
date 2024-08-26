@@ -30,6 +30,10 @@ const HomeWrapper = () => {
     []
   );
 
+  const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
+  number[]
+>([]);
+
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
 
@@ -84,6 +88,13 @@ const HomeWrapper = () => {
     ]);
   };
 
+  const handleAddSortableCustomSectionList = () => {
+    setSortableCustomSectionList((sortableCustomSectionList) => [
+      ...sortableCustomSectionList,
+      sortableCustomSectionList.length + 1,
+    ]);
+  };
+
   return (
     <>
       <section className="w-full h-full flex">
@@ -113,6 +124,9 @@ const HomeWrapper = () => {
           handleAddSortableActivitiesList={handleAddSortableActivitiesList}
           sortableActivitiesList={sortableActivitiesList}
           setSortableActivitiesList={setSortableActivitiesList}
+          handleAddSortableCustomSectionList={handleAddSortableCustomSectionList}
+          sortableCustomSectionList={sortableCustomSectionList}
+          setSortableCustomSectionList={setSortableCustomSectionList}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
@@ -123,6 +137,7 @@ const HomeWrapper = () => {
           sortableReferenceList={sortableReferenceList}
           toggledHobbies={toggledHobbies}
           sortableActivitiesList={sortableActivitiesList}
+          sortableCustomSectionList={sortableCustomSectionList}
         />
       </section>
     </>

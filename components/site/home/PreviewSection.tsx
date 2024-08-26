@@ -14,6 +14,7 @@ import { useInternship } from "@/statemanagement/useInternship";
 import { useReference } from "@/statemanagement/useReference";
 import { useHobbies } from "@/statemanagement/useHobbies";
 import { useActivity } from "@/statemanagement/useActivities";
+import { useCustom } from "@/statemanagement/useCustom";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -24,6 +25,7 @@ interface PreviewSectionProps {
   sortableReferenceList: any;
   toggledHobbies: any;
   sortableActivitiesList: any;
+  sortableCustomSectionList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -35,6 +37,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableReferenceList,
   toggledHobbies,
   sortableActivitiesList,
+  sortableCustomSectionList,
 }) => {
   // Internship History
 
@@ -47,6 +50,10 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   // Hobbies
 
   const { hobbiesDescription } = useHobbies();
+
+  // Custom Section
+
+  const { customHistory } = useCustom();
 
   // Internship History
 
@@ -431,6 +438,41 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {activityHistory[index]?.activityDescription}
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Custom Section */}
+            {sortableCustomSectionList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                  Custom Section
+                </h1>
+                {sortableCustomSectionList.map((item: any, index: any) => (
+                  <div key={index}>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {customHistory[index]?.customTitle}
+                      {customHistory[index]?.customCity && (
+                        <>, {customHistory[index]?.customCity}</>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {customHistory[
+                        index
+                      ]?.customStartDate?.toLocaleDateString()}{" "}
+                      {customHistory[index]?.customEndDate && (
+                        <>
+                          -{" "}
+                          {customHistory[
+                            index
+                          ]?.customEndDate?.toLocaleDateString()}
+                        </>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {customHistory[index]?.customDescription}
                     </h6>
                   </div>
                 ))}
