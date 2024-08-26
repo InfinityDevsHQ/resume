@@ -11,6 +11,7 @@ import { useEducation } from "@/statemanagement/useEducation";
 import { useWebNSocialLinks } from "@/statemanagement/useWebNSocialLink";
 import { useCourse } from "@/statemanagement/useCourse";
 import { useInternship } from "@/statemanagement/useInternship";
+import { useReference } from "@/statemanagement/useReference";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -18,6 +19,7 @@ interface PreviewSectionProps {
   sortableWebNSocialLinksList: any;
   sortableCourseList: any;
   sortableInternshipList: any;
+  sortableReferenceList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -26,7 +28,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableWebNSocialLinksList,
   sortableCourseList,
   sortableInternshipList,
+  sortableReferenceList,
 }) => {
+  // Internship History
+
+  const { referenceHistory } = useReference();
+
   // Internship History
 
   const { internshipHistory } = useInternship();
@@ -333,6 +340,32 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {internshipHistory[index]?.internshipDescription}
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Reference */}
+            {sortableReferenceList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                  Reference
+                </h1>
+                {sortableReferenceList.map((item: any, index: any) => (
+                  <div key={index}>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {referenceHistory[index]?.referenceFullName}{" "}
+                      {referenceHistory[index]?.referenceCompany && (
+                        <>from {referenceHistory[index]?.referenceCompany}</>
+                      )}
+                    </h6>
+
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {referenceHistory[index]?.referenceEmail && (
+                        <>{referenceHistory[index]?.referenceEmail} |</>
+                      )}{" "}
+                      {referenceHistory[index]?.referencePhone}
                     </h6>
                   </div>
                 ))}

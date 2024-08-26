@@ -6,6 +6,10 @@ import PreviewSection from "./PreviewSection";
 const HomeWrapper = () => {
   // statemanagement
 
+  const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
+    []
+  );
+
   const [sortableEmploymentList, setSortableEmploymentList] = useState<
     number[]
   >([]);
@@ -60,6 +64,13 @@ const HomeWrapper = () => {
     ]);
   };
 
+  const handleAddSortableReferenceList = () => {
+    setSortableReferenceList((sortableReferenceList) => [
+      ...sortableReferenceList,
+      sortableReferenceList.length + 1,
+    ]);
+  };
+
   return (
     <>
       <section className="w-full h-full flex">
@@ -81,6 +92,9 @@ const HomeWrapper = () => {
           handleAddSortableInternshipList={handleAddSortableInternshipList}
           sortableInternshipList={sortableInternshipList}
           setSortableInternshipList={setSortableInternshipList}
+          handleAddSortableReferenceList={handleAddSortableReferenceList}
+          sortableReferenceList={sortableReferenceList}
+          setSortableReferenceList={setSortableReferenceList}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
@@ -88,6 +102,7 @@ const HomeWrapper = () => {
           sortableWebNSocialLinksList={sortableWebNSocialLinksList}
           sortableCourseList={sortableCourseList}
           sortableInternshipList={sortableInternshipList}
+          sortableReferenceList={sortableReferenceList}
         />
       </section>
     </>

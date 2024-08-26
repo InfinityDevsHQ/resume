@@ -15,6 +15,7 @@ import {
 } from "../ui/accordion";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
+import { useReference } from "@/statemanagement/useReference";
 
 interface SortableReferenceProps {
   sortableReferenceList: any;
@@ -42,6 +43,14 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
     }
   };
 
+  const {
+    referenceHistory,
+    setReferenceCompany,
+    setReferenceEmail,
+    setReferenceFullName,
+    setReferencePhone,
+  } = useReference();
+
   return (
     <>
       {sortableReferenceList.map((item: any, index: any) => (
@@ -53,29 +62,83 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black">Not specified</span>
-                  <span className="block text-charcoal">Not specified</span>
+                  <span className="block text-black text-left">
+                    {referenceHistory[index]?.referenceFullName
+                      ? referenceHistory[index]?.referenceFullName
+                      : "Not specified"}
+                  </span>
+                  <span className="block text-charcoal text-left">
+                    {referenceHistory[index]?.referenceCompany
+                      ? referenceHistory[index]?.referenceCompany
+                      : "Not specified"}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
                 <div className="w-full flex justify-start items-center gap-8">
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      job title
+                      referent's full name
                     </Label>
-                    <Input name="employmentJobTitle" />
+                    <Input
+                      value={referenceHistory[index]?.referenceFullName || ""}
+                      onChange={(e) => {
+                        setReferenceFullName(index, e.target.value);
+                      }}
+                      name="referenceFullName"
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      employer
+                      company
                     </Label>
-                    <Input name="employer" />
+                    <Input
+                      value={referenceHistory[index]?.referenceCompany || ""}
+                      onChange={(e) => {
+                        setReferenceCompany(index, e.target.value);
+                      }}
+                      name="referenceCompany"
+                    />
+                  </div>
+                </div>
+                <div className="w-full flex justify-start items-center gap-8">
+                  <div className="w-1/2 space-y-2">
+                    <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      phone
+                    </Label>
+                    <Input
+                      value={referenceHistory[index]?.referencePhone || ""}
+                      onChange={(e) => {
+                        setReferencePhone(index, e.target.value);
+                      }}
+                      name="referencePhone"
+                    />
+                  </div>
+                  <div className="w-1/2 space-y-2">
+                    <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      email
+                    </Label>
+                    <Input
+                      value={referenceHistory[index]?.referenceEmail || ""}
+                      onChange={(e) => {
+                        setReferenceEmail(index, e.target.value);
+                      }}
+                      name="referenceEmail"
+                    />
                   </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)}>
+          <div
+            onClick={() => {
+              handleDeleteDiv(index);
+              setReferenceCompany(index, "");
+              setReferenceEmail(index, "");
+              setReferenceFullName(index, "");
+              setReferencePhone(index, "");
+            }}
+          >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>

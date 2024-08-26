@@ -62,6 +62,9 @@ interface FormSecyionProps {
   handleAddSortableInternshipList: any;
   sortableInternshipList: any;
   setSortableInternshipList: any;
+  handleAddSortableReferenceList: any;
+  sortableReferenceList: any;
+  setSortableReferenceList: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -80,15 +83,15 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableInternshipList,
   sortableInternshipList,
   setSortableInternshipList,
+  handleAddSortableReferenceList,
+  sortableReferenceList,
+  setSortableReferenceList,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
 
   const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
-    []
-  );
-  const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
     []
   );
   const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
@@ -170,13 +173,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setSortableLanguageList((sortableLanguageList) => [
       ...sortableLanguageList,
       sortableLanguageList.length + 1,
-    ]);
-  };
-
-  const handleAddSortableReferenceList = () => {
-    setSortableReferenceList((sortableReferenceList) => [
-      ...sortableReferenceList,
-      sortableReferenceList.length + 1,
     ]);
   };
 
