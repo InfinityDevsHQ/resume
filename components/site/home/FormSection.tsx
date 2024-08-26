@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Frown, Plus, Smile } from "lucide-react";
+import { Frown, Plus, Smile, TrashIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -45,6 +45,7 @@ import SortableActivities from "@/components/sortable/SortableActivities";
 import SortableCustomSection from "@/components/sortable/SortableCustomSection";
 import SortableHobbies from "@/components/sortable/SortableHobbies";
 import { useProfessionalSummary } from "@/statemanagement/useProfessionalSummary";
+import { useHobbies } from "@/statemanagement/useHobbies";
 
 interface FormSecyionProps {
   handleAddSortableEmploymentList: any;
@@ -65,6 +66,8 @@ interface FormSecyionProps {
   handleAddSortableReferenceList: any;
   sortableReferenceList: any;
   setSortableReferenceList: any;
+  toggledHobbies: any,
+  setToggledHobbies: any,
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -86,6 +89,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableReferenceList,
   sortableReferenceList,
   setSortableReferenceList,
+  toggledHobbies,
+  setToggledHobbies
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
@@ -97,10 +102,12 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
     number[]
   >([]);
-  const [sortableHobbiesList, setSortableHobbiesList] = useState<number[]>([]);
+
   const [sortableActivitiesList, setSortableActivitiesList] = useState<
     number[]
   >([]);
+
+  const { setHobbiesDescription } = useHobbies();
 
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
 
@@ -112,7 +119,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [toggledActivities, setToggledActivities] = useState<boolean>(false);
   const [toggledCustomSection, setToggledCustomSection] =
     useState<boolean>(false);
-  const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
 
   // Professional Summary
 
@@ -159,6 +165,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setToggled(!toggled);
   };
 
+  const handleDeleteDiv = () => {
+    setToggledHobbies(!toggledHobbies);
+  };
+
   // Add More
 
   const handleAddSortableSkillsList = () => {
@@ -187,13 +197,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setSortableCustomSectionList((sortableCustomSectionList) => [
       ...sortableCustomSectionList,
       sortableCustomSectionList.length + 1,
-    ]);
-  };
-
-  const handleAddSortableHobbiesList = () => {
-    setSortableHobbiesList((sortableHobbiesList) => [
-      ...sortableHobbiesList,
-      sortableHobbiesList.length + 1,
     ]);
   };
 
@@ -828,29 +831,22 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Hobbies */}
             {toggledHobbies && (
               <div className="flex flex-col gap-4 mb-7">
-                <div>
+                <div className="group flex gap-x-3 items-center">
                   <h1 className="text-lg font-semibold text-black/85">
-                    Custom Section
+                    Hobbies
                   </h1>
+                  <TrashIcon
+                    onClick={() => {
+                      handleDeleteDiv();
+                      setHobbiesDescription("");
+                    }}
+                    className="hover:text-aquamarine-100 hidden group-hover:flex transition duration-200"
+                  />
                 </div>
-                <SortableHobbies
-                  sortableHobbiesList={sortableHobbiesList}
-                  setSortableHobbiesList={setSortableHobbiesList}
-                  toggledHobbies={toggledHobbies}
-                  setToggledHobbies={setToggledHobbies}
-                />
-                <div>
-                  <Button
-                    onClick={handleAddSortableHobbiesList}
-                    type="button"
-                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
-                  >
-                    <Plus className="text-aquamarine-100" />
-                    {sortableReferenceList.length > 0
-                      ? "add one more hobbies"
-                      : "add hobbies"}
-                  </Button>
-                </div>
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  What do you like ?
+                </Label>
+                <SortableHobbies />
               </div>
             )}
 

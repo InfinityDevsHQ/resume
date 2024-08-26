@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { useWebNSocialLinks } from "@/statemanagement/useWebNSocialLink";
 import { useCourse } from "@/statemanagement/useCourse";
 import { useInternship } from "@/statemanagement/useInternship";
 import { useReference } from "@/statemanagement/useReference";
+import { useHobbies } from "@/statemanagement/useHobbies";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -20,6 +21,7 @@ interface PreviewSectionProps {
   sortableCourseList: any;
   sortableInternshipList: any;
   sortableReferenceList: any;
+  toggledHobbies: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -29,10 +31,15 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableCourseList,
   sortableInternshipList,
   sortableReferenceList,
+  toggledHobbies,
 }) => {
   // Internship History
 
   const { referenceHistory } = useReference();
+
+  // Hobbies
+
+  const { hobbiesDescription } = useHobbies();
 
   // Internship History
 
@@ -184,6 +191,19 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     </h6>
                   </div>
                 ))}
+              </>
+            )}
+            {/*  Hobbies */}
+            {toggledHobbies && (
+              <>
+                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                  Hobbies
+                </h1>
+                <div>
+                  <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                    {hobbiesDescription}
+                  </h6>
+                </div>
               </>
             )}
           </div>

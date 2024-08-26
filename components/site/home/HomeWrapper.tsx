@@ -6,6 +6,8 @@ import PreviewSection from "./PreviewSection";
 const HomeWrapper = () => {
   // statemanagement
 
+  const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
+
   const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
     []
   );
@@ -95,6 +97,8 @@ const HomeWrapper = () => {
           handleAddSortableReferenceList={handleAddSortableReferenceList}
           sortableReferenceList={sortableReferenceList}
           setSortableReferenceList={setSortableReferenceList}
+          toggledHobbies={toggledHobbies}
+          setToggledHobbies={setToggledHobbies}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
@@ -103,6 +107,7 @@ const HomeWrapper = () => {
           sortableCourseList={sortableCourseList}
           sortableInternshipList={sortableInternshipList}
           sortableReferenceList={sortableReferenceList}
+          toggledHobbies={toggledHobbies}
         />
       </section>
     </>
