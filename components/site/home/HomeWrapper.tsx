@@ -6,6 +6,12 @@ import PreviewSection from "./PreviewSection";
 const HomeWrapper = () => {
   // statemanagement
 
+  const [skillsToggledProgress, setSkillsToggledProgress] =
+    useState<boolean>(true);
+
+  const [languageToggledProgress, setLanguageToggledProgress] =
+    useState<boolean>(true);
+
   const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
 
   const [sortableActivitiesList, setSortableActivitiesList] = useState<
@@ -155,6 +161,10 @@ const HomeWrapper = () => {
           handleAddSortableLanguageList={handleAddSortableLanguageList}
           sortableLanguageList={sortableLanguageList}
           setSortableLanguageList={setSortableLanguageList}
+          skillsToggledProgress={skillsToggledProgress}
+          setSkillsToggledProgress={setSkillsToggledProgress}
+          languageToggledProgress={languageToggledProgress}
+          setLanguageToggledProgress={setLanguageToggledProgress}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
@@ -168,6 +178,8 @@ const HomeWrapper = () => {
           sortableCustomSectionList={sortableCustomSectionList}
           sortableSkillsList={sortableSkillsList}
           sortableLanguageList={sortableLanguageList}
+          skillsToggledProgress={skillsToggledProgress}
+          languageToggledProgress={languageToggledProgress}
         />
       </section>
     </>

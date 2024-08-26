@@ -31,6 +31,8 @@ interface PreviewSectionProps {
   sortableCustomSectionList: any;
   sortableSkillsList: any;
   sortableLanguageList: any;
+  skillsToggledProgress: any;
+  languageToggledProgress: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -45,6 +47,8 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableCustomSectionList,
   sortableSkillsList,
   sortableLanguageList,
+  skillsToggledProgress,
+  languageToggledProgress,
 }) => {
   // Language
 
@@ -233,10 +237,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
                       {skillsHistory[index]?.skillsTitle}
                     </h6>
-                    <Progress
-                      value={skillsHistory[index]?.skillsLevel || 60}
-                      className="w-[100%] h-1 bg-[#808080]"
-                    />
+                    {skillsToggledProgress && (
+                      <Progress
+                        value={skillsHistory[index]?.skillsLevel || 60}
+                        className="w-[100%] h-1 bg-[#808080]"
+                      />
+                    )}
                   </div>
                 ))}
               </>
@@ -265,10 +271,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
                       {languageHistory[index]?.languageTitle}
                     </h6>
-                    <Progress
-                      value={languageHistory[index]?.languageLevel || 66}
-                      className="w-[100%] h-1 bg-[#808080]"
-                    />
+                    {languageToggledProgress && (
+                      <Progress
+                        value={languageHistory[index]?.languageLevel || 66}
+                        className="w-[100%] h-1 bg-[#808080]"
+                      />
+                    )}
                   </div>
                 ))}
               </>

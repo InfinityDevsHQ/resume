@@ -46,6 +46,8 @@ import SortableCustomSection from "@/components/sortable/SortableCustomSection";
 import SortableHobbies from "@/components/sortable/SortableHobbies";
 import { useProfessionalSummary } from "@/statemanagement/useProfessionalSummary";
 import { useHobbies } from "@/statemanagement/useHobbies";
+import { Switch } from "@/components/ui/switch";
+import { useSkills } from "@/statemanagement/useSkills";
 
 interface FormSecyionProps {
   handleAddSortableEmploymentList: any;
@@ -80,6 +82,10 @@ interface FormSecyionProps {
   handleAddSortableLanguageList: any;
   sortableLanguageList: any;
   setSortableLanguageList: any;
+  skillsToggledProgress: any;
+  setSkillsToggledProgress: any;
+  setLanguageToggledProgress: any;
+  languageToggledProgress: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -115,6 +121,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableLanguageList,
   sortableLanguageList,
   setSortableLanguageList,
+  skillsToggledProgress,
+  setSkillsToggledProgress,
+  languageToggledProgress,
+  setLanguageToggledProgress,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
@@ -610,6 +620,21 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     handleAddSortableSkillsList={handleAddSortableSkillsList}
                   />
                 </div>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    onClick={() => {
+                      setSkillsToggledProgress(!skillsToggledProgress);
+                    }}
+                    checked={skillsToggledProgress}
+                    id="showExpertise"
+                  />
+                  <Label
+                    htmlFor="showExpertise"
+                    className="capitalize font-normal text-base text-black/90"
+                  >
+                    show expertise
+                  </Label>
+                </div>
                 <div
                   className={`${sortableSkillsList.length > 1 && "space-y-4"}`}
                 >
@@ -698,6 +723,21 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <h1 className="text-lg font-semibold text-black/85">
                     Language
                   </h1>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    onClick={() => {
+                      setLanguageToggledProgress(!languageToggledProgress);
+                    }}
+                    checked={languageToggledProgress}
+                    id="showExpertise"
+                  />
+                  <Label
+                    htmlFor="showExpertise"
+                    className="capitalize font-normal text-base text-black/90"
+                  >
+                    show expertise
+                  </Label>
                 </div>
                 <SortableLanguage
                   sortableLanguageList={sortableLanguageList}
