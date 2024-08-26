@@ -10,6 +10,8 @@ const HomeWrapper = () => {
     number[]
   >([]);
 
+  const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
+
   const [sortableEducationList, setSortableEducationList] = useState<number[]>(
     []
   );
@@ -40,6 +42,13 @@ const HomeWrapper = () => {
     ]);
   };
 
+  const handleAddSortableCourseList = () => {
+    setSortableCourseList((sortableCourseList) => [
+      ...sortableCourseList,
+      sortableCourseList.length + 1,
+    ]);
+  };
+
   return (
     <>
       <section className="w-full h-full flex">
@@ -55,11 +64,15 @@ const HomeWrapper = () => {
           }
           sortableWebNSocialLinksList={sortableWebNSocialLinksList}
           setSortableWebNSocialLinksList={setSortableWebNSocialLinksList}
+          handleAddSortableCourseList={handleAddSortableCourseList}
+          sortableCourseList={sortableCourseList}
+          setSortableCourseList={setSortableCourseList}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
           sortableEducationList={sortableEducationList}
           sortableWebNSocialLinksList={sortableWebNSocialLinksList}
+          sortableCourseList={sortableCourseList}
         />
       </section>
     </>

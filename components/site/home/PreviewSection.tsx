@@ -9,17 +9,20 @@ import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 import { Button } from "@/components/ui/button";
 import { useEducation } from "@/statemanagement/useEducation";
 import { useWebNSocialLinks } from "@/statemanagement/useWebNSocialLink";
+import { useCourse } from "@/statemanagement/useCourse";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
   sortableEducationList: any;
   sortableWebNSocialLinksList: any;
+  sortableCourseList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableEmploymentList,
   sortableEducationList,
   sortableWebNSocialLinksList,
+  sortableCourseList,
 }) => {
   // Employment History
 
@@ -28,6 +31,10 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   // Education History
 
   const { educationHistory } = useEducation();
+
+  // Course History
+
+  const { courseHistory } = useCourse();
 
   // Professional Summary
 
@@ -144,7 +151,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             )}
             {/*  Web and Social Links */}
             {sortableWebNSocialLinksList.length > 0 && (
-              <div className="space-y-2">
+              <>
                 <h1 className="text-white text-[10px] leading-[14px] font-medium">
                   Links
                 </h1>
@@ -163,7 +170,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     </h6>
                   </div>
                 ))}
-              </div>
+              </>
             )}
           </div>
           <div className="w-[70%] bg-white h-full py-8 px-4 space-y-3">
@@ -249,6 +256,38 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     </h6>
                     <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
                       {educationHistory[index]?.educationDescription}
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Course */}
+            {sortableCourseList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                  Course
+                </h1>
+                {sortableCourseList.map((item: any, index: any) => (
+                  <div key={index}>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {courseHistory[index]?.course}
+                      {courseHistory[index]?.courseInstitution && (
+                        <>, {courseHistory[index]?.courseInstitution}</>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {courseHistory[
+                        index
+                      ]?.courseStartDate?.toLocaleDateString()}{" "}
+                      {courseHistory[index]?.courseEndDate && (
+                        <>
+                          -{" "}
+                          {courseHistory[
+                            index
+                          ]?.courseEndDate?.toLocaleDateString()}
+                        </>
+                      )}
                     </h6>
                   </div>
                 ))}

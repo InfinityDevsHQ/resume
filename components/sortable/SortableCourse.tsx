@@ -15,6 +15,7 @@ import {
 } from "../ui/accordion";
 import { format } from "date-fns";
 import { Textarea } from "../ui/textarea";
+import { useCourse } from "@/statemanagement/useCourse";
 
 interface SortableCourseProps {
   sortableCourseList: any;
@@ -42,6 +43,14 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
     }
   };
 
+  const {
+    courseHistory,
+    setCourse,
+    setCourseInstitution,
+    setCourseStartDate,
+    setCourseEndDate,
+  } = useCourse();
+
   return (
     <>
       {sortableCourseList.map((item: any, index: any) => (
@@ -53,23 +62,75 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black">Not specified</span>
-                  <span className="block text-charcoal">Not specified</span>
+                  <span className="block text-black text-left">
+                    {courseHistory[index]?.course ||
+                    courseHistory[index]?.courseInstitution ? (
+                      <>
+                        {courseHistory[index]?.course}{" "}
+                        {courseHistory[index]?.courseInstitution && (
+                          <>at {courseHistory[index]?.courseInstitution}</>
+                        )}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
+                  </span>
+                  <span className="block text-charcoal text-left">
+                    {courseHistory[index]?.courseEndDate ||
+                    courseHistory[index]?.courseStartDate ? (
+                      <>
+                        {courseHistory[index]?.courseStartDate &&
+                          courseHistory[
+                            index
+                          ]?.courseStartDate?.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                          })}{" "}
+                        {courseHistory[index]?.courseEndDate && (
+                          <>
+                            -{" "}
+                            {courseHistory[
+                              index
+                            ]?.courseEndDate?.toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            })}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      "Not specified"
+                    )}
+                  </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
                 <div className="w-full flex justify-start items-center gap-8">
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      job title
+                      course
                     </Label>
-                    <Input name="employmentJobTitle" />
+                    <Input
+                      name="course"
+                      value={courseHistory[index]?.course || ""}
+                      onChange={(e) => {
+                        setCourse(index, e.target.value);
+                      }}
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      employer
+                      institution
                     </Label>
-                    <Input name="employer" />
+                    <Input
+                      name="courseInstitution"
+                      value={courseHistory[index]?.courseInstitution || ""}
+                      onChange={(e) => {
+                        setCourseInstitution(index, e.target.value);
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="w-full flex justify-start items-center gap-8">
@@ -84,11 +145,15 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !startDate && "text-charcoal"
+                              !courseHistory[index]?.courseStartDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {startDate ? (
-                              format(startDate, "PPP")
+                            {courseHistory[index]?.courseStartDate ? (
+                              format(
+                                courseHistory[index]?.courseStartDate,
+                                "PP"
+                              )
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -98,8 +163,8 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={startDate}
-                            onSelect={setStartDate}
+                            selected={courseHistory[index]?.courseStartDate}
+                            onSelect={(date) => setCourseStartDate(index, date)}
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -118,11 +183,12 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
                             variant={"outline"}
                             className={cn(
                               "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                              !endDate && "text-charcoal"
+                              !courseHistory[index]?.courseEndDate &&
+                                "text-charcoal"
                             )}
                           >
-                            {endDate ? (
-                              format(endDate, "PPP")
+                            {courseHistory[index]?.courseEndDate ? (
+                              format(courseHistory[index]?.courseEndDate, "PP")
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -132,8 +198,8 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={endDate}
-                            onSelect={setEndDate}
+                            selected={courseHistory[index]?.courseEndDate}
+                            onSelect={(date) => setCourseEndDate(index, date)}
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
                             }
@@ -143,39 +209,19 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
                       </Popover>
                     </div>
                   </div>
-                  <div className="w-1/2 space-y-2">
-                    <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      city
-                    </Label>
-                    <Input name="employmentCity" />
-                  </div>
-                </div>
-                <div className="w-full space-y-2">
-                  <Textarea
-                    name="jobTitle"
-                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center"
-                    rows={6}
-                    maxLength={400}
-                    onChange={(e) => SetCharCount(e.target.value.length)}
-                  />
-                  <div className="flex justify-between items-center">
-                    <p className="font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      Write 200+ characters to increase interview chances
-                    </p>
-                    <p className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                      {charCount} / 200+
-                      {charCount >= 200 ? (
-                        <Smile className="text-green-400" />
-                      ) : (
-                        <Frown className="text-red-400" />
-                      )}
-                    </p>
-                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div onClick={() => handleDeleteDiv(index)}>
+          <div
+            onClick={() => {
+              handleDeleteDiv(index);
+              setCourse(index, "");
+              setCourseEndDate(index, null);
+              setCourseStartDate(index, null);
+              setCourseInstitution(index, "");
+            }}
+          >
             <TrashIcon className="hover:text-aquamarine-100" />
           </div>
         </div>
