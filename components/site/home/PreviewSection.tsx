@@ -13,6 +13,7 @@ import { useCourse } from "@/statemanagement/useCourse";
 import { useInternship } from "@/statemanagement/useInternship";
 import { useReference } from "@/statemanagement/useReference";
 import { useHobbies } from "@/statemanagement/useHobbies";
+import { useActivity } from "@/statemanagement/useActivities";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -22,6 +23,7 @@ interface PreviewSectionProps {
   sortableInternshipList: any;
   sortableReferenceList: any;
   toggledHobbies: any;
+  sortableActivitiesList: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -32,7 +34,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableInternshipList,
   sortableReferenceList,
   toggledHobbies,
+  sortableActivitiesList,
 }) => {
+  // Internship History
+
+  const { activityHistory } = useActivity();
+
   // Internship History
 
   const { referenceHistory } = useReference();
@@ -386,6 +393,44 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         <>{referenceHistory[index]?.referenceEmail} |</>
                       )}{" "}
                       {referenceHistory[index]?.referencePhone}
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Extra Curricular Activities */}
+            {sortableActivitiesList.length > 0 && (
+              <div className="space-y-2">
+                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                  Extra Curricular Activities
+                </h1>
+                {sortableActivitiesList.map((item: any, index: any) => (
+                  <div key={index}>
+                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                      {activityHistory[index]?.activityFunctionTitle}
+                      {activityHistory[index]?.activityEmployer && (
+                        <>, {activityHistory[index]?.activityEmployer}</>
+                      )}
+                      {activityHistory[index]?.activityCity && (
+                        <>, {activityHistory[index]?.activityCity}</>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {activityHistory[
+                        index
+                      ]?.activityStartDate?.toLocaleDateString()}{" "}
+                      {activityHistory[index]?.activityEndDate && (
+                        <>
+                          -{" "}
+                          {activityHistory[
+                            index
+                          ]?.activityEndDate?.toLocaleDateString()}
+                        </>
+                      )}
+                    </h6>
+                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                      {activityHistory[index]?.activityDescription}
                     </h6>
                   </div>
                 ))}

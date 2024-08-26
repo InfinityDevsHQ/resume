@@ -66,8 +66,11 @@ interface FormSecyionProps {
   handleAddSortableReferenceList: any;
   sortableReferenceList: any;
   setSortableReferenceList: any;
-  toggledHobbies: any,
-  setToggledHobbies: any,
+  toggledHobbies: any;
+  setToggledHobbies: any;
+  handleAddSortableActivitiesList: any;
+  sortableActivitiesList: any;
+  setSortableActivitiesList: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -90,7 +93,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
   sortableReferenceList,
   setSortableReferenceList,
   toggledHobbies,
-  setToggledHobbies
+  setToggledHobbies,
+  handleAddSortableActivitiesList,
+  sortableActivitiesList,
+  setSortableActivitiesList,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
@@ -100,10 +106,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
     []
   );
   const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
-    number[]
-  >([]);
-
-  const [sortableActivitiesList, setSortableActivitiesList] = useState<
     number[]
   >([]);
 
@@ -183,13 +185,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setSortableLanguageList((sortableLanguageList) => [
       ...sortableLanguageList,
       sortableLanguageList.length + 1,
-    ]);
-  };
-
-  const handleAddSortableActivitiesList = () => {
-    setSortableActivitiesList((sortableActivitiesList) => [
-      ...sortableActivitiesList,
-      sortableActivitiesList.length + 1,
     ]);
   };
 
@@ -775,7 +770,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
               <div className="flex flex-col gap-4 mb-7">
                 <div>
                   <h1 className="text-lg font-semibold text-black/85">
-                    Activitiess
+                    Extra Curricular Activities
                   </h1>
                 </div>
                 <SortableActivities
@@ -840,7 +835,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                       handleDeleteDiv();
                       setHobbiesDescription("");
                     }}
-                    className="hover:text-aquamarine-100 hidden group-hover:flex transition duration-200"
+                    className="hover:text-aquamarine-100 hidden group-hover:flex transition duration-200 cursor-pointer"
                   />
                 </div>
                 <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">

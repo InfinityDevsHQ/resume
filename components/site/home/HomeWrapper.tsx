@@ -8,6 +8,10 @@ const HomeWrapper = () => {
 
   const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
 
+  const [sortableActivitiesList, setSortableActivitiesList] = useState<
+  number[]
+>([]);
+
   const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
     []
   );
@@ -73,6 +77,13 @@ const HomeWrapper = () => {
     ]);
   };
 
+  const handleAddSortableActivitiesList = () => {
+    setSortableActivitiesList((sortableActivitiesList) => [
+      ...sortableActivitiesList,
+      sortableActivitiesList.length + 1,
+    ]);
+  };
+
   return (
     <>
       <section className="w-full h-full flex">
@@ -99,6 +110,9 @@ const HomeWrapper = () => {
           setSortableReferenceList={setSortableReferenceList}
           toggledHobbies={toggledHobbies}
           setToggledHobbies={setToggledHobbies}
+          handleAddSortableActivitiesList={handleAddSortableActivitiesList}
+          sortableActivitiesList={sortableActivitiesList}
+          setSortableActivitiesList={setSortableActivitiesList}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
@@ -108,6 +122,7 @@ const HomeWrapper = () => {
           sortableInternshipList={sortableInternshipList}
           sortableReferenceList={sortableReferenceList}
           toggledHobbies={toggledHobbies}
+          sortableActivitiesList={sortableActivitiesList}
         />
       </section>
     </>
