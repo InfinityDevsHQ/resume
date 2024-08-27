@@ -3,38 +3,46 @@ import { Plus } from "lucide-react";
 import React, { useState } from "react";
 
 interface SkillsBadgeProps {
-  handleAddSortableSkillsList: any;
+  handleAddSortableSkillsBadgeList: any;
+  skillsHistory: any;
+  clickedBadges: any;
 }
 
 const badges = [
-  { id: 1, label: "Communication Skills", level: "skillful" },
-  { id: 2, label: "Ability to Work Under Pressure", level: "skillful" },
-  { id: 3, label: "Adaptability", level: "skillful" },
-  { id: 4, label: "Microsoft Office", level: "skillful" },
-  { id: 5, label: "Fast Learner", level: "skillful" },
-  { id: 6, label: "Customer Service", level: "skillful" },
-  { id: 7, label: "Programming", level: "skillful" },
-  { id: 8, label: "Ability to work in a team", level: "skillful" },
-  { id: 9, label: "Critical thinking and problem solving", level: "skillful" },
-  { id: 10, label: "Effective Time Management", level: "skillful" },
-  { id: 11, label: "Team leadership", level: "skillful" },
-  { id: 12, label: "Ability to Multitask", level: "skillful" },
+  { id: 1, label: "Communication Skills" },
+  { id: 2, label: "Ability to Work Under Pressure" },
+  { id: 3, label: "Adaptability" },
+  { id: 4, label: "Microsoft Office" },
+  { id: 5, label: "Fast Learner" },
+  { id: 6, label: "Customer Service" },
+  { id: 7, label: "Programming" },
+  { id: 8, label: "Ability to work in a team" },
+  { id: 9, label: "Critical thinking and problem solving" },
+  { id: 10, label: "Effective Time Management" },
+  { id: 11, label: "Team leadership" },
+  { id: 12, label: "Ability to Multitask" },
 ];
 
 const SkillsBadge: React.FC<SkillsBadgeProps> = ({
-  handleAddSortableSkillsList,
+  handleAddSortableSkillsBadgeList,
+  skillsHistory,
+  clickedBadges,
 }) => {
   return (
     <>
       <div className="flex flex-wrap gap-3">
         {badges.map((item, index) => (
           <Button
-            // onClick={handleAddSortableSkillsList}
+            onClick={() => {
+              handleAddSortableSkillsBadgeList(item.label);
+            }}
             type="button"
+            disabled={clickedBadges.has(item.label)}
             key={index}
-            className={`bg-[#eff2f9] text-[#424242] hover:bg-[#eff2f9] hover:text-aquamarine-100 gap-x-2 $`}
+            className="bg-[#eff2f9] text-[#424242] hover:bg-[#eff2f9] hover:text-aquamarine-100 gap-x-2"
           >
             {item.label}
+            {skillsHistory[index]?.badgeData}
             <Plus className="w-[18px]" />
           </Button>
         ))}

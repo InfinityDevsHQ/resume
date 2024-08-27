@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Frown, Plus, Smile, TrashIcon } from "lucide-react";
+import { Frown, Languages, Plus, Smile, TrashIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -76,7 +76,7 @@ interface FormSecyionProps {
   handleAddSortableCustomSectionList: any;
   sortableCustomSectionList: any;
   setSortableCustomSectionList: any;
-  handleAddSortableSkillsList: any;
+  handleAddSortableSkillsBadgeList: any;
   sortableSkillsList: any;
   setSortableSkillsList: any;
   handleAddSortableLanguageList: any;
@@ -86,6 +86,9 @@ interface FormSecyionProps {
   setSkillsToggledProgress: any;
   setLanguageToggledProgress: any;
   languageToggledProgress: any;
+  handleAddSortableSkillsList: any;
+  setClickedBadges: any;
+  clickedBadges: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -115,7 +118,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableCustomSectionList,
   sortableCustomSectionList,
   setSortableCustomSectionList,
-  handleAddSortableSkillsList,
+  handleAddSortableSkillsBadgeList,
   sortableSkillsList,
   setSortableSkillsList,
   handleAddSortableLanguageList,
@@ -125,13 +128,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
   setSkillsToggledProgress,
   languageToggledProgress,
   setLanguageToggledProgress,
+  handleAddSortableSkillsList,
+  setClickedBadges,
+  clickedBadges,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
-
   const { setHobbiesDescription } = useHobbies();
-  const [disabledBadges, setDisabledBadges] = useState<boolean>(false);
   const [toggledCourse, setToggledCourse] = useState<boolean>(false);
   const [toggledInternship, setToggledInternship] = useState<boolean>(false);
   const [toggledLanguage, setToggledLanguage] = useState<boolean>(false);
@@ -185,6 +189,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setToggled(!toggled);
   };
 
+  const { addSkill, skillsHistory, setSkillsTitle, setSkillsLevel } =
+    useSkills();
+
   // Handle Delete Hobbies
 
   const handleDeleteDiv = () => {
@@ -193,28 +200,28 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
   return (
     <>
-      <div className="bg-white w-1/2 h-full p-12">
+      <div className="break-words bg-white w-1/2 xxl:p-12 xl:p-6 p-3">
         <Form {...form}>
           <form>
             {/* Resume Title */}
-            <div className="max-w-xs mx-auto mb-5">
+            <div className="break-words max-w-xs mx-auto mb-5">
               <Input
-                className="bg-transparent text-2xl text-center placeholder:text-2xl"
+                className="break-words bg-transparent text-2xl text-center placeholder:text-2xl"
                 placeholder="Untitled"
                 autoComplete="off"
               />
             </div>
 
             {/* Personal Details */}
-            <div className="flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="text-lg font-semibold text-black/85">
+                <h1 className="break-words text-lg font-semibold text-black/85">
                   Personal Details
                 </h1>
               </div>
-              <div className="w-full flex justify-start items-center gap-8">
-                <div className="w-1/2 space-y-2">
-                  <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <div className="break-words w-full flex justify-start items-center gap-8">
+                <div className="break-words w-1/2 space-y-2">
+                  <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                     wanted job title{""}
                     <TooltipProvider>
                       <Tooltip>
@@ -222,10 +229,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           <HelpCircle
                             height={16}
                             width={16}
-                            className="text-aquamarine-100 hover:text-aquamarine-200 text-xl"
+                            className="break-words text-aquamarine-100 hover:text-aquamarine-200 text-xl"
                           />
                         </TooltipTrigger>
-                        <TooltipContent className="max-w-60 w-full bg-black text-white font-normal text-xs">
+                        <TooltipContent className="break-words max-w-60 w-full bg-black text-white font-normal text-xs">
                           Add a title like &apos;Senior Marketer&apos; or
                           &apos;Sales Executive&apos; that quickly describe your
                           overall experience or the type of role you&apos;re
@@ -240,37 +247,37 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
                 </div>
-                <div className="w-1/2 space-y-2">
-                  <div className="flex justify-start items-center gap-2">
+                <div className="break-words w-1/2 space-y-2">
+                  <div className="break-words flex justify-start items-center gap-2">
                     {selectedImage ? (
-                      <div className="size-16">
+                      <div className="break-words size-16">
                         <Image
                           src={selectedImage}
                           width={60}
                           height={60}
-                          className="w-full"
+                          className="break-words w-full"
                           alt="avatar"
                         />
                       </div>
                     ) : (
-                      <UploadIcon className="w-9" />
+                      <UploadIcon className="break-words w-9" />
                     )}
 
-                    <Label className="capitalize font-normal text-sm text-aquamarine-100 hover:text-aquamarine-200 cursor-pointer">
+                    <Label className="break-words capitalize font-normal text-sm text-aquamarine-100 hover:text-aquamarine-200 cursor-pointer">
                       Upload Photo
                       <Input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
-                        className="hidden"
+                        className="break-words hidden"
                       />
                     </Label>
                   </div>
                 </div>
               </div>
-              <div className="w-full flex justify-start items-center gap-8">
-                <div className="w-1/2 space-y-2">
-                  <Label className="capitalize font-normal text-sm text-charcoal">
+              <div className="break-words w-full flex justify-start items-center gap-8">
+                <div className="break-words w-1/2 space-y-2">
+                  <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     first name
                   </Label>
                   <Input
@@ -278,8 +285,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
-                <div className="w-1/2 space-y-2">
-                  <Label className="capitalize font-normal text-sm text-charcoal">
+                <div className="break-words w-1/2 space-y-2">
+                  <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     last name
                   </Label>
                   <Input
@@ -288,9 +295,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   />
                 </div>
               </div>
-              <div className="w-full flex justify-start items-center gap-8">
-                <div className="w-1/2 space-y-2">
-                  <Label className="capitalize font-normal text-sm text-charcoal">
+              <div className="break-words w-full flex justify-start items-center gap-8">
+                <div className="break-words w-1/2 space-y-2">
+                  <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     email
                   </Label>
                   <Input
@@ -298,8 +305,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="w-1/2 space-y-2">
-                  <Label className="capitalize font-normal text-sm text-charcoal">
+                <div className="break-words w-1/2 space-y-2">
+                  <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     phone
                   </Label>
                   <Input
@@ -308,12 +315,16 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   />
                 </div>
               </div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1" className="border-0">
-                  <AccordionContent className="flex flex-col gap-4">
-                    <div className="w-full flex justify-start items-center gap-8">
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <Accordion
+                type="single"
+                collapsible
+                className="break-words w-full"
+              >
+                <AccordionItem value="item-1" className="break-words border-0">
+                  <AccordionContent className="break-words flex flex-col gap-4">
+                    <div className="break-words w-full flex justify-start items-center gap-8">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                           country name{""}
                         </Label>
                         <Input
@@ -321,8 +332,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           onChange={(e) => setCountryName(e.target.value)}
                         />
                       </div>
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                           city{""}
                         </Label>
                         <Input
@@ -331,9 +342,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         />
                       </div>
                     </div>
-                    <div className="w-full flex justify-start items-center gap-8">
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal">
+                    <div className="break-words w-full flex justify-start items-center gap-8">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal">
                           address
                         </Label>
                         <Input
@@ -341,8 +352,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           onChange={(e) => setAddress(e.target.value)}
                         />
                       </div>
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal">
                           postal code
                         </Label>
                         <Input
@@ -351,9 +362,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         />
                       </div>
                     </div>
-                    <div className="w-full flex justify-start items-center gap-8">
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                    <div className="break-words w-full flex justify-start items-center gap-8">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                           driving license{""}
                           <TooltipProvider>
                             <Tooltip>
@@ -361,10 +372,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                                 <HelpCircle
                                   height={16}
                                   width={16}
-                                  className="text-aquamarine-100 hover:text-aquamarine-200 text-xl"
+                                  className="break-words text-aquamarine-100 hover:text-aquamarine-200 text-xl"
                                 />
                               </TooltipTrigger>
-                              <TooltipContent className="max-w-60 w-full bg-black text-white font-normal text-xs">
+                              <TooltipContent className="break-words max-w-60 w-full bg-black text-white font-normal text-xs">
                                 Include this section if our proffession is
                                 requires a certian type of license. If not,
                                 leave it blank.
@@ -377,8 +388,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           onChange={(e) => setDrivingLicense(e.target.value)}
                         />
                       </div>
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                           nationality{""}
                           <TooltipProvider>
                             <Tooltip>
@@ -386,10 +397,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                                 <HelpCircle
                                   height={16}
                                   width={16}
-                                  className="text-aquamarine-100 hover:text-aquamarine-200 text-xl"
+                                  className="break-words text-aquamarine-100 hover:text-aquamarine-200 text-xl"
                                 />
                               </TooltipTrigger>
-                              <TooltipContent className="max-w-60 w-full bg-black text-white font-normal text-xs">
+                              <TooltipContent className="break-words max-w-60 w-full bg-black text-white font-normal text-xs">
                                 Include your nationality only if it relevent to
                                 your postion. In most cases, leave this blank.
                               </TooltipContent>
@@ -402,9 +413,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         />
                       </div>
                     </div>
-                    <div className="w-full flex justify-start items-center gap-8">
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal">
+                    <div className="break-words w-full flex justify-start items-center gap-8">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal">
                           place of birth{""}
                         </Label>
                         <Input
@@ -412,8 +423,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           onChange={(e) => setPlaceOfBirth(e.target.value)}
                         />
                       </div>
-                      <div className="w-1/2 space-y-2">
-                        <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      <div className="break-words w-1/2 space-y-2">
+                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                           date of birth{""}
                           <TooltipProvider>
                             <Tooltip>
@@ -421,10 +432,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                                 <HelpCircle
                                   height={16}
                                   width={16}
-                                  className="text-aquamarine-100 hover:text-aquamarine-200 text-xl"
+                                  className="break-words text-aquamarine-100 hover:text-aquamarine-200 text-xl"
                                 />
                               </TooltipTrigger>
-                              <TooltipContent className="max-w-60 w-full bg-black text-white font-normal text-xs">
+                              <TooltipContent className="break-words max-w-60 w-full bg-black text-white font-normal text-xs">
                                 Add your date of birth only if it is relevent
                                 requirement for your position. In most cases,
                                 leave this blank.
@@ -441,7 +452,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   </AccordionContent>
                   <AccordionTrigger
                     onClick={handleToggled}
-                    className="max-w-[180px] text-aquamarine-100 hover:text-aquamarine-200 capitalize text-sm font-normal hover:no-underline"
+                    className="break-words max-w-[180px] text-aquamarine-100 hover:text-aquamarine-200 capitalize text-sm font-normal hover:no-underline"
                   >
                     {toggled
                       ? "hide additional details"
@@ -452,37 +463,37 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Professional Summary */}
-            <div className="flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="text-lg font-semibold text-black/85">
+                <h1 className="break-words text-lg font-semibold text-black/85">
                   Professional Summary
                 </h1>
               </div>
-              <div className="w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <div className="break-words w-full space-y-2">
+                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                   Write 2-4 short & energetic sentences to interest the reader!
                   Mention your role, experience & most importantly - your
                   biggest achievements, best qualities and skills.
                 </Label>
                 <Textarea
                   name="professionalSummary"
-                  className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
+                  className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
                   rows={6}
                   onChange={(e) => {
                     SetCharCount(e.target.value.length);
                     setProfessionalSummary(e.target.value);
                   }}
                 />
-                <div className="flex justify-between items-center">
-                  <p className="font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <div className="break-words flex justify-between items-center">
+                  <p className="break-words font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                     Write 400-600 characters to increase interview chances
                   </p>
-                  <p className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  <p className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                     {charCount} / 400+
                     {charCount >= 400 ? (
-                      <Smile className="text-green-400" />
+                      <Smile className="break-words text-green-400" />
                     ) : (
-                      <Frown className="text-red-400" />
+                      <Frown className="break-words text-red-400" />
                     )}
                   </p>
                 </div>
@@ -490,14 +501,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Employment History */}
-            <div className="flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="text-lg font-semibold text-black/85">
+                <h1 className="break-words text-lg font-semibold text-black/85">
                   Employment History
                 </h1>
               </div>
-              <div className="w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <div className="break-words w-full space-y-2">
+                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                   Show your relevant experience (last 10 years). Use bullet
                   point to note your achievement. if possible - use no./facts
                   (Achived X, measured by Y. by doing Z)
@@ -517,9 +528,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 <Button
                   onClick={handleAddSortableEmploymentList}
                   type="button"
-                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                 >
-                  <Plus className="text-aquamarine-100" />
+                  <Plus className="break-words text-aquamarine-100" />
                   {sortableEmploymentList.length > 0
                     ? "add one more employment"
                     : "add employment"}
@@ -528,14 +539,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Education */}
-            <div className="flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="text-lg font-semibold text-black/85">
+                <h1 className="break-words text-lg font-semibold text-black/85">
                   Education
                 </h1>
               </div>
-              <div className="w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <div className="break-words w-full space-y-2">
+                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                   A varied education on your resume sums up the value that you
                   are learning and background will bring to job
                 </Label>
@@ -554,9 +565,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 <Button
                   onClick={handleAddSortableEducationList}
                   type="button"
-                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                 >
-                  <Plus className="text-aquamarine-100" />
+                  <Plus className="break-words text-aquamarine-100" />
                   {sortableEducationList.length > 0
                     ? "add one more education"
                     : "add education"}
@@ -565,14 +576,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Website & Social Links */}
-            <div className="flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="text-lg font-semibold text-black/85">
+                <h1 className="break-words text-lg font-semibold text-black/85">
                   Website & Social Links
                 </h1>
               </div>
-              <div className="w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <div className="break-words w-full space-y-2">
+                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                   You can add links to websites you wants hiring managers to
                   see! Perphaps It will be a link to your portfoliio, Linkedin
                   profile or personal website
@@ -594,9 +605,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 <Button
                   onClick={handleAddSortableWebNSocialLinksList}
                   type="button"
-                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                 >
-                  <Plus className="text-aquamarine-100" />
+                  <Plus className="break-words text-aquamarine-100" />
                   {sortableWebNSocialLinksList.length > 0
                     ? "add one more link"
                     : "add link"}
@@ -605,22 +616,28 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Skills */}
-            <div className="flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="text-lg font-semibold text-black/85">Skills</h1>
+                <h1 className="break-words text-lg font-semibold text-black/85">
+                  Skills
+                </h1>
               </div>
-              <div className="w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <div className="break-words w-full space-y-2">
+                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                   Choose 5 of the most important skills to show your talents!
                   Make sure they match the keywords of the job listing if
                   applying via on online system.
                 </Label>
                 <div>
                   <SkillsBadge
-                    handleAddSortableSkillsList={handleAddSortableSkillsList}
+                    handleAddSortableSkillsBadgeList={
+                      handleAddSortableSkillsBadgeList
+                    }
+                    skillsHistory={skillsHistory}
+                    clickedBadges={clickedBadges}
                   />
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="break-words flex items-center space-x-2">
                   <Switch
                     onClick={() => {
                       setSkillsToggledProgress(!skillsToggledProgress);
@@ -630,7 +647,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   />
                   <Label
                     htmlFor="showExpertise"
-                    className="capitalize font-normal text-base text-black/90"
+                    className="break-words capitalize font-normal text-base text-black/90"
                   >
                     show expertise
                   </Label>
@@ -641,6 +658,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <SortableSkills
                     sortableSkillsList={sortableSkillsList}
                     setSortableSkillsList={setSortableSkillsList}
+                    skillsHistory={skillsHistory}
+                    setSkillsLevel={setSkillsLevel}
+                    setSkillsTitle={setSkillsTitle}
+                    setClickedBadges={setClickedBadges}
                   />
                 </div>
               </div>
@@ -648,9 +669,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 <Button
                   onClick={handleAddSortableSkillsList}
                   type="button"
-                  className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                  className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                 >
-                  <Plus className="text-aquamarine-100" />
+                  <Plus className="break-words text-aquamarine-100" />
                   {sortableSkillsList.length > 0
                     ? "add one more skill"
                     : "add skill"}
@@ -660,9 +681,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Course */}
             {toggledCourse && (
-              <div className="flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="text-lg font-semibold text-black/85">
+                  <h1 className="break-words text-lg font-semibold text-black/85">
                     Course
                   </h1>
                 </div>
@@ -676,9 +697,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Button
                     onClick={handleAddSortableCourseList}
                     type="button"
-                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                    className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                   >
-                    <Plus className="text-aquamarine-100" />
+                    <Plus className="break-words text-aquamarine-100" />
                     {sortableCourseList.length > 0
                       ? "add one more education"
                       : "add education"}
@@ -689,9 +710,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Internship */}
             {toggledInternship && (
-              <div className="flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="text-lg font-semibold text-black/85">
+                  <h1 className="break-words text-lg font-semibold text-black/85">
                     Internship
                   </h1>
                 </div>
@@ -705,9 +726,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Button
                     onClick={handleAddSortableInternshipList}
                     type="button"
-                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                    className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                   >
-                    <Plus className="text-aquamarine-100" />
+                    <Plus className="break-words text-aquamarine-100" />
                     {sortableInternshipList.length > 0
                       ? "add one more internship"
                       : "add internship"}
@@ -718,13 +739,13 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Language */}
             {toggledLanguage && (
-              <div className="flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="text-lg font-semibold text-black/85">
+                  <h1 className="break-words text-lg font-semibold text-black/85">
                     Language
                   </h1>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="break-words flex items-center space-x-2">
                   <Switch
                     onClick={() => {
                       setLanguageToggledProgress(!languageToggledProgress);
@@ -734,7 +755,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   />
                   <Label
                     htmlFor="showExpertise"
-                    className="capitalize font-normal text-base text-black/90"
+                    className="break-words capitalize font-normal text-base text-black/90"
                   >
                     show expertise
                   </Label>
@@ -749,9 +770,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Button
                     onClick={handleAddSortableLanguageList}
                     type="button"
-                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                    className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                   >
-                    <Plus className="text-aquamarine-100" />
+                    <Plus className="break-words text-aquamarine-100" />
                     {sortableLanguageList.length > 0
                       ? "add one more language"
                       : "add language"}
@@ -762,9 +783,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* References */}
             {toggledReference && (
-              <div className="flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="text-lg font-semibold text-black/85">
+                  <h1 className="break-words text-lg font-semibold text-black/85">
                     References
                   </h1>
                 </div>
@@ -778,9 +799,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Button
                     onClick={handleAddSortableReferenceList}
                     type="button"
-                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                    className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                   >
-                    <Plus className="text-aquamarine-100" />
+                    <Plus className="break-words text-aquamarine-100" />
                     {sortableReferenceList.length > 0
                       ? "add one more reference"
                       : "add reference"}
@@ -791,9 +812,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Activities */}
             {toggledActivities && (
-              <div className="flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="text-lg font-semibold text-black/85">
+                  <h1 className="break-words text-lg font-semibold text-black/85">
                     Extra Curricular Activities
                   </h1>
                 </div>
@@ -807,9 +828,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Button
                     onClick={handleAddSortableActivitiesList}
                     type="button"
-                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                    className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                   >
-                    <Plus className="text-aquamarine-100" />
+                    <Plus className="break-words text-aquamarine-100" />
                     {sortableReferenceList.length > 0
                       ? "add one more activities"
                       : "add activities"}
@@ -820,9 +841,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Custom Section */}
             {toggledCustomSection && (
-              <div className="flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="text-lg font-semibold text-black/85">
+                  <h1 className="break-words text-lg font-semibold text-black/85">
                     Custom Section
                   </h1>
                 </div>
@@ -836,9 +857,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Button
                     onClick={handleAddSortableCustomSectionList}
                     type="button"
-                    className="flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
+                    className="break-words flex justify-start capitalize gap-x-4 w-full bg-transparent hover:bg-green-50 transition duration-200 rounded-none h-12 text-aquamarine-100"
                   >
-                    <Plus className="text-aquamarine-100" />
+                    <Plus className="break-words text-aquamarine-100" />
                     {sortableReferenceList.length > 0
                       ? "add one more custome section"
                       : "add custome section"}
@@ -849,9 +870,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Hobbies */}
             {toggledHobbies && (
-              <div className="flex flex-col gap-4 mb-7">
-                <div className="group flex gap-x-3 items-center">
-                  <h1 className="text-lg font-semibold text-black/85">
+              <div className="break-words flex flex-col gap-4 mb-7">
+                <div className="break-words group flex gap-x-3 items-center">
+                  <h1 className="break-words text-lg font-semibold text-black/85">
                     Hobbies
                   </h1>
                   <TrashIcon
@@ -859,10 +880,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                       handleDeleteDiv();
                       setHobbiesDescription("");
                     }}
-                    className="hover:text-aquamarine-100 hidden group-hover:flex transition duration-200 cursor-pointer"
+                    className="break-words hover:text-aquamarine-100 hidden group-hover:flex transition duration-200 cursor-pointer"
                   />
                 </div>
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                   What do you like ?
                 </Label>
                 <SortableHobbies />
@@ -870,22 +891,22 @@ const FormSection: React.FC<FormSecyionProps> = ({
             )}
 
             {/* Add Section */}
-            <div className="flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="text-xl font-semibold text-black/85">
+                <h1 className="break-words text-xl font-semibold text-black/85">
                   Add Section
                 </h1>
               </div>
-              <div className="grid sm:grid-cols-2 grid-cols-1">
+              <div className="break-words grid xxl:grid-cols-2 grid-cols-1">
                 <Button
                   type="button"
                   onClick={() => {
                     setToggledCustomSection(true);
                   }}
                   disabled={toggledCustomSection}
-                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                  className="break-words hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent disabled:fill-charcoal fill-aquamarine-100"
                 >
-                  <CustomSectionIcon className="fill-aquamarine-100 w-[40px]" />
+                  <CustomSectionIcon className="break-words w-[40px]" />
                   custom sections
                 </Button>
                 <Button
@@ -894,9 +915,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   }}
                   disabled={toggledCourse}
                   type="button"
-                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                  className="break-words hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent disabled:fill-charcoal fill-aquamarine-100"
                 >
-                  <CoursesIcon className="fill-aquamarine-100 w-[40px]" />
+                  <CoursesIcon className="break-words w-[40px]" />
                   Courses
                 </Button>
                 <Button
@@ -905,9 +926,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     setToggledActivities(true);
                   }}
                   disabled={toggledActivities}
-                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                  className="break-words hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent disabled:fill-charcoal fill-aquamarine-100"
                 >
-                  <ActivitiesIcon className="fill-aquamarine-100 w-[40px]" />
+                  <ActivitiesIcon className="break-words w-[40px]" />
                   extra curricular activities
                 </Button>
                 <Button
@@ -916,9 +937,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     setToggledInternship(true);
                   }}
                   disabled={toggledInternship}
-                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                  className="break-words hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent disabled:fill-charcoal fill-aquamarine-100"
                 >
-                  <InternshipIcon className="fill-aquamarine-100 w-[40px]" />
+                  <InternshipIcon className="break-words w-[40px]" />
                   internships
                 </Button>
                 <Button
@@ -927,9 +948,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     setToggledHobbies(true);
                   }}
                   disabled={toggledHobbies}
-                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                  className="break-words hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent disabled:fill-charcoal fill-aquamarine-100"
                 >
-                  <HobbyIcon className="fill-aquamarine-100 w-[40px]" />
+                  <HobbyIcon className="break-words w-[40px]" />
                   hobbies
                 </Button>
                 <Button
@@ -938,9 +959,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     setToggledLanguage(true);
                   }}
                   disabled={toggledLanguage}
-                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                  className="break-words hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent disabled:fill-charcoal fill-aquamarine-100"
                 >
-                  <LanguageIcon className="fill-aquamarine-100 w-[40px]" />
+                  <LanguageIcon className="break-words w-[40px]" />
                   languages
                 </Button>
                 <Button
@@ -949,9 +970,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     setToggledReference(true);
                   }}
                   disabled={toggledReference}
-                  className="hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent"
+                  className="break-words hover:text-aquamarine-100 justify-start gap-x-3 w-max h-13 rounded-none bg-transparent text-charcoal text-base capitalize hover:bg-transparent disabled:fill-charcoal fill-aquamarine-100"
                 >
-                  <ReferenceIcon className="fill-aquamarine-100 w-[40px]" />
+                  <ReferenceIcon className="break-words w-[40px]" />
                   References
                 </Button>
               </div>

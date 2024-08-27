@@ -13,23 +13,31 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useSkills } from "@/statemanagement/useSkills";
+import SkillsBadge from "../site/home/SkillsBadge";
 
 interface SortableSkillsProps {
   sortableSkillsList: any;
   setSortableSkillsList: any;
+  skillsHistory: any;
+  setSkillsTitle: any;
+  setSkillsLevel: any;
+  setClickedBadges: any;
 }
 
 const SortableSkills: React.FC<SortableSkillsProps> = ({
   sortableSkillsList,
   setSortableSkillsList,
+  skillsHistory,
+  setSkillsTitle,
+  setSkillsLevel,
+  setClickedBadges,
 }) => {
   const handleDeleteDiv = (index: any) => {
     setSortableSkillsList((sortableSkillsList: any[]) =>
       sortableSkillsList.filter((_: any, i: any) => i !== index)
     );
+    setClickedBadges(new Set());
   };
-
-  const { skillsHistory, setSkillsTitle, setSkillsLevel } = useSkills();
 
   return (
     <>
@@ -39,7 +47,11 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
           className="w-full flex gap-x-3 items-center justify-between"
         >
           <Accordion type="multiple" className="w-full">
-            <AccordionItem value={`item-${index}`} className="border px-5">
+            <AccordionItem
+              value={`item-${index}`}
+              key={index}
+              className="border px-5"
+            >
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
                   <span className="block text-black text-left">

@@ -2,9 +2,14 @@
 import React, { useState } from "react";
 import FormSection from "./FormSection";
 import PreviewSection from "./PreviewSection";
+import { useSkills } from "@/statemanagement/useSkills";
 
 const HomeWrapper = () => {
   // statemanagement
+
+  const [clickedBadges, setClickedBadges] = useState<Set<string>>(new Set());
+
+  const { addSkill } = useSkills();
 
   const [skillsToggledProgress, setSkillsToggledProgress] =
     useState<boolean>(true);
@@ -114,6 +119,17 @@ const HomeWrapper = () => {
     ]);
   };
 
+  const handleAddSortableSkillsBadgeList = (label?: string) => {
+    if (label) {
+      addSkill(label);
+      setClickedBadges((prev) => new Set(prev).add(label));
+    }
+    setSortableSkillsList((sortableSkillsList) => [
+      ...sortableSkillsList,
+      sortableSkillsList.length + 1,
+    ]);
+  };
+
   const handleAddSortableLanguageList = () => {
     setSortableLanguageList((sortableLanguageList) => [
       ...sortableLanguageList,
@@ -123,7 +139,7 @@ const HomeWrapper = () => {
 
   return (
     <>
-      <section className="w-full h-full flex">
+      <section className="w-full flex">
         <FormSection
           handleAddSortableEmploymentList={handleAddSortableEmploymentList}
           sortableEmploymentList={sortableEmploymentList}
@@ -155,7 +171,7 @@ const HomeWrapper = () => {
           }
           sortableCustomSectionList={sortableCustomSectionList}
           setSortableCustomSectionList={setSortableCustomSectionList}
-          handleAddSortableSkillsList={handleAddSortableSkillsList}
+          handleAddSortableSkillsBadgeList={handleAddSortableSkillsBadgeList}
           sortableSkillsList={sortableSkillsList}
           setSortableSkillsList={setSortableSkillsList}
           handleAddSortableLanguageList={handleAddSortableLanguageList}
@@ -165,6 +181,10 @@ const HomeWrapper = () => {
           setSkillsToggledProgress={setSkillsToggledProgress}
           languageToggledProgress={languageToggledProgress}
           setLanguageToggledProgress={setLanguageToggledProgress}
+          handleAddSortableSkillsList={handleAddSortableSkillsList}
+
+          clickedBadges={clickedBadges}
+          setClickedBadges={setClickedBadges}
         />
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}

@@ -119,39 +119,39 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
   return (
     <>
-      <div className="bg-misty w-1/2 h-full fixed top-0 bottom-0 right-0">
-        <div className="absolute left-[50%] translate-x-[-50%] text-right w-[480px] pt-5">
+      <div className="break-words bg-misty w-1/2 fixed top-0 bottom-0 right-0">
+        <div className="break-words absolute left-[50%] translate-x-[-50%] text-right w-[480px] pt-5">
           <Button
             type="button"
-            className="text-white bg-aquamarine-100 hover:bg-aquamarine-200 px-8 font-normal text-base"
+            className="break-words text-white bg-aquamarine-100 hover:bg-aquamarine-200 px-8 font-normal text-base"
           >
             Download PDF
           </Button>
         </div>
-        <div className="aspect-[1/1.2] absolute w-[480px] top-[65%] left-[50%] translate-x-[-50%] translate-y-[-65%] rounded-xl overflow-hidden flex">
-          <div className="w-[30%] bg-[#1d473a] h-full py-8 px-4">
+        <div className="break-words aspect-[1/1.2] absolute w-[480px] top-[65%] left-[50%] translate-x-[-50%] translate-y-[-65%] rounded-xl overflow-hidden flex">
+          <div className="break-words w-[30%] bg-[#1d473a] h-full py-8 px-4">
             {/* Personal Details */}
             <div>
               <div>
                 {selectedImage && (
-                  <Avatar className="mx-auto h-14 w-14">
+                  <Avatar className="break-words mx-auto h-14 w-14">
                     <AvatarImage src={selectedImage} />
                   </Avatar>
                 )}
               </div>
-              <div className="text-center mt-3">
-                <h1 className="text-white font-normal text-base">
+              <div className="break-words text-center mt-3">
+                <h1 className="break-words text-white font-normal text-base">
                   {firstName} {lastName}
                 </h1>
               </div>
-              <span className="block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
-              <div className="text-center mt-1">
-                <h1 className="text-white font-normal text-[9px] leading-[14px]">
+              <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+              <div className="break-words text-center mt-1">
+                <h1 className="break-words text-white font-normal text-[9px] leading-[14px]">
                   {jobTitle}
                 </h1>
               </div>
             </div>
-            <div className="mt-3">
+            <div className="break-words mt-3">
               {phone ||
               city ||
               countryName ||
@@ -161,44 +161,44 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
               nationality ||
               dateOfBirth ||
               placeOfBirth ? (
-                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
                   Personal Profile
                 </h1>
               ) : (
                 ""
               )}
-              <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+              <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                 {address}
               </h6>
-              <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+              <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                 {city} {postalCode}
               </h6>
-              <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+              <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                 {countryName}
               </h6>
-              <h6 className="text-white/85 font-normal text-[8px] leading-[13px] underline">
+              <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px] underline">
                 <Link href="#">{phone}</Link>
               </h6>
-              <h6 className="text-white/85 font-normal text-[8px] leading-[13px] underline">
+              <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px] underline">
                 <Link href="#">{email}</Link>
               </h6>
             </div>
             {dateOfBirth && (
               <div>
-                <h1 className="text-charcoal text-[8px] leading-[13px] font-normal uppercase">
+                <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
                   date of birth
                 </h1>
-                <h6 className="text-white font-normal text-[8px] leading-[13px]">
+                <h6 className="break-words text-white font-normal text-[8px] leading-[13px]">
                   {dateOfBirth}
                 </h6>
               </div>
             )}
             {nationality && (
               <div>
-                <h1 className="text-charcoal text-[8px] leading-[13px] font-normal uppercase">
+                <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
                   nationality
                 </h1>
-                <h6 className="text-white font-normal text-[8px] leading-[13px]">
+                <h6 className="break-words text-white font-normal text-[8px] leading-[13px]">
                   {nationality}
                 </h6>
               </div>
@@ -206,12 +206,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             {/*  Web and Social Links */}
             {sortableWebNSocialLinksList.length > 0 && (
               <>
-                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
                   Links
                 </h1>
                 {sortableWebNSocialLinksList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                       <Link
                         href={
                           webNSocialLinksHistory[index]?.webNSocialLink
@@ -229,18 +229,18 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             {/*  Skills */}
             {sortableSkillsList.length > 0 && (
               <>
-                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
                   Skills
                 </h1>
                 {sortableSkillsList.map((item: any, index: any) => (
-                  <div key={index} className="space-y-1 mt-1">
-                    <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                  <div key={index} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                       {skillsHistory[index]?.skillsTitle}
                     </h6>
-                    {skillsToggledProgress && (
+                    {skillsHistory[index]?.skillsTitle && (
                       <Progress
                         value={skillsHistory[index]?.skillsLevel || 60}
-                        className="w-[100%] h-1 bg-[#808080]"
+                        className="break-words w-[100%] h-1 bg-[#808080]"
                       />
                     )}
                   </div>
@@ -250,11 +250,11 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             {/*  Hobbies */}
             {toggledHobbies && (
               <>
-                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
                   Hobbies
                 </h1>
                 <div>
-                  <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                     {hobbiesDescription}
                   </h6>
                 </div>
@@ -263,18 +263,18 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             {/*  Languages */}
             {sortableLanguageList.length > 0 && (
               <>
-                <h1 className="text-white text-[10px] leading-[14px] font-medium">
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
                   Languages
                 </h1>
                 {sortableLanguageList.map((item: any, index: any) => (
-                  <div key={index} className="space-y-1 mt-1">
-                    <h6 className="text-white/85 font-normal text-[8px] leading-[13px]">
+                  <div key={index} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                       {languageHistory[index]?.languageTitle}
                     </h6>
-                    {languageToggledProgress && (
+                    {languageHistory[index]?.languageTitle && (
                       <Progress
                         value={languageHistory[index]?.languageLevel || 66}
-                        className="w-[100%] h-1 bg-[#808080]"
+                        className="break-words w-[100%] h-1 bg-[#808080]"
                       />
                     )}
                   </div>
@@ -282,14 +282,14 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
               </>
             )}
           </div>
-          <div className="w-[70%] bg-white h-full py-8 px-4 space-y-3">
+          <div className="break-words w-[70%] bg-white h-full py-8 px-4 space-y-3">
             {/* Professional Summary */}
             {professionalSummary && (
               <div>
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Professional Summary
                 </h1>
-                <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                   {professionalSummary}
                 </h6>
               </div>
@@ -297,13 +297,13 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
             {/* Employment History */}
             {sortableEmploymentList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+              <div className="break-words space-y-2">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Employment History
                 </h1>
                 {sortableEmploymentList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                    <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                       {employmentHistory[index]?.employmentJobTitle}
                       {employmentHistory[index]?.employer && (
                         <>, {employmentHistory[index]?.employer}</>
@@ -312,7 +312,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         <>, {employmentHistory[index]?.employmentCity}</>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {employmentHistory[
                         index
                       ]?.employmentStartDate?.toLocaleDateString()}{" "}
@@ -325,7 +325,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         </>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {employmentHistory[index]?.employmentDescription}
                     </h6>
                   </div>
@@ -335,13 +335,13 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
             {/* Education */}
             {sortableEducationList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+              <div className="break-words space-y-2">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Education
                 </h1>
                 {sortableEducationList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                    <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                       {educationHistory[index]?.educationSchool}
                       {educationHistory[index]?.educationDegree && (
                         <>, {educationHistory[index]?.educationDegree}</>
@@ -350,7 +350,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         <>, {educationHistory[index]?.educationCity}</>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {educationHistory[
                         index
                       ]?.educationStartDate?.toLocaleDateString()}{" "}
@@ -363,7 +363,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         </>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {educationHistory[index]?.educationDescription}
                     </h6>
                   </div>
@@ -373,13 +373,13 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
             {/* Internship */}
             {sortableInternshipList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+              <div className="break-words space-y-2">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Internship
                 </h1>
                 {sortableInternshipList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                    <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                       {internshipHistory[index]?.internshipJobTitle}
                       {internshipHistory[index]?.internshipEmployer && (
                         <>, {internshipHistory[index]?.internshipEmployer}</>
@@ -388,7 +388,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         <>, {internshipHistory[index]?.internshipCity}</>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {internshipHistory[
                         index
                       ]?.internshipStartDate?.toLocaleDateString()}{" "}
@@ -401,7 +401,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         </>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {internshipHistory[index]?.internshipDescription}
                     </h6>
                   </div>
@@ -411,19 +411,19 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
             {/* Course */}
             {sortableCourseList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+              <div className="break-words space-y-2">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Course
                 </h1>
                 {sortableCourseList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                    <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                       {courseHistory[index]?.course}
                       {courseHistory[index]?.courseInstitution && (
                         <>, {courseHistory[index]?.courseInstitution}</>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {courseHistory[
                         index
                       ]?.courseStartDate?.toLocaleDateString()}{" "}
@@ -443,20 +443,20 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
             {/* Reference */}
             {sortableReferenceList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+              <div className="break-words space-y-2">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Reference
                 </h1>
                 {sortableReferenceList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                    <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                       {referenceHistory[index]?.referenceFullName}{" "}
                       {referenceHistory[index]?.referenceCompany && (
                         <>from {referenceHistory[index]?.referenceCompany}</>
                       )}
                     </h6>
 
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {referenceHistory[index]?.referenceEmail && (
                         <>{referenceHistory[index]?.referenceEmail} |</>
                       )}{" "}
@@ -469,13 +469,13 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
             {/* Extra Curricular Activities */}
             {sortableActivitiesList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+              <div className="break-words space-y-2">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Extra Curricular Activities
                 </h1>
                 {sortableActivitiesList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                    <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                       {activityHistory[index]?.activityFunctionTitle}
                       {activityHistory[index]?.activityEmployer && (
                         <>, {activityHistory[index]?.activityEmployer}</>
@@ -484,7 +484,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         <>, {activityHistory[index]?.activityCity}</>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {activityHistory[
                         index
                       ]?.activityStartDate?.toLocaleDateString()}{" "}
@@ -497,7 +497,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         </>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {activityHistory[index]?.activityDescription}
                     </h6>
                   </div>
@@ -507,19 +507,19 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 
             {/* Custom Section */}
             {sortableCustomSectionList.length > 0 && (
-              <div className="space-y-2">
-                <h1 className="text-black/85 text-[10px] leading-[14px] font-bold mb-1">
+              <div className="break-words space-y-2">
+                <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
                   Custom Section
                 </h1>
                 {sortableCustomSectionList.map((item: any, index: any) => (
                   <div key={index}>
-                    <h6 className="text-black/85 text-[9px] leading-[14px] font-semibold">
+                    <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                       {customHistory[index]?.customTitle}
                       {customHistory[index]?.customCity && (
                         <>, {customHistory[index]?.customCity}</>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {customHistory[
                         index
                       ]?.customStartDate?.toLocaleDateString()}{" "}
@@ -532,7 +532,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                         </>
                       )}
                     </h6>
-                    <h6 className="text-black/95 font-normal text-[8px] leading-[13px]">
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                       {customHistory[index]?.customDescription}
                     </h6>
                   </div>
