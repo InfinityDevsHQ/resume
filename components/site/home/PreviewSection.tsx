@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Margin, usePDF } from "react-to-pdf";
+import { Margin, usePDF, Resolution } from "react-to-pdf";
 import Forest from "@/templates/Forest";
 
 interface PreviewSectionProps {
@@ -20,6 +20,19 @@ interface PreviewSectionProps {
   languageToggledProgress: any;
   pdfName: any;
   setPdfName: any;
+  customSectionTitle: any;
+  personalDetailsTitle: any;
+  professionalSummaryTitle: any;
+  educationTitle: any;
+  webNSocialLinkTitle: any;
+  languagesTitle: any;
+  coursesTitle: any;
+  employmentHistoryTitle: any;
+  internshipsTitle: any;
+  referencesTitle: any;
+  skillTitle: any;
+  hobbiesTitle: any;
+  activitiesTitle: any;
 }
 
 const PreviewSection: React.FC<PreviewSectionProps> = ({
@@ -38,13 +51,38 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   languageToggledProgress,
   pdfName,
   setPdfName,
+  customSectionTitle,
+  personalDetailsTitle,
+  professionalSummaryTitle,
+  educationTitle,
+  webNSocialLinkTitle,
+  languagesTitle,
+  coursesTitle,
+  employmentHistoryTitle,
+  internshipsTitle,
+  referencesTitle,
+  skillTitle,
+  hobbiesTitle,
+  activitiesTitle,
 }) => {
   const [pdfSize, setPdfSize] = useState(false);
 
   const { toPDF, targetRef } = usePDF({
     method: "save",
     filename: `${pdfName}.pdf`,
-    page: { margin: Margin.MEDIUM },
+    resolution: Resolution.HIGH,
+    page: {
+      margin: Margin.NONE,
+      format: "A4",
+    },
+    overrides: {
+      pdf: {
+        compress: true,
+      },
+      canvas: {
+        useCORS: true,
+      },
+    },
   });
 
   return (
@@ -82,7 +120,20 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
               pdfName={pdfName}
               setPdfName={setPdfName}
               targetRef={targetRef}
-              className={`object-cover w-full h-full mt-5`}
+              customSectionTitle={customSectionTitle}
+              personalDetailsTitle={personalDetailsTitle}
+              professionalSummaryTitle={professionalSummaryTitle}
+              educationTitle={educationTitle}
+              webNSocialLinkTitle={webNSocialLinkTitle}
+              languagesTitle={languagesTitle}
+              coursesTitle={coursesTitle}
+              employmentHistoryTitle={employmentHistoryTitle}
+              internshipsTitle={internshipsTitle}
+              referencesTitle={referencesTitle}
+              skillTitle={skillTitle}
+              hobbiesTitle={hobbiesTitle}
+              activitiesTitle={activitiesTitle}
+              className={`object-cover w-full h-full mt-6`}
             />
           </div>
         </div>

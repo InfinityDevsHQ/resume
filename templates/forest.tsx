@@ -38,6 +38,19 @@ interface PreviewSectionProps {
   setPdfName: any;
   targetRef: any;
   className: any;
+  customSectionTitle: any;
+  personalDetailsTitle: any;
+  professionalSummaryTitle: any;
+  educationTitle: any;
+  webNSocialLinkTitle: any;
+  languagesTitle: any;
+  coursesTitle: any;
+  employmentHistoryTitle: any;
+  internshipsTitle: any;
+  referencesTitle: any;
+  skillTitle: any;
+  hobbiesTitle: any;
+  activitiesTitle: any;
 }
 
 const Forest: React.FC<PreviewSectionProps> = ({
@@ -57,6 +70,19 @@ const Forest: React.FC<PreviewSectionProps> = ({
   pdfName,
   setPdfName,
   targetRef,
+  customSectionTitle,
+  personalDetailsTitle,
+  professionalSummaryTitle,
+  educationTitle,
+  webNSocialLinkTitle,
+  languagesTitle,
+  coursesTitle,
+  employmentHistoryTitle,
+  internshipsTitle,
+  referencesTitle,
+  skillTitle,
+  hobbiesTitle,
+  activitiesTitle,
   className,
 }) => {
   // Language
@@ -130,7 +156,7 @@ const Forest: React.FC<PreviewSectionProps> = ({
     <>
       <div
         ref={targetRef}
-        className={`${className} break-words rounded-xl overflow-hidden flex`}
+        className={`${className} break-words overflow-hidden flex`}
       >
         <div className="break-words w-[30%] bg-[#1d473a] h-full py-8 px-4">
           {/* Personal Details */}
@@ -164,8 +190,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
             nationality ||
             dateOfBirth ||
             placeOfBirth ? (
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
-                Personal Profile
+              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                {personalDetailsTitle}
               </h1>
             ) : (
               ""
@@ -209,8 +235,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/*  Web and Social Links */}
           {sortableWebNSocialLinksList.length > 0 && (
             <>
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
-                Links
+              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                {webNSocialLinkTitle}
               </h1>
               {sortableWebNSocialLinksList.map((item: any, index: any) => (
                 <div key={index}>
@@ -232,8 +258,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/*  Skills */}
           {sortableSkillsList.length > 0 && (
             <>
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
-                Skills
+              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                {skillTitle}
               </h1>
               {sortableSkillsList.map((item: any, index: any) => (
                 <div key={index} className="break-words space-y-1 mt-1">
@@ -253,8 +279,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/*  Hobbies */}
           {toggledHobbies && (
             <>
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
-                Hobbies
+              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                {hobbiesTitle}
               </h1>
               <div>
                 <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
@@ -266,8 +292,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/*  Languages */}
           {sortableLanguageList.length > 0 && (
             <>
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium">
-                Languages
+              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                {languagesTitle}
               </h1>
               {sortableLanguageList.map((item: any, index: any) => (
                 <div key={index} className="break-words space-y-1 mt-1">
@@ -289,8 +315,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Professional Summary */}
           {professionalSummary && (
             <div>
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Professional Summary
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {professionalSummaryTitle}
               </h1>
               <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                 {professionalSummary}
@@ -301,8 +327,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Employment History */}
           {sortableEmploymentList.length > 0 && (
             <div className="break-words space-y-2">
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Employment History
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {employmentHistoryTitle}
               </h1>
               {sortableEmploymentList.map((item: any, index: any) => (
                 <div key={index}>
@@ -339,8 +365,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Education */}
           {sortableEducationList.length > 0 && (
             <div className="break-words space-y-2">
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Education
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {educationTitle}
               </h1>
               {sortableEducationList.map((item: any, index: any) => (
                 <div key={index}>
@@ -377,8 +403,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Internship */}
           {sortableInternshipList.length > 0 && (
             <div className="break-words space-y-2">
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Internship
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {internshipsTitle}
               </h1>
               {sortableInternshipList.map((item: any, index: any) => (
                 <div key={index}>
@@ -415,8 +441,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Course */}
           {sortableCourseList.length > 0 && (
             <div className="break-words space-y-2">
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Course
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {coursesTitle}
               </h1>
               {sortableCourseList.map((item: any, index: any) => (
                 <div key={index}>
@@ -447,8 +473,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Reference */}
           {sortableReferenceList.length > 0 && (
             <div className="break-words space-y-2">
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Reference
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {referencesTitle}
               </h1>
               {sortableReferenceList.map((item: any, index: any) => (
                 <div key={index}>
@@ -473,8 +499,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Extra Curricular Activities */}
           {sortableActivitiesList.length > 0 && (
             <div className="break-words space-y-2">
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Extra Curricular Activities
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {activitiesTitle}
               </h1>
               {sortableActivitiesList.map((item: any, index: any) => (
                 <div key={index}>
@@ -511,8 +537,8 @@ const Forest: React.FC<PreviewSectionProps> = ({
           {/* Custom Section */}
           {sortableCustomSectionList.length > 0 && (
             <div className="break-words space-y-2">
-              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1">
-                Custom Section
+              <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                {customSectionTitle}
               </h1>
               {sortableCustomSectionList.map((item: any, index: any) => (
                 <div key={index}>

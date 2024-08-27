@@ -91,6 +91,32 @@ interface FormSecyionProps {
   clickedBadges: any;
   pdfName: any;
   setPdfName: any;
+  customSectionTitle: any;
+  setCustomSectionTitle: any;
+  personalDetailsTitle: any;
+  professionalSummaryTitle: any;
+  educationTitle: any;
+  webNSocialLinkTitle: any;
+  languagesTitle: any;
+  coursesTitle: any;
+  employmentHistoryTitle: any;
+  internshipsTitle: any;
+  referencesTitle: any;
+  skillTitle: any;
+  hobbiesTitle: any;
+  activitiesTitle: any;
+  setPersonalDetailsTitle: any;
+  setProfessionalSummaryTitle: any;
+  setEducationTitle: any;
+  setWebNSocialLinkTitle: any;
+  setLanguagesTitle: any;
+  setCoursesTitle: any;
+  setEmploymentHistoryTitle: any;
+  setInternshipsTitle: any;
+  setReferencesTitle: any;
+  setSkillTitle: any;
+  setHobbiesTitle: any;
+  setActivitiesTitle: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -135,6 +161,32 @@ const FormSection: React.FC<FormSecyionProps> = ({
   clickedBadges,
   pdfName,
   setPdfName,
+  customSectionTitle,
+  setCustomSectionTitle,
+  personalDetailsTitle,
+  professionalSummaryTitle,
+  educationTitle,
+  webNSocialLinkTitle,
+  languagesTitle,
+  coursesTitle,
+  employmentHistoryTitle,
+  internshipsTitle,
+  referencesTitle,
+  skillTitle,
+  hobbiesTitle,
+  activitiesTitle,
+  setPersonalDetailsTitle,
+  setProfessionalSummaryTitle,
+  setEducationTitle,
+  setWebNSocialLinkTitle,
+  setLanguagesTitle,
+  setCoursesTitle,
+  setEmploymentHistoryTitle,
+  setInternshipsTitle,
+  setReferencesTitle,
+  setSkillTitle,
+  setHobbiesTitle,
+  setActivitiesTitle,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
@@ -222,9 +274,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Personal Details */}
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="break-words text-lg font-semibold text-black/85">
-                  Personal Details
-                </h1>
+                <Input
+                  className="capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  autoComplete="off"
+                  value={personalDetailsTitle}
+                  onChange={(e) => {
+                    setPersonalDetailsTitle(e.target.value);
+                  }}
+                />
               </div>
               <div className="break-words w-full flex justify-start items-center gap-8">
                 <div className="break-words w-1/2 space-y-2">
@@ -472,9 +529,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Professional Summary */}
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="break-words text-lg font-semibold text-black/85">
-                  Professional Summary
-                </h1>
+                <Input
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  autoComplete="off"
+                  value={professionalSummaryTitle}
+                  onChange={(e) => {
+                    setProfessionalSummaryTitle(e.target.value);
+                  }}
+                />
               </div>
               <div className="break-words w-full space-y-2">
                 <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -510,9 +572,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Employment History */}
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="break-words text-lg font-semibold text-black/85">
-                  Employment History
-                </h1>
+                <Input
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  autoComplete="off"
+                  value={employmentHistoryTitle}
+                  onChange={(e) => {
+                    setEmploymentHistoryTitle(e.target.value);
+                  }}
+                />
               </div>
               <div className="break-words w-full space-y-2">
                 <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -548,9 +615,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Education */}
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="break-words text-lg font-semibold text-black/85">
-                  Education
-                </h1>
+                <Input
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  autoComplete="off"
+                  value={educationTitle}
+                  onChange={(e) => {
+                    setEducationTitle(e.target.value);
+                  }}
+                />
               </div>
               <div className="break-words w-full space-y-2">
                 <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -585,9 +657,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Website & Social Links */}
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="break-words text-lg font-semibold text-black/85">
-                  Website & Social Links
-                </h1>
+                <Input
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  autoComplete="off"
+                  value={webNSocialLinkTitle}
+                  onChange={(e) => {
+                    setWebNSocialLinkTitle(e.target.value);
+                  }}
+                />
               </div>
               <div className="break-words w-full space-y-2">
                 <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -625,9 +702,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Skills */}
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
-                <h1 className="break-words text-lg font-semibold text-black/85">
-                  Skills
-                </h1>
+                <Input
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  autoComplete="off"
+                  value={skillTitle}
+                  onChange={(e) => {
+                    setSkillTitle(e.target.value);
+                  }}
+                />
               </div>
               <div className="break-words w-full space-y-2">
                 <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
@@ -690,9 +772,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {toggledCourse && (
               <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="break-words text-lg font-semibold text-black/85">
-                    Course
-                  </h1>
+                  <Input
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    autoComplete="off"
+                    value={coursesTitle}
+                    onChange={(e) => {
+                      setCoursesTitle(e.target.value);
+                    }}
+                  />
                 </div>
                 <SortableCourse
                   sortableCourseList={sortableCourseList}
@@ -719,9 +806,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {toggledInternship && (
               <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="break-words text-lg font-semibold text-black/85">
-                    Internship
-                  </h1>
+                  <Input
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    autoComplete="off"
+                    value={internshipsTitle}
+                    onChange={(e) => {
+                      setInternshipsTitle(e.target.value);
+                    }}
+                  />
                 </div>
                 <SortableInternship
                   sortableInternshipList={sortableInternshipList}
@@ -748,9 +840,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {toggledLanguage && (
               <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="break-words text-lg font-semibold text-black/85">
-                    Language
-                  </h1>
+                  <Input
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    autoComplete="off"
+                    value={languagesTitle}
+                    onChange={(e) => {
+                      setLanguagesTitle(e.target.value);
+                    }}
+                  />
                 </div>
                 <div className="break-words flex items-center space-x-2">
                   <Switch
@@ -792,9 +889,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {toggledReference && (
               <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="break-words text-lg font-semibold text-black/85">
-                    References
-                  </h1>
+                  <Input
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    autoComplete="off"
+                    value={referencesTitle}
+                    onChange={(e) => {
+                      setReferencesTitle(e.target.value);
+                    }}
+                  />
                 </div>
                 <SortableReference
                   sortableReferenceList={sortableReferenceList}
@@ -821,9 +923,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {toggledActivities && (
               <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="break-words text-lg font-semibold text-black/85">
-                    Extra Curricular Activities
-                  </h1>
+                  <Input
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    autoComplete="off"
+                    value={activitiesTitle}
+                    onChange={(e) => {
+                      setActivitiesTitle(e.target.value);
+                    }}
+                  />
                 </div>
                 <SortableActivities
                   sortableActivitiesList={sortableActivitiesList}
@@ -850,9 +957,15 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {toggledCustomSection && (
               <div className="break-words flex flex-col gap-4 mb-7">
                 <div>
-                  <h1 className="break-words text-lg font-semibold text-black/85">
-                    Custom Section
-                  </h1>
+                  {/* Custom Section */}
+                  <Input
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    autoComplete="off"
+                    value={customSectionTitle}
+                    onChange={(e) => {
+                      setCustomSectionTitle(e.target.value);
+                    }}
+                  />
                 </div>
                 <SortableCustomSection
                   sortableCustomSectionList={sortableCustomSectionList}
@@ -879,9 +992,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {toggledHobbies && (
               <div className="break-words flex flex-col gap-4 mb-7">
                 <div className="break-words group flex gap-x-3 items-center">
-                  <h1 className="break-words text-lg font-semibold text-black/85">
-                    Hobbies
-                  </h1>
+                  <Input
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    autoComplete="off"
+                    value={hobbiesTitle}
+                    onChange={(e) => {
+                      setHobbiesTitle(e.target.value);
+                    }}
+                  />
                   <TrashIcon
                     onClick={() => {
                       handleDeleteDiv();

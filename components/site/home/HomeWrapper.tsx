@@ -7,6 +7,41 @@ import { useSkills } from "@/statemanagement/useSkills";
 const HomeWrapper = () => {
   // statemanagement
 
+  const [customSectionTitle, setCustomSectionTitle] =
+    useState<string>("custom section");
+
+  const [personalDetailsTitle, setPersonalDetailsTitle] =
+    useState<string>("personal details");
+
+  const [professionalSummaryTitle, setProfessionalSummaryTitle] =
+    useState<string>("professional summary");
+
+  const [educationTitle, setEducationTitle] = useState<string>("education");
+
+  const [webNSocialLinkTitle, setWebNSocialLinkTitle] = useState<string>(
+    "websites & social links"
+  );
+
+  const [languagesTitle, setLanguagesTitle] = useState<string>("languages");
+
+  const [coursesTitle, setCoursesTitle] = useState<string>("courses");
+
+  const [internshipsTitle, setInternshipsTitle] =
+    useState<string>("internships");
+
+  const [referencesTitle, setReferencesTitle] = useState<string>("references");
+
+  const [skillTitle, setSkillTitle] = useState<string>("skills");
+
+  const [hobbiesTitle, setHobbiesTitle] = useState<string>("hobbies");
+
+  const [activitiesTitle, setActivitiesTitle] = useState<string>(
+    "extra curricular activities"
+  );
+
+  const [employmentHistoryTitle, setEmploymentHistoryTitle] =
+    useState<string>("employment history");
+
   const [clickedBadges, setClickedBadges] = useState<Set<string>>(new Set());
 
   const { addSkill } = useSkills();
@@ -188,7 +223,34 @@ const HomeWrapper = () => {
           setPdfName={setPdfName}
           clickedBadges={clickedBadges}
           setClickedBadges={setClickedBadges}
+          customSectionTitle={customSectionTitle}
+          setCustomSectionTitle={setCustomSectionTitle}
+          personalDetailsTitle={personalDetailsTitle}
+          professionalSummaryTitle={professionalSummaryTitle}
+          educationTitle={educationTitle}
+          webNSocialLinkTitle={webNSocialLinkTitle}
+          languagesTitle={languagesTitle}
+          coursesTitle={coursesTitle}
+          employmentHistoryTitle={employmentHistoryTitle}
+          internshipsTitle={internshipsTitle}
+          referencesTitle={referencesTitle}
+          skillTitle={skillTitle}
+          hobbiesTitle={hobbiesTitle}
+          activitiesTitle={activitiesTitle}
+          setPersonalDetailsTitle={setPersonalDetailsTitle}
+          setProfessionalSummaryTitle={setProfessionalSummaryTitle}
+          setEducationTitle={setEducationTitle}
+          setWebNSocialLinkTitle={setWebNSocialLinkTitle}
+          setLanguagesTitle={setLanguagesTitle}
+          setCoursesTitle={setCoursesTitle}
+          setEmploymentHistoryTitle={setEmploymentHistoryTitle}
+          setInternshipsTitle={setInternshipsTitle}
+          setReferencesTitle={setReferencesTitle}
+          setSkillTitle={setSkillTitle}
+          setHobbiesTitle={setHobbiesTitle}
+          setActivitiesTitle={setActivitiesTitle}
         />
+
         <PreviewSection
           sortableEmploymentList={sortableEmploymentList}
           sortableEducationList={sortableEducationList}
@@ -205,6 +267,19 @@ const HomeWrapper = () => {
           languageToggledProgress={languageToggledProgress}
           pdfName={pdfName}
           setPdfName={setPdfName}
+          customSectionTitle={customSectionTitle}
+          personalDetailsTitle={personalDetailsTitle}
+          professionalSummaryTitle={professionalSummaryTitle}
+          educationTitle={educationTitle}
+          webNSocialLinkTitle={webNSocialLinkTitle}
+          languagesTitle={languagesTitle}
+          coursesTitle={coursesTitle}
+          employmentHistoryTitle={employmentHistoryTitle}
+          internshipsTitle={internshipsTitle}
+          referencesTitle={referencesTitle}
+          skillTitle={skillTitle}
+          hobbiesTitle={hobbiesTitle}
+          activitiesTitle={activitiesTitle}
         />
       </section>
     </>
