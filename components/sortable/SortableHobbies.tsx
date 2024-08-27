@@ -3,6 +3,7 @@ import React from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { useHobbies } from "@/statemanagement/useHobbies";
 
+
 const SortableHobbies = () => {
   const { setHobbiesDescription, hobbiesDescription } = useHobbies();
 

@@ -28,6 +28,17 @@ import {
   ReferenceIcon,
   UploadIcon,
 } from "./Icons";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useProfessionalDetails } from "@/statemanagement/usePersonalDetails";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
@@ -1000,13 +1011,39 @@ const FormSection: React.FC<FormSecyionProps> = ({
                       setHobbiesTitle(e.target.value);
                     }}
                   />
-                  <TrashIcon
-                    onClick={() => {
-                      handleDeleteDiv();
-                      setHobbiesDescription("");
-                    }}
-                    className="break-words hover:text-aquamarine-100 hidden group-hover:flex transition duration-200 cursor-pointer"
-                  />
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <div>
+                        <TrashIcon className="break-words hover:text-aquamarine-100 hidden group-hover:flex transition duration-200 cursor-pointer" />
+                      </div>
+                    </AlertDialogTrigger>
+
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-2xl">
+                          Delete Section
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-base text-charcoal">
+                          Are you sure want to delete this section ?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+
+                      <AlertDialogFooter>
+                        <AlertDialogAction
+                          className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
+                          onClick={() => {
+                            handleDeleteDiv();
+                            setHobbiesDescription("");
+                          }}
+                        >
+                          delete
+                        </AlertDialogAction>
+                        <AlertDialogCancel className="text-black bg-transparent border-charcoal uppercase text-base font-light min-w-[91.5px]">
+                          cancel
+                        </AlertDialogCancel>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
                 <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                   What do you like ?

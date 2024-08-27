@@ -10,6 +10,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@radix-ui/react-separator";
 import { useLanguage } from "@/statemanagement/useLanguage";
@@ -136,15 +147,40 @@ const SortableLanguage: React.FC<SortableLanguageProps> = ({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div
-            onClick={() => {
-              handleDeleteDiv(index);
-              setLanguageLevel(index, "");
-              setLanguageTitle(index, "");
-            }}
-          >
-            <TrashIcon className="hover:text-aquamarine-100" />
-          </div>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <div>
+                <TrashIcon className="hover:text-aquamarine-100" />
+              </div>
+            </AlertDialogTrigger>
+
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className="text-2xl">
+                  Delete Entry
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-base text-charcoal">
+                  Are you sure want to delete this entry ?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+
+              <AlertDialogFooter>
+                <AlertDialogAction
+                  className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
+                  onClick={() => {
+                    handleDeleteDiv(index);
+                    setLanguageLevel(index, "");
+                    setLanguageTitle(index, "");
+                  }}
+                >
+                  delete
+                </AlertDialogAction>
+                <AlertDialogCancel className="text-black bg-transparent border-charcoal uppercase text-base font-light min-w-[91.5px]">
+                  cancel
+                </AlertDialogCancel>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       ))}
     </>

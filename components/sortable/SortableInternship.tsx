@@ -1,6 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CalendarIcon, Delete, Frown, Smile, TrashIcon } from "lucide-react";
@@ -13,6 +17,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { format } from "date-fns";
 import { Textarea } from "@/components/ui/textarea";
 import { useInternship } from "@/statemanagement/useInternship";
@@ -265,19 +280,44 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div
-            onClick={() => {
-              handleDeleteDiv(index);
-              setInternshipCity(index, "");
-              setInternshipDescription(index, "");
-              setInternshipEmployer(index, "");
-              setInternshipEndDate(index, null);
-              setInternshipJobTitle(index, "");
-              setInternshipStartDate(index, null);
-            }}
-          >
-            <TrashIcon className="hover:text-aquamarine-100" />
-          </div>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <div>
+                <TrashIcon className="hover:text-aquamarine-100" />
+              </div>
+            </AlertDialogTrigger>
+
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className="text-2xl">
+                  Delete Entry
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-base text-charcoal">
+                  Are you sure want to delete this entry ?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+
+              <AlertDialogFooter>
+                <AlertDialogAction
+                  className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
+                  onClick={() => {
+                    handleDeleteDiv(index);
+                    setInternshipCity(index, "");
+                    setInternshipDescription(index, "");
+                    setInternshipEmployer(index, "");
+                    setInternshipEndDate(index, null);
+                    setInternshipJobTitle(index, "");
+                    setInternshipStartDate(index, null);
+                  }}
+                >
+                  delete
+                </AlertDialogAction>
+                <AlertDialogCancel className="text-black bg-transparent border-charcoal uppercase text-base font-light min-w-[91.5px]">
+                  cancel
+                </AlertDialogCancel>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       ))}
     </>
