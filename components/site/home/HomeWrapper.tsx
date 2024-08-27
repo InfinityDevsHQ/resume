@@ -54,6 +54,8 @@ const HomeWrapper = () => {
 
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
 
+  const [pdfName, setPdfName] = useState<any>();
+
   // Add More
 
   const handleAddSortableEmploymentList = () => {
@@ -182,7 +184,8 @@ const HomeWrapper = () => {
           languageToggledProgress={languageToggledProgress}
           setLanguageToggledProgress={setLanguageToggledProgress}
           handleAddSortableSkillsList={handleAddSortableSkillsList}
-
+          pdfName={pdfName}
+          setPdfName={setPdfName}
           clickedBadges={clickedBadges}
           setClickedBadges={setClickedBadges}
         />
@@ -200,6 +203,8 @@ const HomeWrapper = () => {
           sortableLanguageList={sortableLanguageList}
           skillsToggledProgress={skillsToggledProgress}
           languageToggledProgress={languageToggledProgress}
+          pdfName={pdfName}
+          setPdfName={setPdfName}
         />
       </section>
     </>

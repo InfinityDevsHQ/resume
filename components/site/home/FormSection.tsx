@@ -89,6 +89,8 @@ interface FormSecyionProps {
   handleAddSortableSkillsList: any;
   setClickedBadges: any;
   clickedBadges: any;
+  pdfName: any;
+  setPdfName: any;
 }
 
 const FormSection: React.FC<FormSecyionProps> = ({
@@ -131,6 +133,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableSkillsList,
   setClickedBadges,
   clickedBadges,
+  pdfName,
+  setPdfName,
 }) => {
   const form = useForm();
   const [toggled, setToggled] = useState(false);
@@ -209,6 +213,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 className="break-words bg-transparent text-2xl text-center placeholder:text-2xl"
                 placeholder="Untitled"
                 autoComplete="off"
+                onChange={(e) => {
+                  setPdfName(e.target.value);
+                }}
               />
             </div>
 
