@@ -124,12 +124,13 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 space-y-2">
+                <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       job title
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={internshipHistory[index]?.internshipJobTitle || ""}
                       onChange={(e) => {
                         setInternshipJobTitle(index, e.target.value);
@@ -137,11 +138,12 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                       name="internshipJobTitle"
                     />
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       employer
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={internshipHistory[index]?.internshipEmployer || ""}
                       onChange={(e) => {
                         setInternshipEmployer(index, e.target.value);
@@ -150,8 +152,8 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                     />
                   </div>
                 </div>
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 flex gap-2">
+                <div className="w-full flex md:flex-row flex-col justify-start items-center gap-8">
+                  <div className="sm:w-1/2 w-full flex sm:flex-row flex-col md:gap-2 gap-8">
                     <div className="w-full space-y-2">
                       <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                         start date
@@ -237,11 +239,12 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                       </Popover>
                     </div>
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       city
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={internshipHistory[index]?.internshipCity || ""}
                       onChange={(e) => {
                         setInternshipCity(index, e.target.value);
@@ -297,7 +300,7 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                 </AlertDialogDescription>
               </AlertDialogHeader>
 
-              <AlertDialogFooter>
+              <AlertDialogFooter className="sm:space-y-0 space-y-4 space-y-reverse">
                 <AlertDialogAction
                   className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
                   onClick={() => {

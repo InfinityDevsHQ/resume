@@ -90,12 +90,13 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 space-y-2">
+                <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       referent&apos;s full name
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={referenceHistory[index]?.referenceFullName || ""}
                       onChange={(e) => {
                         setReferenceFullName(index, e.target.value);
@@ -103,11 +104,12 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
                       name="referenceFullName"
                     />
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       company
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={referenceHistory[index]?.referenceCompany || ""}
                       onChange={(e) => {
                         setReferenceCompany(index, e.target.value);
@@ -116,12 +118,13 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
                     />
                   </div>
                 </div>
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 space-y-2">
+                <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       phone
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={referenceHistory[index]?.referencePhone || ""}
                       onChange={(e) => {
                         setReferencePhone(index, e.target.value);
@@ -129,11 +132,12 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
                       name="referencePhone"
                     />
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       email
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={referenceHistory[index]?.referenceEmail || ""}
                       onChange={(e) => {
                         setReferenceEmail(index, e.target.value);
@@ -162,7 +166,7 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
                 </AlertDialogDescription>
               </AlertDialogHeader>
 
-              <AlertDialogFooter>
+              <AlertDialogFooter className="sm:space-y-0 space-y-4 space-y-reverse">
                 <AlertDialogAction
                   className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
                   onClick={() => {

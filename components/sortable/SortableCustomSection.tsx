@@ -119,12 +119,13 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 space-y-2">
-                    <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                  <div className="sm:w-1/2 w-full space-y-2">
+                    <Label className="capitalize font-normal md:text-sm sm:text-xs text-sm text-charcoal flex gap-2 justify-start items-center">
                       activity name, job title, book title etc
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={customHistory[index]?.customTitle || ""}
                       onChange={(e) => {
                         setCustomTitle(index, e.target.value);
@@ -132,11 +133,12 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
                       name="customTitle"
                     />
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       city
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={customHistory[index]?.customCity || ""}
                       onChange={(e) => {
                         setCustomCity(index, e.target.value);
@@ -146,7 +148,7 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
                   </div>
                 </div>
                 <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 flex gap-2">
+                  <div className="md:w-1/2 w-full flex md:flex-row flex-col gap-2">
                     <div className="w-full space-y-2">
                       <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                         start date
@@ -253,7 +255,7 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
                 </AlertDialogDescription>
               </AlertDialogHeader>
 
-              <AlertDialogFooter>
+              <AlertDialogFooter className="sm:space-y-0 space-y-4 space-y-reverse">
                 <AlertDialogAction
                   className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
                   onClick={() => {

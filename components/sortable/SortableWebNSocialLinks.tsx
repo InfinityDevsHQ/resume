@@ -78,12 +78,13 @@ const SortableWebNSocialLinks: React.FC<SortableWebNSocialLinksProps> = ({
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 space-y-2">
+                <div className="w-full flex flex-col sm:flex-row justify-start items-center gap-8">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       label
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={webNSocialLinksHistory[index]?.webNSocialLinkLabel}
                       onChange={(e) => {
                         setWebNSocialLinkLabel(index, e.target.value);
@@ -91,11 +92,12 @@ const SortableWebNSocialLinks: React.FC<SortableWebNSocialLinksProps> = ({
                       name="webNSocialLinkLabel"
                     />
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       link
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={webNSocialLinksHistory[index]?.webNSocialLink}
                       onChange={(e) => {
                         setWebNSocialLink(index, e.target.value);
@@ -124,7 +126,7 @@ const SortableWebNSocialLinks: React.FC<SortableWebNSocialLinksProps> = ({
                 </AlertDialogDescription>
               </AlertDialogHeader>
 
-              <AlertDialogFooter>
+              <AlertDialogFooter className="sm:space-y-0 space-y-4 space-y-reverse">
                 <AlertDialogAction
                   className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
                   onClick={() => {

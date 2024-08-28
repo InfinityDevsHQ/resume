@@ -267,7 +267,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
   return (
     <>
-      <div className="break-words bg-white w-1/2 xxl:p-12 xl:p-6 p-3">
+      <div className="break-words bg-white xl:w-1/2 w-full xxl:p-12 xl:p-6 md:p-12 p-6">
         <Form {...form}>
           <form>
             {/* Resume Title */}
@@ -294,9 +294,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   }}
                 />
               </div>
-              <div className="break-words w-full flex justify-start items-center gap-8">
-                <div className="break-words w-1/2 space-y-2">
-                  <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+              <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                <div className="break-words sm:w-1/2 w-full space-y-2">
+                  <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                     wanted job title{""}
                     <TooltipProvider>
                       <Tooltip>
@@ -322,7 +322,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
                 </div>
-                <div className="break-words w-1/2 space-y-2">
+                <div className="break-words sm:w-1/2 w-full space-y-2">
                   <div className="break-words flex justify-start items-center gap-2">
                     {selectedImage ? (
                       <div className="break-words size-16">
@@ -350,41 +350,45 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="break-words w-full flex justify-start items-center gap-8">
-                <div className="break-words w-1/2 space-y-2">
+              <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                <div className="break-words sm:w-1/2 w-full space-y-2">
                   <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     first name
                   </Label>
                   <Input
+                    autoComplete="off"
                     name="firstName"
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
-                <div className="break-words w-1/2 space-y-2">
+                <div className="break-words sm:w-1/2 w-full space-y-2">
                   <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     last name
                   </Label>
                   <Input
+                    autoComplete="off"
                     name="lastName"
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
               </div>
-              <div className="break-words w-full flex justify-start items-center gap-8">
-                <div className="break-words w-1/2 space-y-2">
+              <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                <div className="break-words sm:w-1/2 w-full space-y-2">
                   <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     email
                   </Label>
                   <Input
+                    autoComplete="off"
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="break-words w-1/2 space-y-2">
+                <div className="break-words sm:w-1/2 w-full space-y-2">
                   <Label className="break-words capitalize font-normal text-sm text-charcoal">
                     phone
                   </Label>
                   <Input
+                    autoComplete="off"
                     name="phone"
                     onChange={(e) => setPhone(e.target.value)}
                   />
@@ -397,49 +401,53 @@ const FormSection: React.FC<FormSecyionProps> = ({
               >
                 <AccordionItem value="item-1" className="break-words border-0">
                   <AccordionContent className="break-words flex flex-col gap-4">
-                    <div className="break-words w-full flex justify-start items-center gap-8">
-                      <div className="break-words w-1/2 space-y-2">
-                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                    <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                      <div className="break-words sm:w-1/2 w-full space-y-2">
+                        <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                           country name{""}
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="countryName"
                           onChange={(e) => setCountryName(e.target.value)}
                         />
                       </div>
-                      <div className="break-words w-1/2 space-y-2">
-                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      <div className="break-words sm:w-1/2 w-full space-y-2">
+                        <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                           city{""}
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="city"
                           onChange={(e) => setCity(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div className="break-words w-full flex justify-start items-center gap-8">
-                      <div className="break-words w-1/2 space-y-2">
+                    <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                      <div className="break-words sm:w-1/2  w-full space-y-2">
                         <Label className="break-words capitalize font-normal text-sm text-charcoal">
                           address
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="address"
                           onChange={(e) => setAddress(e.target.value)}
                         />
                       </div>
-                      <div className="break-words w-1/2 space-y-2">
+                      <div className="break-words sm:w-1/2  w-full space-y-2">
                         <Label className="break-words capitalize font-normal text-sm text-charcoal">
                           postal code
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="postalCode"
                           onChange={(e) => setPostalCode(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div className="break-words w-full flex justify-start items-center gap-8">
-                      <div className="break-words w-1/2 space-y-2">
-                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                    <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                      <div className="break-words sm:w-1/2  w-full space-y-2">
+                        <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                           driving license{""}
                           <TooltipProvider>
                             <Tooltip>
@@ -459,12 +467,13 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           </TooltipProvider>
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="drivingLicense"
                           onChange={(e) => setDrivingLicense(e.target.value)}
                         />
                       </div>
-                      <div className="break-words w-1/2 space-y-2">
-                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      <div className="break-words sm:w-1/2  w-full space-y-2">
+                        <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                           nationality{""}
                           <TooltipProvider>
                             <Tooltip>
@@ -483,23 +492,25 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           </TooltipProvider>
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="nationality"
                           onChange={(e) => setNationality(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div className="break-words w-full flex justify-start items-center gap-8">
-                      <div className="break-words w-1/2 space-y-2">
+                    <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                      <div className="break-words sm:w-1/2  w-full space-y-2">
                         <Label className="break-words capitalize font-normal text-sm text-charcoal">
                           place of birth{""}
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="placeOfBirth"
                           onChange={(e) => setPlaceOfBirth(e.target.value)}
                         />
                       </div>
-                      <div className="break-words w-1/2 space-y-2">
-                        <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                      <div className="break-words sm:w-1/2  w-full space-y-2">
+                        <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                           date of birth{""}
                           <TooltipProvider>
                             <Tooltip>
@@ -519,6 +530,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           </TooltipProvider>
                         </Label>
                         <Input
+                          autoComplete="off"
                           name="dateOfBirth"
                           onChange={(e) => setDateOfBirth(e.target.value)}
                         />
@@ -550,14 +562,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 />
               </div>
               <div className="break-words w-full space-y-2">
-                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                   Write 2-4 short & energetic sentences to interest the reader!
                   Mention your role, experience & most importantly - your
                   biggest achievements, best qualities and skills.
                 </Label>
                 <Textarea
                   name="professionalSummary"
-                  className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
+                  className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center resize-none"
                   rows={6}
                   onChange={(e) => {
                     SetCharCount(e.target.value.length);
@@ -565,10 +577,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   }}
                 />
                 <div className="break-words flex justify-between items-center">
-                  <p className="break-words font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  <p className="break-words font-normal sm:text-sm  text-xs text-charcoal flex gap-2 justify-start items-center">
                     Write 400-600 characters to increase interview chances
                   </p>
-                  <p className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  <p className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                     {charCount} / 400+
                     {charCount >= 400 ? (
                       <Smile className="break-words text-green-400" />
@@ -593,7 +605,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 />
               </div>
               <div className="break-words w-full space-y-2">
-                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                   Show your relevant experience (last 10 years). Use bullet
                   point to note your achievement. if possible - use no./facts
                   (Achived X, measured by Y. by doing Z)
@@ -636,7 +648,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 />
               </div>
               <div className="break-words w-full space-y-2">
-                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                   A varied education on your resume sums up the value that you
                   are learning and background will bring to job
                 </Label>
@@ -678,7 +690,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 />
               </div>
               <div className="break-words w-full space-y-2">
-                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                   You can add links to websites you wants hiring managers to
                   see! Perphaps It will be a link to your portfoliio, Linkedin
                   profile or personal website
@@ -723,7 +735,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 />
               </div>
               <div className="break-words w-full space-y-2">
-                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                   Choose 5 of the most important skills to show your talents!
                   Make sure they match the keywords of the job listing if
                   applying via on online system.
@@ -1028,7 +1040,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         </AlertDialogDescription>
                       </AlertDialogHeader>
 
-                      <AlertDialogFooter>
+                      <AlertDialogFooter className="sm:space-y-0 space-y-4 space-y-reverse">
                         <AlertDialogAction
                           className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
                           onClick={() => {
@@ -1045,7 +1057,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     </AlertDialogContent>
                   </AlertDialog>
                 </div>
-                <Label className="break-words capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
                   What do you like ?
                 </Label>
                 <SortableHobbies />
@@ -1059,7 +1071,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   Add Section
                 </h1>
               </div>
-              <div className="break-words grid xxl:grid-cols-2 grid-cols-1">
+              <div className="break-words grid xxl:grid-cols-2 xl:grid-cols-1 md:grid-cols-2 grid-cols-1">
                 <Button
                   type="button"
                   onClick={() => {

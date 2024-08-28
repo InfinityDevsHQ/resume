@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, useState } from "react";
+import React from "react";
 import {
   Popover,
   PopoverContent,
@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CalendarIcon, Frown, Smile, TrashIcon } from "lucide-react";
+import { CalendarIcon, TrashIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -46,8 +46,8 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
   toggledActivities,
 }) => {
   const handleDeleteDiv = (index: any) => {
-    setSortableActivitiesList((sortableActivitiesList: any[]) =>
-      sortableActivitiesList.filter((_: any, i: any) => i !== index)
+    setSortableActivitiesList((prevList: any[]) =>
+      prevList.filter((_: any, i: any) => i !== index)
     );
     if (sortableActivitiesList.length <= 1) {
       setToggledActivities(!toggledActivities);
@@ -120,13 +120,14 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
                 </div>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-8">
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 space-y-2">
+                <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       function title
                     </Label>
                     <Input
                       name="activityFunctionTitle"
+                      autoComplete="off"
                       value={
                         activityHistory[index]?.activityFunctionTitle || ""
                       }
@@ -135,11 +136,12 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
                       }}
                     />
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       employer
                     </Label>
                     <Input
+                      autoComplete="off"
                       name="activityEmployer"
                       value={activityHistory[index]?.activityEmployer || ""}
                       onChange={(e) => {
@@ -148,8 +150,8 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
                     />
                   </div>
                 </div>
-                <div className="w-full flex justify-start items-center gap-8">
-                  <div className="w-1/2 flex gap-2">
+                <div className="w-full flex md:flex-row flex-col justify-start items-center gap-8">
+                  <div className="md:w-1/2 w-full flex sm:flex-row flex-col md:gap-2 gap-8">
                     <div className="w-full space-y-2">
                       <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                         start date
@@ -229,11 +231,12 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
                       </Popover>
                     </div>
                   </div>
-                  <div className="w-1/2 space-y-2">
+                  <div className="md:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       city
                     </Label>
                     <Input
+                      autoComplete="off"
                       value={activityHistory[index]?.activityCity || ""}
                       onChange={(e) => {
                         setActivityCity(index, e.target.value);
@@ -257,36 +260,40 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
             </AccordionItem>
           </Accordion>
 
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle className="text-2xl">
-                Delete Entry
-              </AlertDialogTitle>
-              <AlertDialogDescription className="text-base text-charcoal">
-                Are you sure want to delete this entry ?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-
-            <AlertDialogFooter>
-              <AlertDialogAction
-                className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
-                onClick={() => {
-                  handleDeleteDiv(index);
-                  setActivityCity(index, "");
-                  setActivityDescription(index, "");
-                  setActivityEmployer(index, "");
-                  setActivityEndDate(index, null);
-                  setActivityFunctionTitle(index, "");
-                  setActivityStartDate(index, null);
-                }}
-              >
-                delete
-              </AlertDialogAction>
-              <AlertDialogCancel className="text-black bg-transparent border-charcoal uppercase text-base font-light min-w-[91.5px]">
-                cancel
-              </AlertDialogCancel>
-            </AlertDialogFooter>
-          </AlertDialogContent>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <div>
+                <TrashIcon className="hover:text-aquamarine-100" />
+              </div>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete Entry</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure want to delete this entry ?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="sm:space-y-0 space-y-4 space-y-reverse">
+                <AlertDialogAction
+                  onClick={() => {
+                    handleDeleteDiv(index);
+                    setActivityCity(index, "");
+                    setActivityDescription(index, "");
+                    setActivityEmployer(index, "");
+                    setActivityEndDate(index, null);
+                    setActivityFunctionTitle(index, "");
+                    setActivityStartDate(index, null);
+                  }}
+                  className="bg-aquamarine-100 hover:bg-aquamarine-200 text-white hover:text-white uppercase text-base font-light min-w-[91.5px]"
+                >
+                  Delete
+                </AlertDialogAction>
+                <AlertDialogCancel className="text-black bg-transparent border-charcoal uppercase text-base font-light min-w-[91.5px]">
+                  Cancel
+                </AlertDialogCancel>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       ))}
     </>
