@@ -165,9 +165,11 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
       pdf: {
         compress: true,
       },
-      canvas: {
-        useCORS: true,
-      },
+      // canvas: {
+      //   useCORS: true,
+      //   width: 100,
+      //   height: 100,
+      // },
     },
   });
 
@@ -182,10 +184,8 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
       }, 300);
     };
 
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup scroll event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(scrollTimeout);
@@ -233,422 +233,432 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             </div>
           </div>
           <div
-            ref={targetRef}
-            className={`xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] h-[580px] break-words overflow-hidden flex md:mt-8 mt-16`}
+            className={`xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] h-[580px] break-words overflow-hidden md:mt-8 mt-16`}
           >
-            <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] h-full py-8 px-4">
-              {/* Personal Details */}
-              <div>
+            <div ref={targetRef} className="w-full h-full min-h-[1121px] flex">
+              <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] h-full py-8 px-4">
+                {/* Personal Details */}
                 <div>
-                  {selectedImage && (
-                    <Avatar className="break-words mx-auto h-14 w-14">
-                      <AvatarImage
-                        src={selectedImage}
-                        className="object-cover"
-                      />
-                    </Avatar>
-                  )}
-                </div>
-                <div className="break-words text-center mt-3">
-                  <h1 className="break-words text-white font-normal text-base">
-                    {firstName} {lastName}
-                  </h1>
-                </div>
-                <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
-                <div className="break-words text-center mt-1">
-                  <h1 className="break-words text-white font-normal text-[9px] leading-[14px]">
-                    {jobTitle}
-                  </h1>
-                </div>
-              </div>
-              <div className="break-words mt-3">
-                {phone ||
-                city ||
-                countryName ||
-                email ||
-                address ||
-                postalCode ||
-                nationality ||
-                dateOfBirth ||
-                placeOfBirth ? (
-                  <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                    {personalDetailsTitle}
-                  </h1>
-                ) : (
-                  ""
-                )}
-                <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                  {address}
-                </h6>
-                <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                  {city} {postalCode}
-                </h6>
-                <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                  {countryName}
-                </h6>
-                <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px] underline">
-                  <Link href="#">{phone}</Link>
-                </h6>
-                <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px] underline">
-                  <Link href="#">{email}</Link>
-                </h6>
-              </div>
-              {dateOfBirth && (
-                <div>
-                  <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
-                    date of birth
-                  </h1>
-                  <h6 className="break-words text-white font-normal text-[8px] leading-[13px]">
-                    {dateOfBirth}
-                  </h6>
-                </div>
-              )}
-              {nationality && (
-                <div>
-                  <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
-                    nationality
-                  </h1>
-                  <h6 className="break-words text-white font-normal text-[8px] leading-[13px]">
-                    {nationality}
-                  </h6>
-                </div>
-              )}
-              {/*  Web and Social Links */}
-              {sortableWebNSocialLinksList.length > 0 && (
-                <>
-                  <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                    {webNSocialLinkTitle}
-                  </h1>
-                  {sortableWebNSocialLinksList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                        <Link
-                          href={
-                            webNSocialLinksHistory[index]?.webNSocialLink
-                              ? webNSocialLinksHistory[index].webNSocialLink
-                              : "#"
-                          }
-                        >
-                          {webNSocialLinksHistory[index]?.webNSocialLinkLabel}
-                        </Link>
-                      </h6>
-                    </div>
-                  ))}
-                </>
-              )}
-              {/*  Skills */}
-              {sortableSkillsList.length > 0 && (
-                <>
-                  <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                    {skillTitle}
-                  </h1>
-                  {sortableSkillsList.map((item: any, index: any) => (
-                    <div key={index} className="break-words space-y-1 mt-1">
-                      <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                        {skillsHistory[index]?.skillsTitle}
-                      </h6>
-                      {skillsHistory[index]?.skillsTitle && (
-                        <Progress
-                          value={skillsHistory[index]?.skillsLevel || 60}
-                          className="break-words w-[100%] h-1 bg-[#808080]"
-                        />
-                      )}
-                    </div>
-                  ))}
-                </>
-              )}
-              {/*  Hobbies */}
-              {toggledHobbies && (
-                <>
-                  <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                    {hobbiesTitle}
-                  </h1>
                   <div>
-                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                      {hobbiesDescription}
+                    {selectedImage && (
+                      <Avatar className="break-words mx-auto h-14 w-14">
+                        <AvatarImage
+                          src={selectedImage}
+                          className="object-cover"
+                        />
+                      </Avatar>
+                    )}
+                  </div>
+                  <div className="break-words text-center mt-3">
+                    <h1 className="break-words text-white font-normal text-base">
+                      {firstName} {lastName}
+                    </h1>
+                  </div>
+                  <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+                  <div className="break-words text-center mt-1">
+                    <h1 className="break-words text-white font-normal text-[9px] leading-[14px]">
+                      {jobTitle}
+                    </h1>
+                  </div>
+                </div>
+                <div className="break-words mt-3">
+                  {phone ||
+                  city ||
+                  countryName ||
+                  email ||
+                  address ||
+                  postalCode ||
+                  nationality ||
+                  dateOfBirth ||
+                  placeOfBirth ? (
+                    <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                      {personalDetailsTitle}
+                    </h1>
+                  ) : (
+                    ""
+                  )}
+                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                    {address}
+                  </h6>
+                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                    {city} {postalCode}
+                  </h6>
+                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                    {countryName}
+                  </h6>
+                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px] underline">
+                    <Link href="#">{phone}</Link>
+                  </h6>
+                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px] underline">
+                    <Link href="#">{email}</Link>
+                  </h6>
+                </div>
+                {dateOfBirth && (
+                  <div>
+                    <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
+                      date of birth
+                    </h1>
+                    <h6 className="break-words text-white font-normal text-[8px] leading-[13px]">
+                      {dateOfBirth}
                     </h6>
                   </div>
-                </>
-              )}
-              {/*  Languages */}
-              {sortableLanguageList.length > 0 && (
-                <>
-                  <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                    {languagesTitle}
-                  </h1>
-                  {sortableLanguageList.map((item: any, index: any) => (
-                    <div key={index} className="break-words space-y-1 mt-1">
+                )}
+                {nationality && (
+                  <div>
+                    <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
+                      nationality
+                    </h1>
+                    <h6 className="break-words text-white font-normal text-[8px] leading-[13px]">
+                      {nationality}
+                    </h6>
+                  </div>
+                )}
+                {/*  Web and Social Links */}
+                {sortableWebNSocialLinksList.length > 0 && (
+                  <>
+                    <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                      {webNSocialLinkTitle}
+                    </h1>
+                    {sortableWebNSocialLinksList.map(
+                      (item: any, index: any) => (
+                        <div key={index}>
+                          <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                            <Link
+                              href={
+                                webNSocialLinksHistory[index]?.webNSocialLink
+                                  ? webNSocialLinksHistory[index].webNSocialLink
+                                  : "#"
+                              }
+                            >
+                              {
+                                webNSocialLinksHistory[index]
+                                  ?.webNSocialLinkLabel
+                              }
+                            </Link>
+                          </h6>
+                        </div>
+                      )
+                    )}
+                  </>
+                )}
+                {/*  Skills */}
+                {sortableSkillsList.length > 0 && (
+                  <>
+                    <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                      {skillTitle}
+                    </h1>
+                    {sortableSkillsList.map((item: any, index: any) => (
+                      <div key={index} className="break-words space-y-1 mt-1">
+                        <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                          {skillsHistory[index]?.skillsTitle}
+                        </h6>
+                        {skillsHistory[index]?.skillsTitle && (
+                          <Progress
+                            value={skillsHistory[index]?.skillsLevel || 60}
+                            className="break-words w-[100%] h-1 bg-[#808080]"
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
+                {/*  Hobbies */}
+                {toggledHobbies && (
+                  <>
+                    <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                      {hobbiesTitle}
+                    </h1>
+                    <div>
                       <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                        {languageHistory[index]?.languageTitle}
-                      </h6>
-                      {languageHistory[index]?.languageTitle && (
-                        <Progress
-                          value={languageHistory[index]?.languageLevel || 66}
-                          className="break-words w-[100%] h-1 bg-[#808080]"
-                        />
-                      )}
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-            <div className="break-words xl:w-[70%] w-[65%] bg-white h-full py-8 px-4 space-y-3">
-              {/* Professional Summary */}
-              {professionalSummary && (
-                <div>
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {professionalSummaryTitle}
-                  </h1>
-                  <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                    {professionalSummary}
-                  </h6>
-                </div>
-              )}
-
-              {/* Employment History */}
-              {sortableEmploymentList.length > 0 && (
-                <div className="break-words space-y-2">
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {employmentHistoryTitle}
-                  </h1>
-                  {sortableEmploymentList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                        {employmentHistory[index]?.employmentJobTitle}
-                        {employmentHistory[index]?.employer && (
-                          <>, {employmentHistory[index]?.employer}</>
-                        )}
-                        {employmentHistory[index]?.employmentCity && (
-                          <>, {employmentHistory[index]?.employmentCity}</>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {employmentHistory[
-                          index
-                        ]?.employmentStartDate?.toLocaleDateString()}{" "}
-                        {employmentHistory[index]?.employmentEndDate && (
-                          <>
-                            -{" "}
-                            {employmentHistory[
-                              index
-                            ]?.employmentEndDate?.toLocaleDateString()}
-                          </>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {employmentHistory[index]?.employmentDescription}
+                        {hobbiesDescription}
                       </h6>
                     </div>
-                  ))}
-                </div>
-              )}
+                  </>
+                )}
+                {/*  Languages */}
+                {sortableLanguageList.length > 0 && (
+                  <>
+                    <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                      {languagesTitle}
+                    </h1>
+                    {sortableLanguageList.map((item: any, index: any) => (
+                      <div key={index} className="break-words space-y-1 mt-1">
+                        <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                          {languageHistory[index]?.languageTitle}
+                        </h6>
+                        {languageHistory[index]?.languageTitle && (
+                          <Progress
+                            value={languageHistory[index]?.languageLevel || 66}
+                            className="break-words w-[100%] h-1 bg-[#808080]"
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+              <div className="break-words xl:w-[70%] w-[65%] bg-white h-full py-8 px-4 space-y-3">
+                {/* Professional Summary */}
+                {professionalSummary && (
+                  <div>
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {professionalSummaryTitle}
+                    </h1>
+                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                      {professionalSummary}
+                    </h6>
+                  </div>
+                )}
 
-              {/* Education */}
-              {sortableEducationList.length > 0 && (
-                <div className="break-words space-y-2">
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {educationTitle}
-                  </h1>
-                  {sortableEducationList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                        {educationHistory[index]?.educationSchool}
-                        {educationHistory[index]?.educationDegree && (
-                          <>, {educationHistory[index]?.educationDegree}</>
-                        )}
-                        {educationHistory[index]?.educationCity && (
-                          <>, {educationHistory[index]?.educationCity}</>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {educationHistory[
-                          index
-                        ]?.educationStartDate?.toLocaleDateString()}{" "}
-                        {educationHistory[index]?.educationEndDate && (
-                          <>
-                            -{" "}
-                            {educationHistory[
-                              index
-                            ]?.educationEndDate?.toLocaleDateString()}
-                          </>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {educationHistory[index]?.educationDescription}
-                      </h6>
-                    </div>
-                  ))}
-                </div>
-              )}
+                {/* Employment History */}
+                {sortableEmploymentList.length > 0 && (
+                  <div className="break-words space-y-2">
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {employmentHistoryTitle}
+                    </h1>
+                    {sortableEmploymentList.map((item: any, index: any) => (
+                      <div key={index}>
+                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                          {employmentHistory[index]?.employmentJobTitle}
+                          {employmentHistory[index]?.employer && (
+                            <>, {employmentHistory[index]?.employer}</>
+                          )}
+                          {employmentHistory[index]?.employmentCity && (
+                            <>, {employmentHistory[index]?.employmentCity}</>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {employmentHistory[
+                            index
+                          ]?.employmentStartDate?.toLocaleDateString()}{" "}
+                          {employmentHistory[index]?.employmentEndDate && (
+                            <>
+                              -{" "}
+                              {employmentHistory[
+                                index
+                              ]?.employmentEndDate?.toLocaleDateString()}
+                            </>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {employmentHistory[index]?.employmentDescription}
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-              {/* Internship */}
-              {sortableInternshipList.length > 0 && (
-                <div className="break-words space-y-2">
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {internshipsTitle}
-                  </h1>
-                  {sortableInternshipList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                        {internshipHistory[index]?.internshipJobTitle}
-                        {internshipHistory[index]?.internshipEmployer && (
-                          <>, {internshipHistory[index]?.internshipEmployer}</>
-                        )}
-                        {internshipHistory[index]?.internshipCity && (
-                          <>, {internshipHistory[index]?.internshipCity}</>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {internshipHistory[
-                          index
-                        ]?.internshipStartDate?.toLocaleDateString()}{" "}
-                        {internshipHistory[index]?.internshipEndDate && (
-                          <>
-                            -{" "}
-                            {internshipHistory[
-                              index
-                            ]?.internshipEndDate?.toLocaleDateString()}
-                          </>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {internshipHistory[index]?.internshipDescription}
-                      </h6>
-                    </div>
-                  ))}
-                </div>
-              )}
+                {/* Education */}
+                {sortableEducationList.length > 0 && (
+                  <div className="break-words space-y-2">
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {educationTitle}
+                    </h1>
+                    {sortableEducationList.map((item: any, index: any) => (
+                      <div key={index}>
+                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                          {educationHistory[index]?.educationSchool}
+                          {educationHistory[index]?.educationDegree && (
+                            <>, {educationHistory[index]?.educationDegree}</>
+                          )}
+                          {educationHistory[index]?.educationCity && (
+                            <>, {educationHistory[index]?.educationCity}</>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {educationHistory[
+                            index
+                          ]?.educationStartDate?.toLocaleDateString()}{" "}
+                          {educationHistory[index]?.educationEndDate && (
+                            <>
+                              -{" "}
+                              {educationHistory[
+                                index
+                              ]?.educationEndDate?.toLocaleDateString()}
+                            </>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {educationHistory[index]?.educationDescription}
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-              {/* Course */}
-              {sortableCourseList.length > 0 && (
-                <div className="break-words space-y-2">
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {coursesTitle}
-                  </h1>
-                  {sortableCourseList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                        {courseHistory[index]?.course}
-                        {courseHistory[index]?.courseInstitution && (
-                          <>, {courseHistory[index]?.courseInstitution}</>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {courseHistory[
-                          index
-                        ]?.courseStartDate?.toLocaleDateString()}{" "}
-                        {courseHistory[index]?.courseEndDate && (
-                          <>
-                            -{" "}
-                            {courseHistory[
-                              index
-                            ]?.courseEndDate?.toLocaleDateString()}
-                          </>
-                        )}
-                      </h6>
-                    </div>
-                  ))}
-                </div>
-              )}
+                {/* Internship */}
+                {sortableInternshipList.length > 0 && (
+                  <div className="break-words space-y-2">
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {internshipsTitle}
+                    </h1>
+                    {sortableInternshipList.map((item: any, index: any) => (
+                      <div key={index}>
+                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                          {internshipHistory[index]?.internshipJobTitle}
+                          {internshipHistory[index]?.internshipEmployer && (
+                            <>
+                              , {internshipHistory[index]?.internshipEmployer}
+                            </>
+                          )}
+                          {internshipHistory[index]?.internshipCity && (
+                            <>, {internshipHistory[index]?.internshipCity}</>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {internshipHistory[
+                            index
+                          ]?.internshipStartDate?.toLocaleDateString()}{" "}
+                          {internshipHistory[index]?.internshipEndDate && (
+                            <>
+                              -{" "}
+                              {internshipHistory[
+                                index
+                              ]?.internshipEndDate?.toLocaleDateString()}
+                            </>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {internshipHistory[index]?.internshipDescription}
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-              {/* Reference */}
-              {sortableReferenceList.length > 0 && (
-                <div className="break-words space-y-2">
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {referencesTitle}
-                  </h1>
-                  {sortableReferenceList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                        {referenceHistory[index]?.referenceFullName}{" "}
-                        {referenceHistory[index]?.referenceCompany && (
-                          <>from {referenceHistory[index]?.referenceCompany}</>
-                        )}
-                      </h6>
+                {/* Course */}
+                {sortableCourseList.length > 0 && (
+                  <div className="break-words space-y-2">
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {coursesTitle}
+                    </h1>
+                    {sortableCourseList.map((item: any, index: any) => (
+                      <div key={index}>
+                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                          {courseHistory[index]?.course}
+                          {courseHistory[index]?.courseInstitution && (
+                            <>, {courseHistory[index]?.courseInstitution}</>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {courseHistory[
+                            index
+                          ]?.courseStartDate?.toLocaleDateString()}{" "}
+                          {courseHistory[index]?.courseEndDate && (
+                            <>
+                              -{" "}
+                              {courseHistory[
+                                index
+                              ]?.courseEndDate?.toLocaleDateString()}
+                            </>
+                          )}
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {referenceHistory[index]?.referenceEmail && (
-                          <>{referenceHistory[index]?.referenceEmail} |</>
-                        )}{" "}
-                        {referenceHistory[index]?.referencePhone}
-                      </h6>
-                    </div>
-                  ))}
-                </div>
-              )}
+                {/* Reference */}
+                {sortableReferenceList.length > 0 && (
+                  <div className="break-words space-y-2">
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {referencesTitle}
+                    </h1>
+                    {sortableReferenceList.map((item: any, index: any) => (
+                      <div key={index}>
+                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                          {referenceHistory[index]?.referenceFullName}{" "}
+                          {referenceHistory[index]?.referenceCompany && (
+                            <>
+                              from {referenceHistory[index]?.referenceCompany}
+                            </>
+                          )}
+                        </h6>
 
-              {/* Extra Curricular Activities */}
-              {sortableActivitiesList.length > 0 && (
-                <div className="break-words space-y-2">
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {activitiesTitle}
-                  </h1>
-                  {sortableActivitiesList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                        {activityHistory[index]?.activityFunctionTitle}
-                        {activityHistory[index]?.activityEmployer && (
-                          <>, {activityHistory[index]?.activityEmployer}</>
-                        )}
-                        {activityHistory[index]?.activityCity && (
-                          <>, {activityHistory[index]?.activityCity}</>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {activityHistory[
-                          index
-                        ]?.activityStartDate?.toLocaleDateString()}{" "}
-                        {activityHistory[index]?.activityEndDate && (
-                          <>
-                            -{" "}
-                            {activityHistory[
-                              index
-                            ]?.activityEndDate?.toLocaleDateString()}
-                          </>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {activityHistory[index]?.activityDescription}
-                      </h6>
-                    </div>
-                  ))}
-                </div>
-              )}
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {referenceHistory[index]?.referenceEmail && (
+                            <>{referenceHistory[index]?.referenceEmail} |</>
+                          )}{" "}
+                          {referenceHistory[index]?.referencePhone}
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-              {/* Custom Section */}
-              {sortableCustomSectionList.length > 0 && (
-                <div className="break-words space-y-2">
-                  <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
-                    {customSectionTitle}
-                  </h1>
-                  {sortableCustomSectionList.map((item: any, index: any) => (
-                    <div key={index}>
-                      <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                        {customHistory[index]?.customTitle}
-                        {customHistory[index]?.customCity && (
-                          <>, {customHistory[index]?.customCity}</>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {customHistory[
-                          index
-                        ]?.customStartDate?.toLocaleDateString()}{" "}
-                        {customHistory[index]?.customEndDate && (
-                          <>
-                            -{" "}
-                            {customHistory[
-                              index
-                            ]?.customEndDate?.toLocaleDateString()}
-                          </>
-                        )}
-                      </h6>
-                      <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                        {customHistory[index]?.customDescription}
-                      </h6>
-                    </div>
-                  ))}
-                </div>
-              )}
+                {/* Extra Curricular Activities */}
+                {sortableActivitiesList.length > 0 && (
+                  <div className="break-words space-y-2">
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {activitiesTitle}
+                    </h1>
+                    {sortableActivitiesList.map((item: any, index: any) => (
+                      <div key={index}>
+                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                          {activityHistory[index]?.activityFunctionTitle}
+                          {activityHistory[index]?.activityEmployer && (
+                            <>, {activityHistory[index]?.activityEmployer}</>
+                          )}
+                          {activityHistory[index]?.activityCity && (
+                            <>, {activityHistory[index]?.activityCity}</>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {activityHistory[
+                            index
+                          ]?.activityStartDate?.toLocaleDateString()}{" "}
+                          {activityHistory[index]?.activityEndDate && (
+                            <>
+                              -{" "}
+                              {activityHistory[
+                                index
+                              ]?.activityEndDate?.toLocaleDateString()}
+                            </>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {activityHistory[index]?.activityDescription}
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Custom Section */}
+                {sortableCustomSectionList.length > 0 && (
+                  <div className="break-words space-y-2">
+                    <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
+                      {customSectionTitle}
+                    </h1>
+                    {sortableCustomSectionList.map((item: any, index: any) => (
+                      <div key={index}>
+                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                          {customHistory[index]?.customTitle}
+                          {customHistory[index]?.customCity && (
+                            <>, {customHistory[index]?.customCity}</>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {customHistory[
+                            index
+                          ]?.customStartDate?.toLocaleDateString()}{" "}
+                          {customHistory[index]?.customEndDate && (
+                            <>
+                              -{" "}
+                              {customHistory[
+                                index
+                              ]?.customEndDate?.toLocaleDateString()}
+                            </>
+                          )}
+                        </h6>
+                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                          {customHistory[index]?.customDescription}
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
