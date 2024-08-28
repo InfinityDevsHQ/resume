@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Margin, usePDF, Resolution } from "react-to-pdf";
 import Image from "next/image";
@@ -19,6 +19,7 @@ import { useCustom } from "@/statemanagement/useCustom";
 import { useSkills } from "@/statemanagement/useSkills";
 import { Progress } from "@/components/ui/progress";
 import { useLanguage } from "@/statemanagement/useLanguage";
+import { Grid2X2, ScanEye, X } from "lucide-react";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -81,6 +82,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   hobbiesTitle,
   activitiesTitle,
 }) => {
+  const [isScrolling, setIsScrolling] = useState(false);
   const [respToggled, setRespToggled] = useState(false);
 
   // Language
@@ -169,6 +171,27 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
     },
   });
 
+  useEffect(() => {
+    let scrollTimeout: any;
+
+    const handleScroll = () => {
+      setIsScrolling(true);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 300);
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup scroll event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -177,21 +200,41 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
         }`}
       >
         <div className="h-full w-full flex justify-center items-center">
-          <div className="break-words absolute left-[50%] translate-x-[-50%] xl:text-right text-left xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] top-0 mt-5">
+          <div className="break-words absolute left-[50%] translate-x-[-50%] flex justify-between md:flex-row flex-col gap-2 xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] top-0 mt-5">
             <Button
-              onClick={() => {
-                toPDF();
-                setPdfSize(!pdfSize);
-              }}
               type="button"
-              className="break-words text-white bg-aquamarine-100 hover:bg-aquamarine-200 px-8 font-normal text-base"
+              className="md:order-first order-last break-words text-white bg-transparent hover:bg-charcoal rounded-full px-8 font-normal text-base capitalize"
             >
-              Download PDF
+              <Grid2X2 className="mr-2" />
+              select template
             </Button>
+            <div className="flex justify-between">
+              <Button
+                onClick={() => {
+                  toPDF();
+                  setPdfSize(!pdfSize);
+                }}
+                type="button"
+                className="break-words text-white bg-aquamarine-100 hover:bg-aquamarine-200 px-8 font-normal text-base"
+              >
+                Download PDF
+              </Button>
+              <Button
+                onClick={() => {
+                  setRespToggled(false);
+                }}
+                type="button"
+                className={`text-white rounded-full py-2 px-2 bg-transparent hover:bg-charcoal transition duration-300 xl:hidden ${
+                  respToggled ? "" : "flex"
+                }`}
+              >
+                <X />
+              </Button>
+            </div>
           </div>
           <div
             ref={targetRef}
-            className={`xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] h-[580px] break-words overflow-hidden flex md:mt-6`}
+            className={`xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] h-[580px] break-words overflow-hidden flex md:mt-8 mt-16`}
           >
             <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] h-full py-8 px-4">
               {/* Personal Details */}
@@ -199,7 +242,10 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                 <div>
                   {selectedImage && (
                     <Avatar className="break-words mx-auto h-14 w-14">
-                      <AvatarImage src={selectedImage} />
+                      <AvatarImage
+                        src={selectedImage}
+                        className="object-cover"
+                      />
                     </Avatar>
                   )}
                 </div>
@@ -609,11 +655,20 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
       </div>
       <Button
         onClick={() => {
-          setRespToggled(!respToggled);
+          setRespToggled(true);
         }}
-        className="bg-aquamarine-100 hover:bg-aquamarine-200 uppercase fixed md:bottom-10 bottom-8 right-10 xl:hidden flex rounded-full shadow-lg"
+        className={`bg-aquamarine-100 h-14 hover:bg-aquamarine-200 uppercase fixed md:bottom-10 bottom-8 right-10 xl:hidden flex rounded-full shadow-lg
+          ${respToggled && "hidden"}
+          transition duration-300 ${isScrolling ? "px-4 py-2" : "w-14 h-14"}`}
       >
-        preview and download
+        {isScrolling ? (
+          <>
+            preview and download
+            <ScanEye className="ml-2" />
+          </>
+        ) : (
+          <ScanEye className="ml-0" />
+        )}
       </Button>
     </>
   );
