@@ -273,7 +273,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
             {/* Resume Title */}
             <div className="break-words max-w-xs mx-auto mb-5">
               <Input
-                className="break-words bg-transparent text-2xl text-center placeholder:text-2xl"
+                className="break-words bg-transparent text-2xl text-center placeholder:text-2xl border-b-2 border-transparent hover:border-black"
                 placeholder="Untitled"
                 autoComplete="off"
                 value={pdfName}
