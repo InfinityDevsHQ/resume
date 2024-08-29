@@ -287,7 +287,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
                 <Input
-                  className="capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  className="capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pl-0"
                   autoComplete="off"
                   value={personalDetailsTitle}
                   onChange={(e) => {
