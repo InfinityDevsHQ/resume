@@ -89,7 +89,7 @@ const HomeWrapper = () => {
 
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
 
-  const [pdfName, setPdfName] = useState<any>();
+  const [pdfName, setPdfName] = useState("Untitled");
 
   // Add More
 

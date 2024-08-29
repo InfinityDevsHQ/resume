@@ -60,7 +60,7 @@ import { useHobbies } from "@/statemanagement/useHobbies";
 import { Switch } from "@/components/ui/switch";
 import { useSkills } from "@/statemanagement/useSkills";
 
-interface FormSecyionProps {
+type FormSecyionProps = {
   handleAddSortableEmploymentList: any;
   setSortableEmploymentList: any;
   sortableEmploymentList: any;
@@ -100,7 +100,7 @@ interface FormSecyionProps {
   handleAddSortableSkillsList: any;
   setClickedBadges: any;
   clickedBadges: any;
-  pdfName: any;
+  pdfName: string;
   setPdfName: any;
   customSectionTitle: any;
   setCustomSectionTitle: any;
@@ -128,7 +128,7 @@ interface FormSecyionProps {
   setSkillTitle: any;
   setHobbiesTitle: any;
   setActivitiesTitle: any;
-}
+};
 
 const FormSection: React.FC<FormSecyionProps> = ({
   handleAddSortableEmploymentList,
@@ -276,6 +276,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 className="break-words bg-transparent text-2xl text-center placeholder:text-2xl"
                 placeholder="Untitled"
                 autoComplete="off"
+                value={pdfName}
                 onChange={(e) => {
                   setPdfName(e.target.value);
                 }}
