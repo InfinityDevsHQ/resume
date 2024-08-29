@@ -267,9 +267,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
   return (
     <>
-      <div className="break-words bg-white xl:w-1/2 w-full xxl:p-12 xl:p-6 md:p-12 p-6">
+      <div className="break-words bg-white  w-full xxl:p-12 xl:p-6 md:p-12 p-6 h-screen overflow-y-auto">
         <Form {...form}>
-          <form>
+          <form className="overflow-hidden">
             {/* Resume Title */}
             <div className="break-words max-w-xs mx-auto mb-5">
               <Input

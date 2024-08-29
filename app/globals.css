@@ -6,3 +6,6 @@ html,
 body {
   height: 100%;
 }
+body {
+  @apply h-screen overflow-hidden;
+}

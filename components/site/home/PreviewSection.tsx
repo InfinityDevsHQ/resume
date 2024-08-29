@@ -190,12 +190,12 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   return (
     <>
       <div
-        className={`break-words bg-misty xl:w-1/2 w-full fixed top-0 bottom-0 right-0 xl:flex justify-center items-center ${
+        className={`break-words bg-misty w-full  xl:flex justify-center items-center h-screen overflow-hidden ${
           respToggled ? "" : "hidden"
         }`}
       >
-        <div className="h-full w-full flex justify-center items-center">
-          <div className="break-words absolute left-[50%] translate-x-[-50%] flex justify-between md:flex-row flex-col gap-2 xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] top-0 mt-5">
+        <div className=" w-full flex flex-col justify-center items-center">
+          <div className="break-words  flex justify-between md:flex-row flex-col gap-2 xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] top-0 mt-5">
             <Button
               type="button"
               className="hidden lg:flex md:order-first order-last break-words text-white bg-transparent hover:bg-charcoal rounded-full px-8 font-normal text-base capitalize"
