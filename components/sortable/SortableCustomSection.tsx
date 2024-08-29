@@ -74,7 +74,7 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black text-left">
+                  <span className="block text-gray-800 text-left">
                     {customHistory[index]?.customTitle ||
                     customHistory[index]?.customCity ? (
                       <>

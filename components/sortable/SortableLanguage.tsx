@@ -59,7 +59,7 @@ const SortableLanguage: React.FC<SortableLanguageProps> = ({
             <AccordionItem value={`item-${index}`} className="border px-5">
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black text-left">
+                  <span className="block text-gray-800 text-left">
                     {languageHistory[index]?.languageTitle
                       ? languageHistory[index]?.languageTitle
                       : "Not specified"}

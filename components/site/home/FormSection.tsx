@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Frown, Languages, Plus, Smile, TrashIcon } from "lucide-react";
+import { Frown, Languages, Pencil, Plus, Smile, TrashIcon } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -285,15 +285,16 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Personal Details */}
             <div className="break-words flex flex-col gap-4 mb-7">
-              <div>
+              <div className="flex items-center group max-w-max">
                 <Input
-                  className="capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pl-0 pb-0"
+                  className="capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg px-0 pb-0 max-w-max"
                   autoComplete="off"
                   value={personalDetailsTitle}
                   onChange={(e) => {
                     setPersonalDetailsTitle(e.target.value);
                   }}
                 />
+                <Pencil className="opacity-0 group-hover:opacity-100" />
               </div>
               <div className="break-words w-full flex sm:flex-row flex-col justify-start items-center gap-8">
                 <div className="break-words sm:w-1/2 w-full space-y-2">

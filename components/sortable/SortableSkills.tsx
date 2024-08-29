@@ -65,7 +65,7 @@ const SortableSkills: React.FC<SortableSkillsProps> = ({
             >
               <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
                 <div>
-                  <span className="block text-black text-left">
+                  <span className="block text-gray-800 text-left">
                     {skillsHistory[index]?.skillsTitle
                       ? skillsHistory[index]?.skillsTitle
                       : "Not specified"}
