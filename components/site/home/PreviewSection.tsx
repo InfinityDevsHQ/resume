@@ -190,7 +190,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   return (
     <>
       <div
-        className={`break-words bg-misty w-full  xl:flex justify-center items-center h-screen overflow-hidden ${
+        className={`break-words bg-misty w-full  xl:flex justify-center items-center h-screen fixed lg:relative overflow-hidden ${
           respToggled ? "" : "hidden"
         }`}
       >

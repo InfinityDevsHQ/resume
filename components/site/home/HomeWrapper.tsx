@@ -175,7 +175,7 @@ const HomeWrapper = () => {
   };
 
   return (
-    <section className="w-full grid grid-cols-2 h-screen overflow-hidden">
+    <section className="w-full grid lg:grid-cols-2 h-screen overflow-hidden">
       <FormSection
         handleAddSortableEmploymentList={handleAddSortableEmploymentList}
         sortableEmploymentList={sortableEmploymentList}
