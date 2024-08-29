@@ -114,8 +114,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                   </span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-8">
-                <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+              <AccordionContent className="flex flex-col gap-4">
+                <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-4">
                   <div className="sm:w-1/2 w-full space-y-2">
                     <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                       job title
@@ -143,8 +143,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                     />
                   </div>
                 </div>
-                <div className="w-full flex md:flex-row flex-col justify-start items-center gap-8">
-                  <div className="md:w-1/2 w-full flex sm:flex-row flex-col md:gap-2 gap-8">
+                <div className="w-full flex md:flex-row flex-col justify-start items-center gap-4">
+                  <div className="md:w-1/2 w-full flex sm:flex-row flex-col md:gap-2 gap-4">
                     <div className="w-full space-y-2">
                       <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
                         start date
