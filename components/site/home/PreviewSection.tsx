@@ -1,8 +1,7 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Margin, usePDF, Resolution } from "react-to-pdf";
-import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useProfessionalDetails } from "@/statemanagement/usePersonalDetails";
@@ -64,10 +63,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   sortableCustomSectionList,
   sortableSkillsList,
   sortableLanguageList,
-  skillsToggledProgress,
-  languageToggledProgress,
   pdfName,
-  setPdfName,
   customSectionTitle,
   personalDetailsTitle,
   professionalSummaryTitle,
@@ -141,7 +137,6 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
     city,
     countryName,
     dateOfBirth,
-    drivingLicense,
     email,
     firstName,
     jobTitle,
@@ -203,7 +198,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
           <div className="break-words absolute left-[50%] translate-x-[-50%] flex justify-between md:flex-row flex-col gap-2 xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] top-0 mt-5">
             <Button
               type="button"
-              className="md:order-first order-last break-words text-white bg-transparent hover:bg-charcoal rounded-full px-8 font-normal text-base capitalize"
+              className="hidden lg:flex md:order-first order-last break-words text-white bg-transparent hover:bg-charcoal rounded-full px-8 font-normal text-base capitalize"
             >
               <Grid2X2 className="mr-2" />
               select template
