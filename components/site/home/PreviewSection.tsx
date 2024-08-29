@@ -210,7 +210,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                   setPdfSize(!pdfSize);
                 }}
                 type="button"
-                className="break-words text-white bg-aquamarine-100 hover:bg-aquamarine-200 px-8 font-normal text-base"
+                className="break-words text-white bg-aquamarine-100 hover:bg-aquamarine-200 px-6 font-normal text-base"
               >
                 Download PDF
               </Button>
