@@ -287,7 +287,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
             <div className="break-words flex flex-col gap-4 mb-7">
               <div>
                 <Input
-                  className="capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pl-0"
+                  className="capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pl-0 pb-0"
                   autoComplete="off"
                   value={personalDetailsTitle}
                   onChange={(e) => {
@@ -551,10 +551,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Professional Summary */}
-            <div className="break-words flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-2 mb-7">
               <div>
                 <Input
-                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                   autoComplete="off"
                   value={professionalSummaryTitle}
                   onChange={(e) => {
@@ -594,10 +594,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Employment History */}
-            <div className="break-words flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-3 mb-7">
               <div>
                 <Input
-                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                   autoComplete="off"
                   value={employmentHistoryTitle}
                   onChange={(e) => {
@@ -637,10 +637,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Education */}
-            <div className="break-words flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-3 mb-7">
               <div>
                 <Input
-                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                   autoComplete="off"
                   value={educationTitle}
                   onChange={(e) => {
@@ -679,10 +679,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Website & Social Links */}
-            <div className="break-words flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-3 mb-7">
               <div>
                 <Input
-                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                   autoComplete="off"
                   value={webNSocialLinkTitle}
                   onChange={(e) => {
@@ -724,10 +724,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
             </div>
 
             {/* Skills */}
-            <div className="break-words flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-3 mb-7">
               <div>
                 <Input
-                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                  className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                   autoComplete="off"
                   value={skillTitle}
                   onChange={(e) => {
@@ -794,10 +794,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Course */}
             {toggledCourse && (
-              <div className="break-words flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-2 mb-7">
                 <div>
                   <Input
-                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                     autoComplete="off"
                     value={coursesTitle}
                     onChange={(e) => {
@@ -828,10 +828,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Internship */}
             {toggledInternship && (
-              <div className="break-words flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-2 mb-7">
                 <div>
                   <Input
-                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                     autoComplete="off"
                     value={internshipsTitle}
                     onChange={(e) => {
@@ -862,10 +862,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Language */}
             {toggledLanguage && (
-              <div className="break-words flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-w mb-7">
                 <div>
                   <Input
-                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                     autoComplete="off"
                     value={languagesTitle}
                     onChange={(e) => {
@@ -911,10 +911,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* References */}
             {toggledReference && (
-              <div className="break-words flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-w mb-7">
                 <div>
                   <Input
-                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                     autoComplete="off"
                     value={referencesTitle}
                     onChange={(e) => {
@@ -945,10 +945,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Activities */}
             {toggledActivities && (
-              <div className="break-words flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-w mb-7">
                 <div>
                   <Input
-                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                     autoComplete="off"
                     value={activitiesTitle}
                     onChange={(e) => {
@@ -979,11 +979,11 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Custom Section */}
             {toggledCustomSection && (
-              <div className="break-words flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-w mb-7">
                 <div>
                   {/* Custom Section */}
                   <Input
-                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                     autoComplete="off"
                     value={customSectionTitle}
                     onChange={(e) => {
@@ -1014,10 +1014,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
 
             {/* Hobbies */}
             {toggledHobbies && (
-              <div className="break-words flex flex-col gap-4 mb-7">
+              <div className="break-words flex flex-col gap-w mb-7">
                 <div className="break-words group flex gap-x-3 items-center">
                   <Input
-                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max"
+                    className="px-0 capitalize break-words bg-transparent text-lg text-black/85 font-semibold placeholder:text-lg w-max pb-0"
                     autoComplete="off"
                     value={hobbiesTitle}
                     onChange={(e) => {
@@ -1066,7 +1066,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
             )}
 
             {/* Add Section */}
-            <div className="break-words flex flex-col gap-4 mb-7">
+            <div className="break-words flex flex-col gap-2 mb-7">
               <div>
                 <h1 className="break-words text-xl font-semibold text-black/85">
                   Add Section
