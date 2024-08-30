@@ -33,7 +33,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { format } from "date-fns";
-import { Textarea } from "@/components/ui/textarea";
 import { useCustom } from "@/statemanagement/useCustom";
 
 interface SortableCustomSectionProps {

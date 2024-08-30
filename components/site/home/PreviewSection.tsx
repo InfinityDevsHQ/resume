@@ -189,7 +189,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
       clearTimeout(scrollTimeout);
     };
   }, []);
-
+  console.log(sortableActivitiesList, "history here");
   return (
     <>
       <div

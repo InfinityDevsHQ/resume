@@ -11,6 +11,10 @@ import { CalendarIcon, Delete, Frown, Smile, TrashIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import MdEditor from "react-markdown-editor-lite";
+import MarkdownIt from "markdown-it";
+import "react-markdown-editor-lite/lib/index.css";
+
 import {
   Accordion,
   AccordionContent,
@@ -41,6 +45,7 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
   sortableEmploymentList,
   setSortableEmploymentList,
 }) => {
+  const mdParser = new MarkdownIt();
   const [charCount, SetCharCount] = useState(0);
 
   const handleDeleteDiv = (index: any) => {
@@ -59,9 +64,10 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
     employmentHistory,
   } = useEmploymentHistory();
 
+  console.log(sortableEmploymentList, "there");
   return (
     <>
-      {sortableEmploymentList.map((item: any, index: any) => (
+      {sortableEmploymentList.map((index: any) => (
         <div
           key={index}
           className="w-full flex gap-x-3 items-center justify-between"
@@ -245,17 +251,13 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                   </div>
                 </div>
                 <div className="w-full space-y-2">
-                  <Textarea
-                    name="employemntDiscription"
-                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
-                    rows={6}
-                    maxLength={400}
-                    value={
-                      employmentHistory[index]?.employmentDescription || ""
-                    }
+                  <MdEditor
+                    name="activityDescription"
+                    style={{ height: "170px", width: "full" }}
+                    renderHTML={(text) => mdParser.render(text)}
                     onChange={(e) => {
-                      SetCharCount(e.target.value.length);
-                      setEmploymentDescription(index, e.target.value);
+                      SetCharCount(e.text.length);
+                      setEmploymentDescription(index, e.html);
                     }}
                   />
                   <div className="flex justify-between items-center">
