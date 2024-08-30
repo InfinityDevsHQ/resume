@@ -413,35 +413,39 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                       {employmentHistoryTitle}
                     </h1>
-                    {sortableEmploymentList.map((item: any, index: any) => (
-                      <div key={index}>
-                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                          {employmentHistory[index]?.employmentJobTitle}
-                          {employmentHistory[index]?.employer && (
-                            <>, {employmentHistory[index]?.employer}</>
-                          )}
-                          {employmentHistory[index]?.employmentCity && (
-                            <>, {employmentHistory[index]?.employmentCity}</>
-                          )}
-                        </h6>
-                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                          {employmentHistory[
-                            index
-                          ]?.employmentStartDate?.toLocaleDateString()}{" "}
-                          {employmentHistory[index]?.employmentEndDate && (
-                            <>
-                              -{" "}
-                              {employmentHistory[
-                                index
-                              ]?.employmentEndDate?.toLocaleDateString()}
-                            </>
-                          )}
-                        </h6>
-                        <MarkdownDisplay
-                          html={employmentHistory[index]?.employmentDescription}
-                        />
-                      </div>
-                    ))}
+                    {sortableEmploymentList.map((index: any) => {
+                      return (
+                        <div key={index}>
+                          <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                            {employmentHistory[index]?.employmentJobTitle}
+                            {employmentHistory[index]?.employer && (
+                              <>, {employmentHistory[index]?.employer}</>
+                            )}
+                            {employmentHistory[index]?.employmentCity && (
+                              <>, {employmentHistory[index]?.employmentCity}</>
+                            )}
+                          </h6>
+                          <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                            {employmentHistory[
+                              index
+                            ]?.employmentStartDate?.toLocaleDateString()}{" "}
+                            {employmentHistory[index]?.employmentEndDate && (
+                              <>
+                                -{" "}
+                                {employmentHistory[
+                                  index
+                                ]?.employmentEndDate?.toLocaleDateString()}
+                              </>
+                            )}
+                          </h6>
+                          <MarkdownDisplay
+                            html={
+                              employmentHistory[index]?.employmentDescription
+                            }
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
 
