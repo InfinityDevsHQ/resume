@@ -11,6 +11,10 @@ import { CalendarIcon, TrashIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import MdEditor from "react-markdown-editor-lite";
+import MarkdownIt from "markdown-it";
+import "react-markdown-editor-lite/lib/index.css";
+
 import {
   Accordion,
   AccordionContent,
@@ -45,6 +49,7 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
   setToggledActivities,
   toggledActivities,
 }) => {
+  const mdParser = new MarkdownIt();
   const handleDeleteDiv = (index: any) => {
     setSortableActivitiesList((prevList: any[]) =>
       prevList.filter((_: any, i: any) => i !== index)
@@ -246,13 +251,12 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
                   </div>
                 </div>
                 <div className="w-full space-y-2">
-                  <Textarea
+                  <MdEditor
                     name="activityDescription"
-                    className="capitalize font-normal text-sm text-charcoal resize-none"
-                    rows={6}
-                    value={activityHistory[index]?.activityDescription || ""}
+                    style={{ height: "170px", width: "full" }}
+                    renderHTML={(text) => mdParser.render(text)}
                     onChange={(e) => {
-                      setActivityDescription(index, e.target.value);
+                      setActivityDescription(index, e.html);
                     }}
                   />
                 </div>
