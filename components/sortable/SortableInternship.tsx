@@ -33,9 +33,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { format } from "date-fns";
-import { Textarea } from "@/components/ui/textarea";
 import { useInternship } from "@/statemanagement/useInternship";
-import MarkdownDisplay from "../general/markdon-display";
 
 interface SortableInternshipProps {
   sortableInternshipList: any;
