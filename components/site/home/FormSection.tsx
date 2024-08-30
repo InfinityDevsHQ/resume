@@ -588,8 +588,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   }}
                 />
                 <MdEditor
-                  style={{ height: "500px", width: "full" }}
-                  className="w-full"
+                  style={{ height: "170px", width: "full" }}
                   renderHTML={(text) => mdParser.render(text)}
                   onChange={handleEditorChange}
                 />

@@ -9,3 +9,12 @@ body {
 body {
   @apply h-screen overflow-hidden;
 }
+.sec-html {
+  display: none !important;
+}
+.section-container {
+  @apply !bg-[#eff2f9] !overflow-y-auto;
+}
+.rc-md-editor .editor-container .sec-md {
+  @apply !border-b-2 !border-b-transparent focus-within:border-b-red-600;
+}
