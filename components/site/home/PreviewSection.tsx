@@ -436,9 +436,9 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                             </>
                           )}
                         </h6>
-                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                          {employmentHistory[index]?.employmentDescription}
-                        </h6>
+                        <MarkdownDisplay
+                          html={employmentHistory[index]?.employmentDescription}
+                        />
                       </div>
                     ))}
                   </div>
@@ -474,9 +474,9 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                             </>
                           )}
                         </h6>
-                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                          {educationHistory[index]?.educationDescription}
-                        </h6>
+                        <MarkdownDisplay
+                          html={educationHistory[index]?.educationDescription}
+                        />
                       </div>
                     ))}
                   </div>
@@ -514,9 +514,9 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                             </>
                           )}
                         </h6>
-                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                          {internshipHistory[index]?.internshipDescription}
-                        </h6>
+                        <MarkdownDisplay
+                          html={internshipHistory[index]?.internshipDescription}
+                        />
                       </div>
                     ))}
                   </div>

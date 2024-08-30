@@ -34,7 +34,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { format } from "date-fns";
-import { Textarea } from "@/components/ui/textarea";
 import { useEducation } from "@/statemanagement/useEducation";
 
 interface SortableEducationProps {
@@ -250,7 +249,6 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                 </div>
                 <div className="w-full space-y-2">
                   <MdEditor
-                    name="educationDescription"
                     style={{ height: "170px", width: "full" }}
                     renderHTML={(text) => mdParser.render(text)}
                     onChange={(e) => {

@@ -5,9 +5,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import MdEditor from "react-markdown-editor-lite";
+import MarkdownIt from "markdown-it";
+import "react-markdown-editor-lite/lib/index.css";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CalendarIcon, Delete, Frown, Smile, TrashIcon } from "lucide-react";
+import { CalendarIcon, Frown, Smile, TrashIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,6 +35,7 @@ import {
 import { format } from "date-fns";
 import { Textarea } from "@/components/ui/textarea";
 import { useInternship } from "@/statemanagement/useInternship";
+import MarkdownDisplay from "../general/markdon-display";
 
 interface SortableInternshipProps {
   sortableInternshipList: any;
@@ -45,8 +50,7 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
   toggledInternship,
   setToggledInternship,
 }) => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+  const mdParser = new MarkdownIt(/* Markdown-it options */);
   const [charCount, SetCharCount] = useState(0);
 
   const handleDeleteDiv = (index: any) => {
@@ -254,16 +258,13 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                   </div>
                 </div>
                 <div className="w-full space-y-2">
-                  <Textarea
-                    name="internshipDescription"
-                    className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center resize-none"
-                    rows={6}
-                    value={
-                      internshipHistory[index]?.internshipDescription || ""
-                    }
+                  <MdEditor
+                    style={{ height: "170px", width: "full" }}
+                    renderHTML={(text) => mdParser.render(text)}
                     onChange={(e) => {
-                      SetCharCount(e.target.value.length);
-                      setInternshipDescription(index, e.target.value);
+                      SetCharCount(e.text.length);
+                      setInternshipDescription(index, e.html);
+                      console.log(e);
                     }}
                   />
                   <div className="flex justify-between items-center">

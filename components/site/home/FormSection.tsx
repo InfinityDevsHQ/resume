@@ -269,10 +269,6 @@ const FormSection: React.FC<FormSecyionProps> = ({
     setToggledHobbies(!toggledHobbies);
   };
 
-  function handleEditorChange({ html, text }: { html: string; text: string }) {
-    console.log("handleEditorChange", html, text);
-  }
-
   return (
     <>
       <div className="break-words bg-white  w-full xxl:p-12 xl:p-6 md:p-12 p-6 h-screen overflow-y-auto">
