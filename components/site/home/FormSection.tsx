@@ -1,6 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { Frown, Languages, Pencil, Plus, Smile, TrashIcon } from "lucide-react";
+import MdEditor from "react-markdown-editor-lite";
+import MarkdownIt from "markdown-it";
+import "react-markdown-editor-lite/lib/index.css";
+
 import {
   Accordion,
   AccordionContent,
@@ -199,6 +203,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
   setHobbiesTitle,
   setActivitiesTitle,
 }) => {
+  const mdParser = new MarkdownIt(/* Markdown-it options */);
   const form = useForm();
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
@@ -264,6 +269,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const handleDeleteDiv = () => {
     setToggledHobbies(!toggledHobbies);
   };
+
+  function handleEditorChange({ html, text }: { html: string; text: string }) {
+    console.log("handleEditorChange", html, text);
+  }
 
   return (
     <>
@@ -577,6 +586,12 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     SetCharCount(e.target.value.length);
                     setProfessionalSummary(e.target.value);
                   }}
+                />
+                <MdEditor
+                  style={{ height: "500px", width: "full" }}
+                  className="w-full"
+                  renderHTML={(text) => mdParser.render(text)}
+                  onChange={handleEditorChange}
                 />
                 <div className="break-words flex justify-between items-center">
                   <p className="break-words font-normal sm:text-sm  text-xs text-charcoal flex gap-2 justify-start items-center">
