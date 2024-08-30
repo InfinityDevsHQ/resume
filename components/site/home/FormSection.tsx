@@ -45,7 +45,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useProfessionalDetails } from "@/statemanagement/usePersonalDetails";
 import Image from "next/image";
-import { Textarea } from "@/components/ui/textarea";
 import SortableEmployment from "@/components/sortable/SortableEmployment";
 import SortableEducation from "@/components/sortable/SortableEducation";
 import SortableCourse from "@/components/sortable/SortableCourse";
@@ -578,19 +577,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   Mention your role, experience & most importantly - your
                   biggest achievements, best qualities and skills.
                 </Label>
-                <Textarea
-                  name="professionalSummary"
-                  className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center resize-none"
-                  rows={6}
-                  onChange={(e) => {
-                    SetCharCount(e.target.value.length);
-                    setProfessionalSummary(e.target.value);
-                  }}
-                />
                 <MdEditor
                   style={{ height: "170px", width: "full" }}
                   renderHTML={(text) => mdParser.render(text)}
-                  onChange={handleEditorChange}
+                  onChange={(e) => {
+                    SetCharCount(e.text.length);
+                    setProfessionalSummary(e.html);
+                    console.log(e);
+                  }}
                 />
                 <div className="break-words flex justify-between items-center">
                   <p className="break-words font-normal sm:text-sm  text-xs text-charcoal flex gap-2 justify-start items-center">

@@ -1,5 +1,10 @@
 "use client";
-import React, { Dispatch, useState } from "react";
+import React, { useState } from "react";
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+
+import "react-markdown-editor-lite/lib/index.css";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,8 +46,7 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
   sortableEducationList,
   setSortableEducationList,
 }) => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+  const mdParser = new MarkdownIt();
   const [charCount, SetCharCount] = useState(0);
 
   const handleDeleteDiv = (index: any) => {
@@ -245,14 +249,14 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                   </div>
                 </div>
                 <div className="w-full space-y-2">
-                  <Textarea
+                  <MdEditor
                     name="educationDescription"
-                    className="capitalize font-normal text-sm text-charcoal resize-none"
-                    rows={6}
-                    value={educationHistory[index]?.educationDescription || ""}
+                    style={{ height: "170px", width: "full" }}
+                    renderHTML={(text) => mdParser.render(text)}
                     onChange={(e) => {
-                      SetCharCount(e.target.value.length);
-                      setEducationDescription(index, e.target.value);
+                      SetCharCount(e.text.length);
+                      setEducationDescription(index, e.html);
+                      console.log(e);
                     }}
                   />
                   <div className="flex justify-between items-center">

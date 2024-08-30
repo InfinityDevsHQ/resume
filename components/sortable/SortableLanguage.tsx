@@ -50,7 +50,7 @@ const SortableLanguage: React.FC<SortableLanguageProps> = ({
 
   return (
     <>
-      {sortableLanguageList.map((item: any, index: any) => (
+      {sortableLanguageList.map((index: any) => (
         <div
           key={index}
           className="w-full flex gap-x-3 items-center justify-between"
