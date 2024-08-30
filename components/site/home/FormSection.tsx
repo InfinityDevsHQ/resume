@@ -1063,7 +1063,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     </AlertDialogContent>
                   </AlertDialog>
                 </div>
-                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center">
+                <Label className="break-words capitalize font-normal sm:text-sm text-xs text-charcoal flex gap-2 justify-start items-center mb-2">
                   What do you like ?
                 </Label>
                 <SortableHobbies />
