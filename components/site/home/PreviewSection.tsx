@@ -19,6 +19,9 @@ import { useSkills } from "@/statemanagement/useSkills";
 import { Progress } from "@/components/ui/progress";
 import { useLanguage } from "@/statemanagement/useLanguage";
 import { Grid2X2, ScanEye, X } from "lucide-react";
+import markdownIt from "markdown-it";
+import "react-markdown-editor-lite/lib/index.css";
+import MarkdownDisplay from "@/components/general/markdon-display";
 
 interface PreviewSectionProps {
   sortableEmploymentList: any;
@@ -80,7 +83,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 }) => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [respToggled, setRespToggled] = useState(false);
-
+  const mdParser = new markdownIt();
   // Language
 
   const { languageHistory } = useLanguage();
@@ -399,9 +402,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                       {professionalSummaryTitle}
                     </h1>
-                    <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                      {professionalSummary}
-                    </h6>
+                    <MarkdownDisplay html={professionalSummary} />
                   </div>
                 )}
 

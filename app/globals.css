@@ -10,7 +10,7 @@ body {
   @apply h-screen overflow-hidden;
 }
 .sec-html {
-  display: none !important;
+  display: none;
 }
 .section-container {
   @apply !bg-[#eff2f9] !overflow-y-auto;
@@ -20,4 +20,6 @@ body {
 }
 .rc-md-navigation {
   @apply !bg-[#eff2f9] !border-none;
+}
+.markdown {
 }
