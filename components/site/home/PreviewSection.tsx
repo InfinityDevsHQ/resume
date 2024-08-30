@@ -612,9 +612,9 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                             </>
                           )}
                         </h6>
-                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                          {activityHistory[index]?.activityDescription}
-                        </h6>
+                        <MarkdownDisplay
+                          html={activityHistory[index]?.activityDescription}
+                        />
                       </div>
                     ))}
                   </div>

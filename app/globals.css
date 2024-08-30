@@ -21,5 +21,6 @@ body {
 .rc-md-navigation {
   @apply !bg-[#eff2f9] !border-none;
 }
-.markdown {
+.markdown p {
+  @apply break-words !text-black/95 !font-normal !text-[8px] !leading-[13px];
 }
