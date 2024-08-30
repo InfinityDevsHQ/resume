@@ -367,9 +367,10 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                       {hobbiesTitle}
                     </h1>
                     <div>
-                      <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                        {hobbiesDescription}
-                      </h6>
+                      <MarkdownDisplay
+                        html={hobbiesDescription}
+                        className="!break-words !text-white/85 !font-normal !text-[8px] !leading-[13px]"
+                      />
                     </div>
                   </>
                 )}
