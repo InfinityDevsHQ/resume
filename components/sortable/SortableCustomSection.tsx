@@ -1,10 +1,14 @@
 "use client";
-import React, { Dispatch, useState } from "react";
+import React from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import MdEditor from "react-markdown-editor-lite";
+import MarkdownIt from "markdown-it";
+import "react-markdown-editor-lite/lib/index.css";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CalendarIcon, TrashIcon } from "lucide-react";
@@ -45,6 +49,7 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
   setToggledCustomSection,
   toggledCustomSection,
 }) => {
+  const mdParser = new MarkdownIt();
   const handleDeleteDiv = (index: any) => {
     setSortableCustomSectionList((sortableCustomSectionList: any[]) =>
       sortableCustomSectionList.filter((_: any, i: any) => i !== index)
@@ -225,13 +230,13 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
                   </div>
                 </div>
                 <div className="w-full space-y-2">
-                  <Textarea
-                    name="customDescription"
-                    className="capitalize font-normal text-sm text-charcoal resize-none"
-                    rows={6}
+                  <MdEditor
+                    name="activityDescription"
+                    style={{ height: "170px", width: "full" }}
+                    renderHTML={(text) => mdParser.render(text)}
                     value={customHistory[index]?.customDescription || ""}
                     onChange={(e) => {
-                      setCustomDescription(index, e.target.value);
+                      setCustomDescription(index, e.html);
                     }}
                   />
                 </div>

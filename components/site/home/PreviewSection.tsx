@@ -626,32 +626,35 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
                     <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                       {customSectionTitle}
                     </h1>
-                    {sortableCustomSectionList.map((item: any, index: any) => (
-                      <div key={index}>
-                        <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
-                          {customHistory[index]?.customTitle}
-                          {customHistory[index]?.customCity && (
-                            <>, {customHistory[index]?.customCity}</>
-                          )}
-                        </h6>
-                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                          {customHistory[
-                            index
-                          ]?.customStartDate?.toLocaleDateString()}{" "}
-                          {customHistory[index]?.customEndDate && (
-                            <>
-                              -{" "}
-                              {customHistory[
-                                index
-                              ]?.customEndDate?.toLocaleDateString()}
-                            </>
-                          )}
-                        </h6>
-                        <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                          {customHistory[index]?.customDescription}
-                        </h6>
-                      </div>
-                    ))}
+                    <div className="flex flex-col gap-3">
+                      {sortableCustomSectionList.map((index: any) => (
+                        <div key={index}>
+                          <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
+                            {customHistory[index]?.customTitle}
+                            {customHistory[index]?.customCity && (
+                              <>, {customHistory[index]?.customCity}</>
+                            )}
+                          </h6>
+                          <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                            {customHistory[
+                              index
+                            ]?.customStartDate?.toLocaleDateString()}{" "}
+                            {customHistory[index]?.customEndDate && (
+                              <>
+                                -{" "}
+                                {customHistory[
+                                  index
+                                ]?.customEndDate?.toLocaleDateString()}
+                              </>
+                            )}
+                          </h6>
+
+                          <MarkdownDisplay
+                            html={customHistory[index]?.customDescription}
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
