@@ -325,6 +325,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Input
                     autoComplete="off"
                     name="jobTitle"
+                    placeholder="e.g Teacher"
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
                 </div>
