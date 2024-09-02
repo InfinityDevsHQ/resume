@@ -5,55 +5,55 @@ import { Document, Page, View, StyleSheet } from "@react-pdf/renderer";
 import Link from "next/link";
 type PDFDocProps = {
   targetRef: any;
-  selectedImage?: string | null;
+  selectedImage: string | null;
   firstName: string;
   lastName: string;
-  phone?: string;
-  city?: string;
-  countryName?: string;
-  email?: string;
-  address?: string;
-  postalCode?: string;
-  nationality?: string;
-  dateOfBirth?: string;
-  jobTitle?: string;
-  placeOfBirth?: string;
-  personalDetailsTitle?: string;
+  phone: string;
+  city: string;
+  countryName: string;
+  email: string;
+  address: string;
+  postalCode: string;
+  nationality: string;
+  dateOfBirth: string;
+  jobTitle: string;
+  placeOfBirth: string;
+  personalDetailsTitle: string;
   sortableWebNSocialLinksList: any;
-  webNSocialLinkTitle?: string;
+  webNSocialLinkTitle: string;
   webNSocialLinksHistory: any;
   sortableSkillsList: any;
-  skillTitle?: string;
+  skillTitle: string;
   skillsHistory: any;
   toggledHobbies: boolean;
-  hobbiesTitle?: string;
-  hobbiesDescription?: string;
+  hobbiesTitle: string;
+  hobbiesDescription: string;
   sortableLanguageList: any;
-  languagesTitle?: string;
+  languagesTitle: string;
   languageHistory: any;
   sortableEmploymentList: any;
-  employmentHistoryTitle?: string;
+  employmentHistoryTitle: string;
   employmentHistory: any;
   sortableEducationList: any;
-  educationTitle?: string;
+  educationTitle: string;
   educationHistory: any;
   sortableInternshipList: any;
-  internshipsTitle?: string;
+  internshipsTitle: string;
   internshipHistory: any;
   sortableCourseList: any;
-  coursesTitle?: string;
+  coursesTitle: string;
   courseHistory: any;
   sortableReferenceList: any;
-  referencesTitle?: string;
+  referencesTitle: string;
   referenceHistory: any;
   sortableActivitiesList: any;
-  activitiesTitle?: string;
+  activitiesTitle: string;
   activityHistory: any;
   sortableCustomSectionList: any;
-  customSectionTitle?: string;
+  customSectionTitle: string;
   customHistory: any;
-  professionalSummary?: string;
-  professionalSummaryTitle?: string;
+  professionalSummary: string;
+  professionalSummaryTitle: string;
 };
 export default function PDFDoc({
   targetRef,
@@ -288,7 +288,6 @@ export default function PDFDoc({
                   <MarkdownDisplay html={professionalSummary} />
                 </div>
               )}
-
               {/* Employment History */}
               {sortableEmploymentList.length > 0 && (
                 <div className="break-words space-y-2">
@@ -331,7 +330,6 @@ export default function PDFDoc({
                   })}
                 </div>
               )}
-
               {/* Education */}
               {sortableEducationList.length > 0 && (
                 <div className="break-words space-y-2">
@@ -371,7 +369,6 @@ export default function PDFDoc({
                   ))}
                 </div>
               )}
-
               {/* Internship */}
               {sortableInternshipList.length > 0 && (
                 <div className="break-words space-y-2">
@@ -411,7 +408,6 @@ export default function PDFDoc({
                   ))}
                 </div>
               )}
-
               {/* Course */}
               {sortableCourseList.length > 0 && (
                 <div className="break-words space-y-2">
@@ -443,7 +439,6 @@ export default function PDFDoc({
                   ))}
                 </div>
               )}
-
               {/* Reference */}
               {sortableReferenceList.length > 0 && (
                 <div className="break-words space-y-2">
@@ -458,7 +453,6 @@ export default function PDFDoc({
                           <>from {referenceHistory[index]?.referenceCompany}</>
                         )}
                       </h6>
-
                       <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                         {referenceHistory[index]?.referenceEmail && (
                           <>{referenceHistory[index]?.referenceEmail} |</>
@@ -469,7 +463,6 @@ export default function PDFDoc({
                   ))}
                 </div>
               )}
-
               {/* Extra Curricular Activities */}
               {sortableActivitiesList.length > 0 && (
                 <div className="break-words space-y-2">
@@ -507,7 +500,6 @@ export default function PDFDoc({
                   ))}
                 </div>
               )}
-
               {/* Custom Section */}
               {sortableCustomSectionList.length > 0 && (
                 <div className="break-words space-y-2">
@@ -536,7 +528,6 @@ export default function PDFDoc({
                             </>
                           )}
                         </h6>
-
                         <MarkdownDisplay
                           html={customHistory[index]?.customDescription || ""}
                         />
