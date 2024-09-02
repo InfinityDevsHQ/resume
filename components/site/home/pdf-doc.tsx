@@ -2,6 +2,7 @@ import MarkdownDisplay from "@/components/general/markdon-display";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Document, Page, View, StyleSheet } from "@react-pdf/renderer";
+
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -57,6 +58,7 @@ type PDFDocProps = {
   professionalSummary: string;
   professionalSummaryTitle: string;
 };
+
 export default function PDFDoc({
   targetRef,
   selectedImage,
@@ -112,15 +114,7 @@ export default function PDFDoc({
   const contentRef = useRef<HTMLDivElement>(null);
   const [numPages, setNumPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const styles = StyleSheet.create({
-    page: {
-      flexDirection: "row",
-      backgroundColor: "#E4E4E4",
-    },
-    section: {
-      flexGrow: 5,
-    },
-  });
+
   const chunkSize = 1121;
   useEffect(() => {
     if (contentRef.current) {

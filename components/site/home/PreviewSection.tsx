@@ -2,16 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Margin, usePDF, Resolution } from "react-to-pdf";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  PDFViewer,
-} from "@react-pdf/renderer";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 import { useProfessionalDetails } from "@/statemanagement/usePersonalDetails";
 import { useProfessionalSummary } from "@/statemanagement/useProfessionalSummary";
 import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
@@ -24,14 +14,11 @@ import { useHobbies } from "@/statemanagement/useHobbies";
 import { useActivity } from "@/statemanagement/useActivities";
 import { useCustom } from "@/statemanagement/useCustom";
 import { useSkills } from "@/statemanagement/useSkills";
-import { Progress } from "@/components/ui/progress";
 import { useLanguage } from "@/statemanagement/useLanguage";
 import { Grid2X2, ScanEye, X } from "lucide-react";
 import markdownIt from "markdown-it";
 import "react-markdown-editor-lite/lib/index.css";
-import MarkdownDisplay from "@/components/general/markdon-display";
 import PDFDoc from "./pdf-doc";
-
 interface PreviewSectionProps {
   sortableEmploymentList: any;
   sortableEducationList: any;
@@ -121,15 +108,6 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
     postalCode,
   } = useProfessionalDetails();
   const [pdfSize, setPdfSize] = useState(false);
-  const styles = StyleSheet.create({
-    page: {
-      flexDirection: "row",
-      backgroundColor: "#E4E4E4",
-    },
-    section: {
-      flexGrow: 5,
-    },
-  });
 
   const { toPDF, targetRef } = usePDF({
     method: "save",
@@ -163,6 +141,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
     };
   }, []);
   console.log(targetRef.current, "DOCUMENT HERE");
+
   return (
     <>
       <div

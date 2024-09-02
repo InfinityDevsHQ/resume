@@ -44,10 +44,6 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
   setToggledCourse,
   toggledCourse,
 }) => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-  const [charCount, SetCharCount] = useState(0);
-
   const handleDeleteDiv = (index: any) => {
     setSortableCourseList((sortableCourseList: any[]) =>
       sortableCourseList.filter((_: any, i: any) => i !== index)
