@@ -1,8 +1,7 @@
 import MarkdownDisplay from "@/components/general/markdon-display";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
-import { Document, Page, View, StyleSheet } from "@react-pdf/renderer";
-
+import { Document, Page } from "@react-pdf/renderer";
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -119,8 +118,11 @@ export default function PDFDoc({
   useEffect(() => {
     if (contentRef.current) {
       const contentHeight = contentRef.current.scrollHeight;
-      const pageHeight = 1121;
-      console.log(contentHeight, pageHeight, "height");
+      const chunkSize = 1121; // This value should match the actual page height
+      const calculatedPages = Math.ceil(contentHeight / chunkSize);
+      setNumPages(calculatedPages);
+
+      console.log(contentHeight, chunkSize, "height");
       const numPages = Math.ceil(contentHeight / chunkSize);
       setNumPages(numPages);
     }
@@ -543,14 +545,8 @@ export default function PDFDoc({
 
     return renderToStaticMarkup(chunkContent);
   });
-  console.log(contentChunks, "chunk");
   return (
     <>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        numPages={numPages}
-      />
       <Document ref={targetRef}>
         {contentChunks.map((chunk) => (
           <Page key={chunk} size={"A4"}>

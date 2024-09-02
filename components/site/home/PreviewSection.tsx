@@ -79,7 +79,6 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
 }) => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [respToggled, setRespToggled] = useState(false);
-  const mdParser = new markdownIt();
   const { languageHistory } = useLanguage();
   const { activityHistory } = useActivity();
   const { referenceHistory } = useReference();
