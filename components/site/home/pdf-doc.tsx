@@ -558,21 +558,16 @@ export default function PDFDoc({
         numPages={numPages}
       />
       <Document ref={targetRef}>
-        {Array(numPages)
-          .fill(0)
-          .map((_, index) => (
-            <Page size="A4" key={index}>
-              <View style={styles.section}>
-                <div
-                  className="w-full h-full min-h-[1121px] flex"
-                  ref={contentRef}
-                  dangerouslySetInnerHTML={{
-                    __html: contentChunks[index] || "",
-                  }}
-                />
-              </View>
-            </Page>
-          ))}
+        {contentChunks.map((chunk) => (
+          <Page key={chunk} size={"A4"}>
+            <div
+              className="w-full h-full min-h-[1121px] flex"
+              dangerouslySetInnerHTML={{
+                __html: chunk,
+              }}
+            />
+          </Page>
+        ))}
       </Document>
     </>
   );
