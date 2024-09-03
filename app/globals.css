@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+body {
+  @apply h-screen overflow-hidden;
+}
+.sec-html {
+  display: none;
+}
+.section-container {
+  @apply !bg-[#eff2f9] !overflow-y-auto;
+}
+.rc-md-editor .editor-container .sec-md {
+  @apply !border-b-2 !border-b-transparent focus-within:border-b-red-600;
+}
+.rc-md-navigation {
+  @apply !bg-[#eff2f9] !border-none;
+}
+.markdown p {
+  @apply break-words !text-black/95 !font-normal !text-[8px] !leading-[13px];
+}
