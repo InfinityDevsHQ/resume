@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type LanguageEntryTypes = {
   languageTitle: string | any;
@@ -13,28 +14,33 @@ type LanguageHistoryTypes = {
   setLanguageLevel: (index: number, languageLevel: string) => void;
 };
 
-export const useLanguage = create<LanguageHistoryTypes>((set) => ({
-  languageHistory: {},
+export const useLanguage = create<LanguageHistoryTypes>()(
+  persist(
+    (set) => ({
+      languageHistory: {},
 
-  setLanguageTitle: (index, languageTitle) =>
-    set((state) => ({
-      languageHistory: {
-        ...state.languageHistory,
-        [index]: {
-          ...state.languageHistory[index],
-          languageTitle,
-        },
-      },
-    })),
+      setLanguageTitle: (index, languageTitle) =>
+        set((state) => ({
+          languageHistory: {
+            ...state.languageHistory,
+            [index]: {
+              ...state.languageHistory[index],
+              languageTitle,
+            },
+          },
+        })),
 
-  setLanguageLevel: (index, languageLevel) =>
-    set((state) => ({
-      languageHistory: {
-        ...state.languageHistory,
-        [index]: {
-          ...state.languageHistory[index],
-          languageLevel,
-        },
-      },
-    })),
-}));
+      setLanguageLevel: (index, languageLevel) =>
+        set((state) => ({
+          languageHistory: {
+            ...state.languageHistory,
+            [index]: {
+              ...state.languageHistory[index],
+              languageLevel,
+            },
+          },
+        })),
+    }),
+    { name: "languages", storage: createJSONStorage(() => localStorage) }
+  )
+);

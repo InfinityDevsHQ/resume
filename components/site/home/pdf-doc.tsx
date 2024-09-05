@@ -275,13 +275,13 @@ export default function PDFDoc({
                 {languagesTitle}
               </h1>
               {sortableLanguageList.map((item: any, index: any) => (
-                <div key={index} className="break-words space-y-1 mt-1">
+                <div key={index + 1} className="break-words space-y-1 mt-1">
                   <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                    {languageHistory[index]?.languageTitle}
+                    {languageHistory[index + 1]?.languageTitle}
                   </h6>
-                  {languageHistory[index]?.languageTitle && (
+                  {languageHistory[index + 1]?.languageTitle && (
                     <Progress
-                      value={languageHistory[index]?.languageLevel || 66}
+                      value={languageHistory[index + 1]?.languageLevel || 66}
                       className="break-words w-[100%] h-1 bg-[#808080]"
                     />
                   )}
