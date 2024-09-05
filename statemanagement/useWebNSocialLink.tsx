@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type WebNSocialLinkEntryTypes = {
   webNSocialLinkLabel: string | any;
@@ -13,28 +14,33 @@ type WebNSocialLinkHistiryTypes = {
   setWebNSocialLink: (index: number, link: string | any) => void;
 };
 
-export const useWebNSocialLinks = create<WebNSocialLinkHistiryTypes>((set) => ({
-  webNSocialLinksHistory: {},
+export const useWebNSocialLinks = create<WebNSocialLinkHistiryTypes>()(
+  persist(
+    (set) => ({
+      webNSocialLinksHistory: {},
 
-  setWebNSocialLinkLabel: (index, webNSocialLinkLabel) =>
-    set((state) => ({
-      webNSocialLinksHistory: {
-        ...state.webNSocialLinksHistory,
-        [index]: {
-          ...state.webNSocialLinksHistory[index],
-          webNSocialLinkLabel,
-        },
-      },
-    })),
+      setWebNSocialLinkLabel: (index, webNSocialLinkLabel) =>
+        set((state) => ({
+          webNSocialLinksHistory: {
+            ...state.webNSocialLinksHistory,
+            [index]: {
+              ...state.webNSocialLinksHistory[index],
+              webNSocialLinkLabel,
+            },
+          },
+        })),
 
-  setWebNSocialLink: (index, webNSocialLink) =>
-    set((state) => ({
-      webNSocialLinksHistory: {
-        ...state.webNSocialLinksHistory,
-        [index]: {
-          ...state.webNSocialLinksHistory[index],
-          webNSocialLink,
-        },
-      },
-    })),
-}));
+      setWebNSocialLink: (index, webNSocialLink) =>
+        set((state) => ({
+          webNSocialLinksHistory: {
+            ...state.webNSocialLinksHistory,
+            [index]: {
+              ...state.webNSocialLinksHistory[index],
+              webNSocialLink,
+            },
+          },
+        })),
+    }),
+    { name: "social-links", storage: createJSONStorage(() => localStorage) }
+  )
+);
