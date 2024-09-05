@@ -3,6 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Document, Page } from "@react-pdf/renderer";
 import Link from "next/link";
+import MarkdownIt from "markdown-it";
 import { useRef, useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 type PDFDocProps = {
@@ -115,7 +116,7 @@ export default function PDFDoc({
   const contentRef = useRef<HTMLDivElement>(null);
   const [numPages, setNumPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const mdParser = new MarkdownIt();
   const chunkSize = 1121;
   useEffect(() => {
     if (contentRef.current) {
@@ -296,7 +297,7 @@ export default function PDFDoc({
               <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                 {professionalSummaryTitle}
               </h1>
-              <MarkdownDisplay html={professionalSummary} />
+              <MarkdownDisplay html={mdParser.render(professionalSummary)} />
             </div>
           )}
           {/* Employment History */}

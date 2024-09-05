@@ -232,7 +232,8 @@ const FormSection: React.FC<FormSecyionProps> = ({
   } = useProfessionalDetails();
   // Professional Summary
 
-  const { setProfessionalSummary } = useProfessionalSummary();
+  const { setProfessionalSummary, professionalSummary } =
+    useProfessionalSummary();
 
   // Professional Details
 
@@ -605,9 +606,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 <MdEditor
                   style={{ height: "170px", width: "full" }}
                   renderHTML={(text) => mdParser.render(text)}
+                  value={professionalSummary}
                   onChange={(e) => {
                     SetCharCount(e.text.length);
-                    setProfessionalSummary(e.html);
+                    setProfessionalSummary(e.text);
                     console.log(e);
                   }}
                 />
