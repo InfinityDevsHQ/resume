@@ -250,10 +250,11 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                 <div className="w-full space-y-2">
                   <MdEditor
                     style={{ height: "170px", width: "full" }}
+                    value={educationHistory[0]?.educationDescription}
                     renderHTML={(text) => mdParser.render(text)}
                     onChange={(e) => {
                       SetCharCount(e.text.length);
-                      setEducationDescription(index, e.html);
+                      setEducationDescription(index, e.text);
                       console.log(e);
                     }}
                   />

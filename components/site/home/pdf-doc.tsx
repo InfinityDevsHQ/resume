@@ -372,7 +372,9 @@ export default function PDFDoc({
                     )}
                   </h6>
                   <MarkdownDisplay
-                    html={educationHistory[index]?.educationDescription || ""}
+                    html={mdParser.render(
+                      educationHistory[index]?.educationDescription || ""
+                    )}
                   />
                 </div>
               ))}
