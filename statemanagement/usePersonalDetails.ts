@@ -1,5 +1,6 @@
 "use client";
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type ProfessionalDetails = {
   selectedImage: string | null;
@@ -33,33 +34,41 @@ type ProfessionalDetails = {
   setDrivingLicense: (drivingLicense: string) => void;
 };
 
-export const useProfessionalDetails = create<ProfessionalDetails>((set) => ({
-  selectedImage: "",
-  jobTitle: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  countryName: "",
-  city: "",
-  address: "",
-  nationality: "",
-  placeOfBirth: "",
-  dateOfBirth: "",
-  postalCode: "",
-  drivingLicense: "",
-  setSelectedImage: (selectedImage: any) => set({ selectedImage }),
-  setJobTitle: (jobTitle) => set({ jobTitle }),
-  setFirstName: (firstName) => set({ firstName }),
-  setLastName: (lastName) => set({ lastName }),
-  setEmail: (email) => set({ email }),
-  setPhone: (phone) => set({ phone }),
-  setCountryName: (countryName) => set({ countryName }),
-  setCity: (city) => set({ city }),
-  setAddress: (address) => set({ address }),
-  setNationality: (nationality) => set({ nationality }),
-  setPlaceOfBirth: (placeOfBirth) => set({ placeOfBirth }),
-  setDateOfBirth: (dateOfBirth) => set({ dateOfBirth }),
-  setPostalCode: (postalCode) => set({ postalCode }),
-  setDrivingLicense: (drivingLicense) => set({ drivingLicense }),
-}));
+export const useProfessionalDetails = create<ProfessionalDetails>()(
+  persist(
+    (set) => ({
+      selectedImage: "",
+      jobTitle: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      countryName: "",
+      city: "",
+      address: "",
+      nationality: "",
+      placeOfBirth: "",
+      dateOfBirth: "",
+      postalCode: "",
+      drivingLicense: "",
+      setSelectedImage: (selectedImage: any) => set({ selectedImage }),
+      setJobTitle: (jobTitle) => set({ jobTitle }),
+      setFirstName: (firstName) => set({ firstName }),
+      setLastName: (lastName) => set({ lastName }),
+      setEmail: (email) => set({ email }),
+      setPhone: (phone) => set({ phone }),
+      setCountryName: (countryName) => set({ countryName }),
+      setCity: (city) => set({ city }),
+      setAddress: (address) => set({ address }),
+      setNationality: (nationality) => set({ nationality }),
+      setPlaceOfBirth: (placeOfBirth) => set({ placeOfBirth }),
+      setDateOfBirth: (dateOfBirth) => set({ dateOfBirth }),
+      setPostalCode: (postalCode) => set({ postalCode }),
+      setDrivingLicense: (drivingLicense) => set({ drivingLicense }),
+    }),
+    {
+      name: "professional-details-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
