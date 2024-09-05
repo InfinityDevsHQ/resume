@@ -9,13 +9,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import "react-markdown-editor-lite/lib/index.css";
+
 import {
-  Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import {
   Popover,
   PopoverContent,
@@ -23,7 +25,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CalendarIcon, TrashIcon } from "lucide-react";
+import { CalendarIcon, TrashIcon, GripVertical } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,6 +52,8 @@ export default function DraggableActivity({
 }: SortableActivitiesProps) {
   const uniqueId = activity.id;
   const mdParser = new MarkdownIt();
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: activity.id });
   const {
     activityHistory,
     setActivityCity,
@@ -67,191 +71,200 @@ export default function DraggableActivity({
       setToggledActivities(!toggledActivities);
     }
   };
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
   return (
     <div
-      className="w-full flex gap-x-3 items-center justify-between"
+      className="w-full flex gap-x-3 items-center justify-between relative group"
       key={uniqueId}
+      ref={setNodeRef}
+      style={style}
     >
-      <Accordion type="multiple" className="w-full">
-        <AccordionItem value={`item-${index}`} className="border px-5">
-          <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
-            <div>
-              <span className="block text-gray-800 text-left">
-                {activityHistory[index]?.activityFunctionTitle ||
-                activityHistory[index]?.activityEmployer ? (
-                  <>
-                    {activityHistory[index]?.activityFunctionTitle}{" "}
-                    {activityHistory[index]?.activityEmployer && (
-                      <>- {activityHistory[index]?.activityEmployer}</>
-                    )}
-                  </>
-                ) : (
-                  "Not specified"
-                )}
-              </span>
-              <span className="block text-charcoal text-left">
-                {activityHistory[index]?.activityEndDate ||
-                activityHistory[index]?.activityStartDate ? (
-                  <>
-                    {activityHistory[index]?.activityStartDate &&
-                      activityHistory[
+      <span
+        {...attributes}
+        {...listeners}
+        aria-describedby={`DndContext-${uniqueId}`}
+        className=" p-2  text-gray-500 opacity-100"
+      >
+        <GripVertical />
+      </span>
+      <AccordionItem value={`${uniqueId}`} className="border px-5 group flex-1">
+        <AccordionTrigger className="capitalize text-base font-medium hover:no-underline">
+          <div>
+            <span className="block text-gray-800 text-left">
+              {activityHistory[index]?.activityFunctionTitle ||
+              activityHistory[index]?.activityEmployer ? (
+                <>
+                  {activityHistory[index]?.activityFunctionTitle}{" "}
+                  {activityHistory[index]?.activityEmployer && (
+                    <>- {activityHistory[index]?.activityEmployer}</>
+                  )}
+                </>
+              ) : (
+                "Not specified"
+              )}
+            </span>
+            <span className="block text-charcoal text-left">
+              {activityHistory[index]?.activityEndDate ||
+              activityHistory[index]?.activityStartDate ? (
+                <>
+                  {activityHistory[index]?.activityStartDate &&
+                    activityHistory[
+                      index
+                    ]?.activityStartDate?.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "2-digit",
+                    })}{" "}
+                  {activityHistory[index]?.activityEndDate && (
+                    <>
+                      -{" "}
+                      {activityHistory[
                         index
-                      ]?.activityStartDate?.toLocaleDateString("en-US", {
+                      ]?.activityEndDate?.toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
                         day: "2-digit",
-                      })}{" "}
-                    {activityHistory[index]?.activityEndDate && (
-                      <>
-                        -{" "}
-                        {activityHistory[
-                          index
-                        ]?.activityEndDate?.toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                        })}
-                      </>
-                    )}
-                  </>
-                ) : (
-                  "Not specified"
-                )}
-              </span>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-8">
-            <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
-              <div className="sm:w-1/2 w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                  function title
-                </Label>
-                <Input
-                  name="activityFunctionTitle"
-                  autoComplete="off"
-                  value={activityHistory[index]?.activityFunctionTitle || ""}
-                  onChange={(e) => {
-                    setActivityFunctionTitle(index, e.target.value);
-                  }}
-                />
-              </div>
-              <div className="sm:w-1/2 w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                  employer
-                </Label>
-                <Input
-                  autoComplete="off"
-                  name="activityEmployer"
-                  value={activityHistory[index]?.activityEmployer || ""}
-                  onChange={(e) => {
-                    setActivityEmployer(index, e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-            <div className="w-full flex md:flex-row flex-col justify-start items-center gap-8">
-              <div className="md:w-1/2 w-full flex sm:flex-row flex-col md:gap-2 gap-8">
-                <div className="w-full space-y-2">
-                  <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                    start date
-                  </Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                          !activityHistory[index]?.activityStartDate &&
-                            "text-charcoal"
-                        )}
-                      >
-                        {activityHistory[index]?.activityStartDate ? (
-                          format(
-                            activityHistory[index]?.activityStartDate,
-                            "PP"
-                          )
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={activityHistory[index]?.activityStartDate}
-                        onSelect={(date) => setActivityStartDate(index, date)}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-                <div className="w-full space-y-2">
-                  <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                    end date
-                  </Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
-                          !activityHistory[index]?.activityEndDate &&
-                            "text-charcoal"
-                        )}
-                      >
-                        {activityHistory[index]?.activityEndDate ? (
-                          format(activityHistory[index]?.activityEndDate, "PP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={activityHistory[index]?.activityEndDate}
-                        onSelect={(date) => setActivityEndDate(index, date)}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              </div>
-              <div className="md:w-1/2 w-full space-y-2">
-                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
-                  city
-                </Label>
-                <Input
-                  autoComplete="off"
-                  value={activityHistory[index]?.activityCity || ""}
-                  onChange={(e) => {
-                    setActivityCity(index, e.target.value);
-                  }}
-                  name="activityCity"
-                />
-              </div>
-            </div>
-            <div className="w-full space-y-2">
-              <MdEditor
-                name="activityDescription"
-                style={{ height: "170px", width: "full" }}
-                renderHTML={(text) => mdParser.render(text)}
+                      })}
+                    </>
+                  )}
+                </>
+              ) : (
+                "Not specified"
+              )}
+            </span>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="flex flex-col gap-8">
+          <div className="w-full flex sm:flex-row flex-col justify-start items-center gap-8">
+            <div className="sm:w-1/2 w-full space-y-2">
+              <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                function title
+              </Label>
+              <Input
+                name="activityFunctionTitle"
+                autoComplete="off"
+                value={activityHistory[index]?.activityFunctionTitle || ""}
                 onChange={(e) => {
-                  setActivityDescription(index, e.html);
+                  setActivityFunctionTitle(index, e.target.value);
                 }}
               />
             </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+            <div className="sm:w-1/2 w-full space-y-2">
+              <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                employer
+              </Label>
+              <Input
+                autoComplete="off"
+                name="activityEmployer"
+                value={activityHistory[index]?.activityEmployer || ""}
+                onChange={(e) => {
+                  setActivityEmployer(index, e.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div className="w-full flex md:flex-row flex-col justify-start items-center gap-8">
+            <div className="md:w-1/2 w-full flex sm:flex-row flex-col md:gap-2 gap-8">
+              <div className="w-full space-y-2">
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  start date
+                </Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
+                        !activityHistory[index]?.activityStartDate &&
+                          "text-charcoal"
+                      )}
+                    >
+                      {activityHistory[index]?.activityStartDate ? (
+                        format(activityHistory[index]?.activityStartDate, "PP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={activityHistory[index]?.activityStartDate}
+                      onSelect={(date) => setActivityStartDate(index, date)}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+              <div className="w-full space-y-2">
+                <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                  end date
+                </Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full h-12 px-3 text-left text-black/95 font-normal text-sm bg-[#eff2f9] hover:bg-[#eff2f9] hover:text-black/95 rounded-none border-0",
+                        !activityHistory[index]?.activityEndDate &&
+                          "text-charcoal"
+                      )}
+                    >
+                      {activityHistory[index]?.activityEndDate ? (
+                        format(activityHistory[index]?.activityEndDate, "PP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={activityHistory[index]?.activityEndDate}
+                      onSelect={(date) => setActivityEndDate(index, date)}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+            <div className="md:w-1/2 w-full space-y-2">
+              <Label className="capitalize font-normal text-sm text-charcoal flex gap-2 justify-start items-center">
+                city
+              </Label>
+              <Input
+                autoComplete="off"
+                value={activityHistory[index]?.activityCity || ""}
+                onChange={(e) => {
+                  setActivityCity(index, e.target.value);
+                }}
+                name="activityCity"
+              />
+            </div>
+          </div>
+          <div className="w-full space-y-2">
+            <MdEditor
+              name="activityDescription"
+              style={{ height: "170px", width: "full" }}
+              renderHTML={(text) => mdParser.render(text)}
+              onChange={(e) => {
+                setActivityDescription(index, e.html);
+              }}
+            />
+          </div>
+        </AccordionContent>
+      </AccordionItem>
 
       <AlertDialog>
         <AlertDialogTrigger asChild>
@@ -289,11 +302,4 @@ export default function DraggableActivity({
       </AlertDialog>
     </div>
   );
-}
-function setSortableActivitiesList(arg0: (prevList: any[]) => any[]) {
-  throw new Error("Function not implemented.");
-}
-
-function setToggledActivities(arg0: boolean) {
-  throw new Error("Function not implemented.");
 }

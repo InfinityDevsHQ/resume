@@ -11,20 +11,15 @@ import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import {
   restrictToVerticalAxis,
   restrictToParentElement,
 } from "@dnd-kit/modifiers";
-
 import React from "react";
-import MarkdownIt from "markdown-it";
-import "react-markdown-editor-lite/lib/index.css";
-
-import { useActivity } from "@/statemanagement/useActivities";
 import DraggableActivity from "./draggable/draggable-activity";
+import { Accordion } from "../ui/accordion";
 
 interface SortableActivitiesProps {
   sortableActivitiesList: any;
@@ -48,44 +43,45 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
 
   const handleDegreeDragEnd = (event: any) => {
     const { active, over } = event;
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       setSortableActivitiesList((prevList: any) => {
         const oldIndex = prevList.findIndex(
           (item: any) => item.id === active.id
         );
-        const newIndex = prevList.findIndex((item: any) => item.id === over.id);
+        const newIndex = prevList.findIndex(
+          (item: any) => item.id === over?.id
+        );
         return arrayMove(prevList, oldIndex, newIndex);
       });
     }
   };
 
   return (
-    <>
-      {" "}
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDegreeDragEnd}
-        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-      >
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDegreeDragEnd}
+      modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+    >
+      <Accordion type="multiple" className="w-full">
         <SortableContext
           items={sortableActivitiesList}
           strategy={verticalListSortingStrategy}
         >
           {sortableActivitiesList.map((activity: any, index: any) => (
             <DraggableActivity
+              key={activity.id}
+              activity={activity}
+              index={index}
               sortableActivitiesList={sortableActivitiesList}
               setSortableActivitiesList={setSortableActivitiesList}
-              setToggledActivities={setToggledActivities}
-              index={index}
-              key={index}
-              activity={activity}
               toggledActivities={toggledActivities}
+              setToggledActivities={setToggledActivities}
             />
           ))}
         </SortableContext>
-      </DndContext>
-    </>
+      </Accordion>
+    </DndContext>
   );
 };
 
