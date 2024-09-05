@@ -262,7 +262,7 @@ export default function PDFDoc({
               </h1>
               <div>
                 <MarkdownDisplay
-                  html={hobbiesDescription || ""}
+                  html={mdParser.render(hobbiesDescription) || ""}
                   className="!break-words !text-white/85 !font-normal !text-[8px] !leading-[13px]"
                 />
               </div>
