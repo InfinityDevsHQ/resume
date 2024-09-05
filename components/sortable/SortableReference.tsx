@@ -35,10 +35,6 @@ const SortableReference: React.FC<SortableReferenceProps> = ({
   setToggledReference,
   toggledReference,
 }) => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-  const [charCount, SetCharCount] = useState(0);
-
   const handleDeleteDiv = (index: any) => {
     setSortableReferenceList((sortableReferenceList: any[]) =>
       sortableReferenceList.filter((_: any, i: any) => i !== index)

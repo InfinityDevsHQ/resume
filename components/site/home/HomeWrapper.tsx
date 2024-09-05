@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import FormSection from "./FormSection";
 import PreviewSection from "./PreviewSection";
 import { useSkills } from "@/statemanagement/useSkills";
+import { useReference } from "@/statemanagement/useReference";
 
 const HomeWrapper = () => {
   // statemanagement
@@ -28,8 +29,7 @@ const HomeWrapper = () => {
 
   const [internshipsTitle, setInternshipsTitle] =
     useState<string>("internships");
-
-  const [referencesTitle, setReferencesTitle] = useState<string>("references");
+  const { referencesTitle, setReferencesTitle } = useReference();
 
   const [skillTitle, setSkillTitle] = useState<string>("skills");
 
