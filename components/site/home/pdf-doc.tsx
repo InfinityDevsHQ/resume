@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 type PDFDocProps = {
+  skillsToggledProgress: boolean;
   targetRef: any;
   selectedImage: string | null;
   firstName: string;
@@ -59,6 +60,7 @@ type PDFDocProps = {
 };
 
 export default function PDFDoc({
+  skillsToggledProgress,
   targetRef,
   selectedImage,
   firstName,
@@ -240,12 +242,13 @@ export default function PDFDoc({
                   <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
                     {skillsHistory[index]?.skillsTitle}
                   </h6>
-                  {skillsHistory[index]?.skillsTitle && (
-                    <Progress
-                      value={skillsHistory[index]?.skillsLevel || 60}
-                      className="break-words w-[100%] h-1 bg-[#808080]"
-                    />
-                  )}
+                  {skillsHistory[index]?.skillsTitle &&
+                    skillsToggledProgress && (
+                      <Progress
+                        value={skillsHistory[index]?.skillsLevel || 60}
+                        className="break-words w-[100%] h-1 bg-[#808080]"
+                      />
+                    )}
                 </div>
               ))}
             </>

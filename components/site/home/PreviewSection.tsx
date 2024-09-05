@@ -31,7 +31,7 @@ interface PreviewSectionProps {
   sortableCustomSectionList: any;
   sortableSkillsList: any;
   sortableLanguageList: any;
-  skillsToggledProgress: any;
+  skillsToggledProgress: boolean;
   languageToggledProgress: any;
   pdfName: any;
   setPdfName: any;
@@ -76,6 +76,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
   skillTitle,
   hobbiesTitle,
   activitiesTitle,
+  skillsToggledProgress,
 }) => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [respToggled, setRespToggled] = useState(false);
@@ -185,6 +186,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             className={`xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] h-[580px] break-words overflow-hidden md:mt-8 mt-16`}
           >
             <PDFDoc
+              skillsToggledProgress={skillsToggledProgress}
               skillsHistory={skillsHistory}
               sortableActivitiesList={sortableActivitiesList}
               sortableCourseList={sortableCourseList}
