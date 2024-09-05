@@ -69,7 +69,7 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
 
   return (
     <>
-      {sortableCustomSectionList.map((item: any, index: any) => (
+      {sortableCustomSectionList.map((index: any) => (
         <div
           key={index}
           className="w-full flex gap-x-3 items-center justify-between"
@@ -235,7 +235,7 @@ const SortableCustomSection: React.FC<SortableCustomSectionProps> = ({
                     renderHTML={(text) => mdParser.render(text)}
                     value={customHistory[index]?.customDescription || ""}
                     onChange={(e) => {
-                      setCustomDescription(index, e.html);
+                      setCustomDescription(index, e.text);
                     }}
                   />
                 </div>

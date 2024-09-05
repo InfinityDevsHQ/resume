@@ -540,7 +540,9 @@ export default function PDFDoc({
                       )}
                     </h6>
                     <MarkdownDisplay
-                      html={customHistory[index]?.customDescription || ""}
+                      html={mdParser.render(
+                        customHistory[index]?.customDescription || ""
+                      )}
                     />
                   </div>
                 ))}
