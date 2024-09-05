@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type InternshipEntryTypes = {
   internshipJobTitle: string;
@@ -19,7 +20,10 @@ type InternshipHistoryTypes = {
     index: number,
     internshipStartDate: Date | null | any
   ) => void;
-  setInternshipEndDate: (index: number, internshipEndDate: Date | null | any) => void;
+  setInternshipEndDate: (
+    index: number,
+    internshipEndDate: Date | null | any
+  ) => void;
   setInternshipCity: (index: number, internshipCity: string) => void;
   setInternshipDescription: (
     index: number,
@@ -27,72 +31,79 @@ type InternshipHistoryTypes = {
   ) => void;
 };
 
-export const useInternship = create<InternshipHistoryTypes>((set) => ({
-  internshipHistory: {},
+export const useInternship = create<InternshipHistoryTypes>()(
+  persist(
+    (set) => ({
+      internshipHistory: {},
+      setInternshipJobTitle: (index, internshipJobTitle) =>
+        set((state) => ({
+          internshipHistory: {
+            ...state.internshipHistory,
+            [index]: {
+              ...state.internshipHistory[index],
+              internshipJobTitle,
+            },
+          },
+        })),
 
-  setInternshipJobTitle: (index, internshipJobTitle) =>
-    set((state) => ({
-      internshipHistory: {
-        ...state.internshipHistory,
-        [index]: {
-          ...state.internshipHistory[index],
-          internshipJobTitle,
-        },
-      },
-    })),
+      setInternshipEmployer: (index, internshipEmployer) =>
+        set((state) => ({
+          internshipHistory: {
+            ...state.internshipHistory,
+            [index]: {
+              ...state.internshipHistory[index],
+              internshipEmployer,
+            },
+          },
+        })),
 
-  setInternshipEmployer: (index, internshipEmployer) =>
-    set((state) => ({
-      internshipHistory: {
-        ...state.internshipHistory,
-        [index]: {
-          ...state.internshipHistory[index],
-          internshipEmployer,
-        },
-      },
-    })),
+      setInternshipStartDate: (index, internshipStartDate) =>
+        set((state) => ({
+          internshipHistory: {
+            ...state.internshipHistory,
+            [index]: {
+              ...state.internshipHistory[index],
+              internshipStartDate,
+            },
+          },
+        })),
 
-  setInternshipStartDate: (index, internshipStartDate) =>
-    set((state) => ({
-      internshipHistory: {
-        ...state.internshipHistory,
-        [index]: {
-          ...state.internshipHistory[index],
-          internshipStartDate,
-        },
-      },
-    })),
+      setInternshipEndDate: (index, internshipEndDate) =>
+        set((state) => ({
+          internshipHistory: {
+            ...state.internshipHistory,
+            [index]: {
+              ...state.internshipHistory[index],
+              internshipEndDate,
+            },
+          },
+        })),
 
-  setInternshipEndDate: (index, internshipEndDate) =>
-    set((state) => ({
-      internshipHistory: {
-        ...state.internshipHistory,
-        [index]: {
-          ...state.internshipHistory[index],
-          internshipEndDate,
-        },
-      },
-    })),
+      setInternshipCity: (index, internshipCity) =>
+        set((state) => ({
+          internshipHistory: {
+            ...state.internshipHistory,
+            [index]: {
+              ...state.internshipHistory[index],
+              internshipCity,
+            },
+          },
+        })),
 
-  setInternshipCity: (index, internshipCity) =>
-    set((state) => ({
-      internshipHistory: {
-        ...state.internshipHistory,
-        [index]: {
-          ...state.internshipHistory[index],
-          internshipCity,
-        },
-      },
-    })),
-
-  setInternshipDescription: (index, internshipDescription) =>
-    set((state) => ({
-      internshipHistory: {
-        ...state.internshipHistory,
-        [index]: {
-          ...state.internshipHistory[index],
-          internshipDescription,
-        },
-      },
-    })),
-}));
+      setInternshipDescription: (index, internshipDescription) =>
+        set((state) => ({
+          internshipHistory: {
+            ...state.internshipHistory,
+            [index]: {
+              ...state.internshipHistory[index],
+              internshipDescription,
+            },
+          },
+        })),
+    }),
+    {
+      name: "internships",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

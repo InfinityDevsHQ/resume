@@ -409,7 +409,9 @@ export default function PDFDoc({
                     )}
                   </h6>
                   <MarkdownDisplay
-                    html={internshipHistory[index]?.internshipDescription || ""}
+                    html={mdParser.render(
+                      internshipHistory[index]?.internshipDescription || ""
+                    )}
                   />
                 </div>
               ))}
