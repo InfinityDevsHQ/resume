@@ -214,7 +214,22 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [toggledActivities, setToggledActivities] = useState<boolean>(false);
   const [toggledCustomSection, setToggledCustomSection] =
     useState<boolean>(false);
-
+  //Personal Data
+  const {
+    jobTitle,
+    firstName,
+    lastName,
+    email,
+    phone,
+    countryName,
+    city,
+    placeOfBirth,
+    dateOfBirth,
+    nationality,
+    postalCode,
+    address,
+    drivingLicense,
+  } = useProfessionalDetails();
   // Professional Summary
 
   const { setProfessionalSummary } = useProfessionalSummary();
@@ -326,6 +341,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     autoComplete="off"
                     name="jobTitle"
                     placeholder="e.g Teacher"
+                    value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
                 </div>
@@ -365,6 +381,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Input
                     autoComplete="off"
                     name="firstName"
+                    value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
@@ -375,6 +392,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Input
                     autoComplete="off"
                     name="lastName"
+                    value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
@@ -387,6 +405,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Input
                     autoComplete="off"
                     name="email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -396,6 +415,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   </Label>
                   <Input
                     autoComplete="off"
+                    value={phone}
                     name="phone"
                     onChange={(e) => setPhone(e.target.value)}
                   />
@@ -416,6 +436,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="countryName"
+                          value={countryName}
                           onChange={(e) => setCountryName(e.target.value)}
                         />
                       </div>
@@ -426,6 +447,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="city"
+                          value={city}
                           onChange={(e) => setCity(e.target.value)}
                         />
                       </div>
@@ -438,6 +460,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="address"
+                          value={address}
                           onChange={(e) => setAddress(e.target.value)}
                         />
                       </div>
@@ -448,6 +471,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="postalCode"
+                          value={drivingLicense}
                           onChange={(e) => setPostalCode(e.target.value)}
                         />
                       </div>
@@ -476,6 +500,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="drivingLicense"
+                          value={drivingLicense}
                           onChange={(e) => setDrivingLicense(e.target.value)}
                         />
                       </div>
@@ -501,6 +526,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="nationality"
+                          value={nationality}
                           onChange={(e) => setNationality(e.target.value)}
                         />
                       </div>
@@ -513,6 +539,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="placeOfBirth"
+                          value={placeOfBirth}
                           onChange={(e) => setPlaceOfBirth(e.target.value)}
                         />
                       </div>
@@ -539,6 +566,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="dateOfBirth"
+                          value={dateOfBirth}
                           onChange={(e) => setDateOfBirth(e.target.value)}
                         />
                       </div>
