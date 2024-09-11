@@ -14,6 +14,8 @@ type EducationEntryTypes = {
 
 type EducationHistoryTypes = {
   educationHistory: { [key: number]: EducationEntryTypes };
+  sortableEducationList: number[];
+  setSortableEducationList: (sortableList: number[]) => void;
   setEducationSchool: (index: number, educationSchool: string) => void;
   setEducationDegree: (index: number, educationDegree: string) => void;
   setEducationStartDate: (
@@ -35,6 +37,12 @@ export const useEducation = create<EducationHistoryTypes>()(
   persist(
     (set) => ({
       educationHistory: {},
+      sortableEducationList: [],
+
+      setSortableEducationList: (sortableList) =>
+        set(() => ({
+          sortableEducationList: sortableList,
+        })),
 
       setEducationSchool: (index, educationSchool) =>
         set((state) => ({

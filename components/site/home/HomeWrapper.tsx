@@ -5,6 +5,7 @@ import PreviewSection from "./PreviewSection";
 import { useSkills } from "@/statemanagement/useSkills";
 import { useReference } from "@/statemanagement/useReference";
 import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
+import { useEducation } from "@/statemanagement/useEducation";
 
 const HomeWrapper = () => {
   // statemanagement
@@ -73,9 +74,8 @@ const HomeWrapper = () => {
     number[]
   >([]);
   const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
-  const [sortableEducationList, setSortableEducationList] = useState<number[]>(
-    []
-  );
+
+  const { sortableEducationList, setSortableEducationList } = useEducation();
   const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
     number[]
   >([]);
@@ -91,10 +91,11 @@ const HomeWrapper = () => {
   };
 
   const handleAddSortableEducationList = () => {
-    setSortableEducationList((sortableEducationList) => [
+    const newSortableList = [
       ...sortableEducationList,
       sortableEducationList.length + 1,
-    ]);
+    ];
+    setSortableEducationList(newSortableList);
   };
 
   const handleAddSortableWebNSocialLinksList = () => {
