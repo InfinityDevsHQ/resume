@@ -40,8 +40,12 @@ const HomeWrapper = () => {
     "extra curricular activities"
   );
 
-  const { employmentHistoryTitle, setEmploymentHistoryTitle } =
-    useEmploymentHistory();
+  const {
+    employmentHistoryTitle,
+    setEmploymentHistoryTitle,
+    sortableEmploymentList,
+    setSortableEmploymentList,
+  } = useEmploymentHistory();
 
   const [clickedBadges, setClickedBadges] = useState<Set<string>>(new Set());
 
@@ -62,40 +66,25 @@ const HomeWrapper = () => {
   const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
     []
   );
-
   const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
     []
   );
-
-  const [sortableEmploymentList, setSortableEmploymentList] = useState<
-    number[]
-  >([]);
-
   const [sortableInternshipList, setSortableInternshipList] = useState<
     number[]
   >([]);
-
   const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
-
   const [sortableEducationList, setSortableEducationList] = useState<number[]>(
     []
   );
-
   const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
     number[]
   >([]);
-
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
-
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
-
   const [pdfName, setPdfName] = useState("Untitled");
-
-  // Add More
-
   const handleAddSortableEmploymentList = () => {
-    setSortableEmploymentList((sortableEmploymentList) => [
+    setSortableEmploymentList([
       ...sortableEmploymentList,
       sortableEmploymentList.length + 1,
     ]);

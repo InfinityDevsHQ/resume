@@ -26,8 +26,12 @@ type EmploymentHistoryTypes = {
     employmentStartDate: Date | null
   ) => void;
   setEmploymentEndDate: (index: number, employmentEndDate: Date | null) => void;
+
   employmentHistoryTitle: string;
   setEmploymentHistoryTitle: (title: string) => void;
+
+  sortableEmploymentList: number[];
+  setSortableEmploymentList: (list: number[]) => void;
 };
 
 export const useEmploymentHistory = create<EmploymentHistoryTypes>()(
@@ -35,7 +39,13 @@ export const useEmploymentHistory = create<EmploymentHistoryTypes>()(
     (set) => ({
       employmentHistory: {},
       employmentHistoryTitle: "employment history",
-      setEmploymentHistoryTitle: (employmentHistoryTitle) =>
+
+      // New sortable employment list state
+      sortableEmploymentList: [],
+      setSortableEmploymentList: (list: number[]) =>
+        set(() => ({ sortableEmploymentList: list })),
+
+      setEmploymentHistoryTitle: (employmentHistoryTitle: string) =>
         set(() => ({ employmentHistoryTitle })),
 
       setEmploymentJobTitle: (index, employmentJobTitle) =>
@@ -104,6 +114,9 @@ export const useEmploymentHistory = create<EmploymentHistoryTypes>()(
           },
         })),
     }),
-    { name: "employments", storage: createJSONStorage(() => localStorage) }
+    {
+      name: "employments",
+      storage: createJSONStorage(() => localStorage),
+    }
   )
 );
