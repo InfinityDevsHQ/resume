@@ -4,6 +4,7 @@ import FormSection from "./FormSection";
 import PreviewSection from "./PreviewSection";
 import { useSkills } from "@/statemanagement/useSkills";
 import { useReference } from "@/statemanagement/useReference";
+import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 
 const HomeWrapper = () => {
   // statemanagement
@@ -39,8 +40,8 @@ const HomeWrapper = () => {
     "extra curricular activities"
   );
 
-  const [employmentHistoryTitle, setEmploymentHistoryTitle] =
-    useState<string>("employment history");
+  const { employmentHistoryTitle, setEmploymentHistoryTitle } =
+    useEmploymentHistory();
 
   const [clickedBadges, setClickedBadges] = useState<Set<string>>(new Set());
 
