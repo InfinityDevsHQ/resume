@@ -64,6 +64,7 @@ import { Switch } from "@/components/ui/switch";
 import { useSkills } from "@/statemanagement/useSkills";
 import { useReference } from "@/statemanagement/useReference";
 import { useCourse } from "@/statemanagement/useCourse";
+import { useActivity } from "@/statemanagement/useActivities";
 
 type FormSecyionProps = {
   handleAddSortableEmploymentList: any;
@@ -213,7 +214,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [toggledInternship, setToggledInternship] = useState<boolean>(false);
   const [toggledLanguage, setToggledLanguage] = useState<boolean>(false);
   const { toggledReference, setToggledReference } = useReference();
-  const [toggledActivities, setToggledActivities] = useState<boolean>(false);
+  const { toggledActivities, setToggledActivities } = useActivity();
   const [toggledCustomSection, setToggledCustomSection] = useState<boolean>(
     !!sortableCustomSectionList.length
   );

@@ -20,6 +20,7 @@ import {
 import React from "react";
 import DraggableActivity from "./draggable/draggable-activity";
 import { Accordion } from "../ui/accordion";
+import { useActivity } from "@/statemanagement/useActivities";
 
 interface SortableActivitiesProps {
   sortableActivitiesList: any;

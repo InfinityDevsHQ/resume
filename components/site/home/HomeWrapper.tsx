@@ -8,6 +8,7 @@ import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 import { useEducation } from "@/statemanagement/useEducation";
 import { useCustom } from "@/statemanagement/useCustom";
 import { useCourse } from "@/statemanagement/useCourse";
+import { useActivity } from "@/statemanagement/useActivities";
 
 const HomeWrapper = () => {
   // statemanagement
@@ -42,10 +43,12 @@ const HomeWrapper = () => {
 
   const [hobbiesTitle, setHobbiesTitle] = useState<string>("hobbies");
 
-  const [activitiesTitle, setActivitiesTitle] = useState<string>(
-    "extra curricular activities"
-  );
-
+  const {
+    activitiesTitle,
+    setActivitiesTitle,
+    sortableActivitiesList,
+    setSortableActivitiesList,
+  } = useActivity();
   const {
     employmentHistoryTitle,
     setEmploymentHistoryTitle,
@@ -64,10 +67,6 @@ const HomeWrapper = () => {
     useState<boolean>(true);
 
   const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
-
-  const [sortableActivitiesList, setSortableActivitiesList] = useState<
-    number[]
-  >([]);
 
   const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
     []
@@ -132,7 +131,7 @@ const HomeWrapper = () => {
   };
 
   const handleAddSortableActivitiesList = () => {
-    setSortableActivitiesList((sortableActivitiesList) => [
+    setSortableActivitiesList([
       ...sortableActivitiesList,
       sortableActivitiesList.length + 1,
     ]);
