@@ -63,10 +63,10 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
     setEducationSchool,
     setEducationStartDate,
   } = useEducation();
-
+  console.log("HERE", educationHistory);
   return (
     <>
-      {sortableEducationList.map((item: any, index: any) => (
+      {sortableEducationList.map((index: any) => (
         <div
           key={index}
           className="w-full flex gap-x-3 items-center justify-between"
@@ -92,26 +92,29 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
                     {educationHistory[index]?.educationEndDate ||
                     educationHistory[index]?.educationStartDate ? (
                       <>
-                        {educationHistory[index]?.educationStartDate &&
-                          educationHistory[
-                            index
-                          ]?.educationStartDate?.toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                          })}{" "}
-                        {educationHistory[index]?.educationEndDate && (
-                          <>
-                            -{" "}
-                            {educationHistory[
+                        {/* <div>{educationHistory[index]?.educationStartDate}</div> */}
+                        {/* <>
+                          {educationHistory[index]?.educationStartDate &&
+                            educationHistory[
                               index
-                            ]?.educationEndDate?.toLocaleDateString("en-US", {
+                            ]?.educationStartDate?.toLocaleDateString("en-US", {
                               year: "numeric",
                               month: "short",
                               day: "2-digit",
-                            })}
-                          </>
-                        )}
+                            })}{" "}
+                          {educationHistory[index]?.educationEndDate && (
+                            <>
+                              -{" "}
+                              {educationHistory[
+                                index
+                              ]?.educationEndDate?.toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "2-digit",
+                              })}
+                            </>
+                          )}
+                        </> */}
                       </>
                     ) : (
                       "Not specified"

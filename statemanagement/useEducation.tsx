@@ -6,8 +6,8 @@ import { createJSONStorage, persist } from "zustand/middleware";
 type EducationEntryTypes = {
   educationSchool: string;
   educationDegree: string;
-  educationStartDate: Date | null | any;
-  educationEndDate: Date | null | any;
+  educationStartDate: Date | null;
+  educationEndDate: Date | null;
   educationDescription: string;
   educationCity: string;
 };
@@ -20,12 +20,9 @@ type EducationHistoryTypes = {
   setEducationDegree: (index: number, educationDegree: string) => void;
   setEducationStartDate: (
     index: number,
-    educationStartDate: Date | null | any
+    educationStartDate: Date | null
   ) => void;
-  setEducationEndDate: (
-    index: number,
-    educationEndDate: Date | null | any
-  ) => void;
+  setEducationEndDate: (index: number, educationEndDate: Date | null) => void;
   setEducationDescription: (
     index: number,
     educationDescription: string
@@ -49,7 +46,15 @@ export const useEducation = create<EducationHistoryTypes>()(
           educationHistory: {
             ...state.educationHistory,
             [index]: {
-              ...state.educationHistory[index],
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
               educationSchool,
             },
           },
@@ -60,7 +65,15 @@ export const useEducation = create<EducationHistoryTypes>()(
           educationHistory: {
             ...state.educationHistory,
             [index]: {
-              ...state.educationHistory[index],
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
               educationDegree,
             },
           },
@@ -71,7 +84,15 @@ export const useEducation = create<EducationHistoryTypes>()(
           educationHistory: {
             ...state.educationHistory,
             [index]: {
-              ...state.educationHistory[index],
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
               educationStartDate,
             },
           },
@@ -82,7 +103,15 @@ export const useEducation = create<EducationHistoryTypes>()(
           educationHistory: {
             ...state.educationHistory,
             [index]: {
-              ...state.educationHistory[index],
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
               educationEndDate,
             },
           },
@@ -93,7 +122,15 @@ export const useEducation = create<EducationHistoryTypes>()(
           educationHistory: {
             ...state.educationHistory,
             [index]: {
-              ...state.educationHistory[index],
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationCity: state.educationHistory[index]?.educationCity || "",
               educationDescription,
             },
           },
@@ -104,7 +141,16 @@ export const useEducation = create<EducationHistoryTypes>()(
           educationHistory: {
             ...state.educationHistory,
             [index]: {
-              ...state.educationHistory[index],
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
               educationCity,
             },
           },

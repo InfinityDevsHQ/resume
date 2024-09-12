@@ -358,7 +358,7 @@ export default function PDFDoc({
                       <>, {educationHistory[index]?.educationCity}</>
                     )}
                   </h6>
-                  <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                  {/* <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                     {educationHistory[
                       index
                     ]?.educationStartDate?.toLocaleDateString()}{" "}
@@ -370,7 +370,7 @@ export default function PDFDoc({
                         ]?.educationEndDate?.toLocaleDateString()}
                       </>
                     )}
-                  </h6>
+                  </h6> */}
                   <MarkdownDisplay
                     html={mdParser.render(
                       educationHistory[index]?.educationDescription || ""
