@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type ActivityEntryTypes = {
+export type ActivityEntryTypes = {
   activityFunctionTitle: string;
   activityEmployer: string;
   activityStartDate: Date | null | any;

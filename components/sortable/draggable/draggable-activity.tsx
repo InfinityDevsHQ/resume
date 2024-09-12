@@ -50,10 +50,11 @@ export default function DraggableActivity({
   index,
   activity,
 }: SortableActivitiesProps) {
-  const uniqueId = activity.id;
+  const uniqueId = activity;
+  console.log("ACTIVITY", activity);
   const mdParser = new MarkdownIt();
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: activity.id });
+    useSortable({ id: uniqueId });
   const {
     activityHistory,
     setActivityCity,
@@ -77,10 +78,11 @@ export default function DraggableActivity({
   };
   return (
     <div
-      className="w-full flex gap-x-3 items-center justify-between relative group"
+      className="w-full flex gap-x-3 items-center justify-between relative group my-2"
       key={uniqueId}
       ref={setNodeRef}
       style={style}
+      draggable={true}
     >
       <span
         {...attributes}

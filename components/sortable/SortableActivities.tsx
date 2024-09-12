@@ -20,7 +20,10 @@ import {
 import React from "react";
 import DraggableActivity from "./draggable/draggable-activity";
 import { Accordion } from "../ui/accordion";
-import { useActivity } from "@/statemanagement/useActivities";
+import {
+  ActivityEntryTypes,
+  useActivity,
+} from "@/statemanagement/useActivities";
 
 interface SortableActivitiesProps {
   sortableActivitiesList: any;
@@ -35,25 +38,36 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
   setToggledActivities,
   toggledActivities,
 }) => {
+  const { activityHistory } = useActivity();
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
   const handleDegreeDragEnd = (event: any) => {
     const { active, over } = event;
     if (active.id !== over?.id) {
-      setSortableActivitiesList((prevList: any) => {
-        const oldIndex = prevList.findIndex(
-          (item: any) => item.id === active.id
-        );
-        const newIndex = prevList.findIndex(
-          (item: any) => item.id === over?.id
-        );
-        return arrayMove(prevList, oldIndex, newIndex);
+      const oldIndex = sortableActivitiesList.indexOf(active.id);
+      const newIndex = sortableActivitiesList.indexOf(over?.id);
+      const newSortableActivitiesList = arrayMove(
+        sortableActivitiesList,
+        oldIndex,
+        newIndex
+      );
+      setSortableActivitiesList(newSortableActivitiesList);
+      const activityHistoryArray = Object.values(activityHistory);
+      const newActivityHistoryArray = arrayMove(
+        activityHistoryArray,
+        oldIndex,
+        newIndex
+      );
+      const updatedActivityHistory: { [key: number]: ActivityEntryTypes } = {};
+      newSortableActivitiesList.forEach((id, index) => {
+        updatedActivityHistory[id as number] = newActivityHistoryArray[index];
       });
+
+      useActivity.setState({ activityHistory: updatedActivityHistory });
     }
   };
 
@@ -71,7 +85,7 @@ const SortableActivities: React.FC<SortableActivitiesProps> = ({
         >
           {sortableActivitiesList.map((activity: any, index: any) => (
             <DraggableActivity
-              key={activity.id}
+              key={activity}
               activity={activity}
               index={index}
               sortableActivitiesList={sortableActivitiesList}
