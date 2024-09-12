@@ -1,5 +1,3 @@
-"use client";
-
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -19,12 +17,21 @@ type CourseHistoryTypes = {
     courseStartDate: Date | null | any
   ) => void;
   setCourseEndDate: (index: number, courseEndDate: Date | null | any) => void;
+  coursesTitle: string;
+  setCoursesTitle: (title: string) => void;
+  sortableCourseList: number[];
+  setSortableCourseList: (list: number[]) => void;
+  toggledCourse: boolean;
+  setToggledCourse: (toggled: boolean) => void;
 };
 
 export const useCourse = create<CourseHistoryTypes>()(
   persist(
     (set) => ({
       courseHistory: {},
+      coursesTitle: "courses",
+      sortableCourseList: [],
+      toggledCourse: false,
 
       setCourse: (index, course) =>
         set((state) => ({
@@ -69,6 +76,12 @@ export const useCourse = create<CourseHistoryTypes>()(
             },
           },
         })),
+
+      setCoursesTitle: (title) => set({ coursesTitle: title }),
+
+      setSortableCourseList: (list) => set({ sortableCourseList: list }),
+
+      setToggledCourse: (toggled) => set({ toggledCourse: toggled }),
     }),
     {
       name: "courses",

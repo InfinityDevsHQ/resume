@@ -7,6 +7,7 @@ import { useReference } from "@/statemanagement/useReference";
 import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 import { useEducation } from "@/statemanagement/useEducation";
 import { useCustom } from "@/statemanagement/useCustom";
+import { useCourse } from "@/statemanagement/useCourse";
 
 const HomeWrapper = () => {
   // statemanagement
@@ -77,8 +78,7 @@ const HomeWrapper = () => {
   const [sortableInternshipList, setSortableInternshipList] = useState<
     number[]
   >([]);
-  const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
-
+  const { sortableCourseList, setSortableCourseList } = useCourse();
   const { sortableEducationList, setSortableEducationList } = useEducation();
 
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
@@ -108,10 +108,13 @@ const HomeWrapper = () => {
   };
 
   const handleAddSortableCourseList = () => {
-    setSortableCourseList((sortableCourseList) => [
-      ...sortableCourseList,
-      sortableCourseList.length + 1,
-    ]);
+    useCourse.setState((state) => {
+      const newList: number[] = [
+        ...state.sortableCourseList,
+        state.sortableCourseList.length + 1,
+      ];
+      return { sortableCourseList: newList };
+    });
   };
 
   const handleAddSortableInternshipList = () => {
