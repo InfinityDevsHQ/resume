@@ -32,9 +32,6 @@ const HomeWrapper = () => {
   );
 
   const [languagesTitle, setLanguagesTitle] = useState<string>("languages");
-
-  const [coursesTitle, setCoursesTitle] = useState<string>("courses");
-
   const [internshipsTitle, setInternshipsTitle] =
     useState<string>("internships");
   const { referencesTitle, setReferencesTitle } = useReference();
@@ -77,7 +74,12 @@ const HomeWrapper = () => {
   const [sortableInternshipList, setSortableInternshipList] = useState<
     number[]
   >([]);
-  const { sortableCourseList, setSortableCourseList } = useCourse();
+  const {
+    sortableCourseList,
+    setSortableCourseList,
+    coursesTitle,
+    setCoursesTitle,
+  } = useCourse();
   const { sortableEducationList, setSortableEducationList } = useEducation();
 
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
