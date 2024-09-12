@@ -9,6 +9,7 @@ import { useEducation } from "@/statemanagement/useEducation";
 import { useCustom } from "@/statemanagement/useCustom";
 import { useCourse } from "@/statemanagement/useCourse";
 import { useActivity } from "@/statemanagement/useActivities";
+import { useInternship } from "@/statemanagement/useInternship";
 
 const HomeWrapper = () => {
   // statemanagement
@@ -32,8 +33,13 @@ const HomeWrapper = () => {
   );
 
   const [languagesTitle, setLanguagesTitle] = useState<string>("languages");
-  const [internshipsTitle, setInternshipsTitle] =
-    useState<string>("internships");
+  const {
+    internshipsTitle,
+    setInternshipsTitle,
+    sortableInternshipList,
+    setSortableInternshipList,
+  } = useInternship();
+
   const { referencesTitle, setReferencesTitle } = useReference();
 
   const [skillTitle, setSkillTitle] = useState<string>("skills");
@@ -71,9 +77,6 @@ const HomeWrapper = () => {
   const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
     []
   );
-  const [sortableInternshipList, setSortableInternshipList] = useState<
-    number[]
-  >([]);
   const {
     sortableCourseList,
     setSortableCourseList,
@@ -119,7 +122,7 @@ const HomeWrapper = () => {
   };
 
   const handleAddSortableInternshipList = () => {
-    setSortableInternshipList((sortableInternshipList) => [
+    setSortableInternshipList([
       ...sortableInternshipList,
       sortableInternshipList.length + 1,
     ]);

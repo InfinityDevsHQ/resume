@@ -14,6 +14,8 @@ type InternshipEntryTypes = {
 
 type InternshipHistoryTypes = {
   internshipHistory: { [key: number]: InternshipEntryTypes };
+  internshipsTitle: string;
+  sortableInternshipList: number[];
   setInternshipJobTitle: (index: number, internshipJobTitle: string) => void;
   setInternshipEmployer: (index: number, internshipEmployer: string) => void;
   setInternshipStartDate: (
@@ -29,12 +31,17 @@ type InternshipHistoryTypes = {
     index: number,
     internshipDescription: string
   ) => void;
+  setInternshipsTitle: (internshipsTitle: string) => void;
+  setSortableInternshipList: (sortableInternshipList: number[]) => void;
 };
 
 export const useInternship = create<InternshipHistoryTypes>()(
   persist(
     (set) => ({
       internshipHistory: {},
+      internshipsTitle: "internships",
+      sortableInternshipList: [],
+
       setInternshipJobTitle: (index, internshipJobTitle) =>
         set((state) => ({
           internshipHistory: {
@@ -100,6 +107,11 @@ export const useInternship = create<InternshipHistoryTypes>()(
             },
           },
         })),
+
+      setInternshipsTitle: (internshipsTitle) => set({ internshipsTitle }),
+
+      setSortableInternshipList: (sortableInternshipList) =>
+        set({ sortableInternshipList }),
     }),
     {
       name: "internships",
