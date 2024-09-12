@@ -6,13 +6,17 @@ import { useSkills } from "@/statemanagement/useSkills";
 import { useReference } from "@/statemanagement/useReference";
 import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
 import { useEducation } from "@/statemanagement/useEducation";
+import { useCustom } from "@/statemanagement/useCustom";
 
 const HomeWrapper = () => {
   // statemanagement
 
-  const [customSectionTitle, setCustomSectionTitle] =
-    useState<string>("custom section");
-
+  const {
+    sortableCustomSectionList,
+    setSortableCustomSectionList,
+    customSectionTitle,
+    setCustomSectionTitle,
+  } = useCustom();
   const [personalDetailsTitle, setPersonalDetailsTitle] =
     useState<string>("personal details");
 
@@ -76,9 +80,7 @@ const HomeWrapper = () => {
   const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
 
   const { sortableEducationList, setSortableEducationList } = useEducation();
-  const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
-    number[]
-  >([]);
+
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
@@ -134,7 +136,7 @@ const HomeWrapper = () => {
   };
 
   const handleAddSortableCustomSectionList = () => {
-    setSortableCustomSectionList((sortableCustomSectionList) => [
+    setSortableCustomSectionList([
       ...sortableCustomSectionList,
       sortableCustomSectionList.length + 1,
     ]);

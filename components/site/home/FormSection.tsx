@@ -88,8 +88,8 @@ type FormSecyionProps = {
   handleAddSortableActivitiesList: any;
   sortableActivitiesList: any;
   setSortableActivitiesList: any;
-  handleAddSortableCustomSectionList: any;
-  sortableCustomSectionList: any;
+  handleAddSortableCustomSectionList: () => void;
+  sortableCustomSectionList: number[];
   setSortableCustomSectionList: any;
   handleAddSortableSkillsBadgeList: any;
   sortableSkillsList: any;
@@ -213,8 +213,9 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [toggledLanguage, setToggledLanguage] = useState<boolean>(false);
   const { toggledReference, setToggledReference } = useReference();
   const [toggledActivities, setToggledActivities] = useState<boolean>(false);
-  const [toggledCustomSection, setToggledCustomSection] =
-    useState<boolean>(false);
+  const [toggledCustomSection, setToggledCustomSection] = useState<boolean>(
+    !!sortableCustomSectionList.length
+  );
   //Personal Data
   const {
     jobTitle,

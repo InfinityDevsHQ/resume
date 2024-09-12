@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+
 type CustomEntryTypes = {
   customTitle: string;
   customCity: string;
@@ -12,6 +13,10 @@ type CustomEntryTypes = {
 
 type CustomHistoryTypes = {
   customHistory: { [key: number]: CustomEntryTypes };
+  customSectionTitle: string;
+  setCustomSectionTitle: (title: string) => void;
+  sortableCustomSectionList: number[];
+  setSortableCustomSectionList: (list: number[]) => void;
   setCustomTitle: (index: number, customTitle: string) => void;
   setCustomCity: (index: number, customCity: string) => void;
   setCustomStartDate: (
@@ -26,6 +31,18 @@ export const useCustom = create<CustomHistoryTypes>()(
   persist(
     (set) => ({
       customHistory: {},
+      customSectionTitle: "custom section", // default value
+      sortableCustomSectionList: [], // default empty list
+
+      setCustomSectionTitle: (title) =>
+        set(() => ({
+          customSectionTitle: title,
+        })),
+
+      setSortableCustomSectionList: (list) =>
+        set(() => ({
+          sortableCustomSectionList: list,
+        })),
 
       setCustomTitle: (index, customTitle) =>
         set((state) => ({
