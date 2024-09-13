@@ -95,7 +95,7 @@ const SortableLanguage: React.FC<SortableLanguageProps> = ({
                     </div>
                     <div className="sm:w-1/2 w-full space-y-2">
                       <Tabs
-                        defaultValue="100"
+                        defaultValue="66"
                         className="w-full"
                         onValueChange={(value) => {
                           setLanguageLevel(language, value);

@@ -62,8 +62,6 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
     setEmploymentStartDate,
     employmentHistory,
   } = useEmploymentHistory();
-
-  console.log(sortableEmploymentList, "there");
   return (
     <>
       {sortableEmploymentList.map((index: any) => (
@@ -182,7 +180,7 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                               employmentHistory[index]?.employmentStartDate
                             }
                             onSelect={(date) =>
-                              setEmploymentStartDate(index, date)
+                              setEmploymentStartDate(index, date || null)
                             }
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
@@ -207,10 +205,25 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                             )}
                           >
                             {employmentHistory[index]?.employmentEndDate ? (
-                              format(
-                                employmentHistory[index]?.employmentEndDate,
-                                "PP"
-                              )
+                              <>
+                                {console.log(
+                                  "Here is the date",
+                                  employmentHistory[index]?.employmentEndDate
+                                )}
+                                {(() => {
+                                  const isSameDate = (d1: any, d2: any) =>
+                                    d1.getFullYear() === d2.getFullYear() &&
+                                    d1.getMonth() === d2.getMonth() &&
+                                    d1.getDate() === d2.getDate();
+                                  const endDate = new Date(
+                                    employmentHistory[index]?.employmentEndDate
+                                  );
+                                  const today = new Date();
+                                  return isSameDate(endDate, today)
+                                    ? "Present"
+                                    : format(endDate, "PP");
+                                })()}
+                              </>
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -224,7 +237,7 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                               employmentHistory[index]?.employmentEndDate
                             }
                             onSelect={(date) =>
-                              setEmploymentEndDate(index, date)
+                              setEmploymentEndDate(index, date || null)
                             }
                             disabled={(date) =>
                               date > new Date() || date < new Date("1900-01-01")
