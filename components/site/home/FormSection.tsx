@@ -369,21 +369,12 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           className="break-words w-full"
                           alt="avatar"
                         />
-                        <Button
-                          onClick={() => setSelectedImage(null)}
-                          size={"icon"}
-                          variant={"destructive"}
-                          type="button"
-                          className="absolute -top-4 -right-4 rounded-full p-0.5 h-7 w-7"
-                        >
-                          <X />
-                        </Button>
                       </div>
                     ) : (
                       <UploadIcon className="break-words w-9" />
                     )}
 
-                    <Label className="break-words capitalize font-normal text-sm text-aquamarine-100 hover:text-aquamarine-200 cursor-pointer">
+                    <Label className="break-words flex items-center flex-col capitalize font-normal text-sm text-aquamarine-100 hover:text-aquamarine-200 cursor-pointer">
                       Upload Photo
                       <Input
                         type="file"
@@ -392,6 +383,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         className="break-words hidden"
                       />
                     </Label>
+                    {selectedImage && (
+                      <button
+                        onClick={() => setSelectedImage(null)}
+                        type="button"
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
