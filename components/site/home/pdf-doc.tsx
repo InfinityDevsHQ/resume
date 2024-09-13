@@ -290,7 +290,7 @@ export default function PDFDoc({
             </>
           )}
         </div>
-        <div className="break-words xl:w-[70%] w-[65%] bg-white !h-full py-8 px-4 space-y-3">
+        <div className="break-words xl:w-[70%] w-[65%] bg-white !h-full py-8 px-4 space-y-3 blackish">
           {/* Professional Summary */}
           {professionalSummary && (
             <div>
