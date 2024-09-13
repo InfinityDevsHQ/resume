@@ -1,6 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { Frown, Languages, Pencil, Plus, Smile, TrashIcon } from "lucide-react";
+import {
+  Frown,
+  Languages,
+  Pencil,
+  Plus,
+  Smile,
+  TrashIcon,
+  X,
+} from "lucide-react";
 import MdEditor from "react-markdown-editor-lite";
 import MarkdownIt from "markdown-it";
 import "react-markdown-editor-lite/lib/index.css";
@@ -353,7 +361,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 <div className="break-words sm:w-1/2 w-full space-y-px">
                   <div className="break-words flex justify-start items-center gap-2">
                     {selectedImage ? (
-                      <div className="break-words size-16">
+                      <div className="break-words size-16 relative">
                         <Image
                           src={selectedImage}
                           width={60}
@@ -361,6 +369,15 @@ const FormSection: React.FC<FormSecyionProps> = ({
                           className="break-words w-full"
                           alt="avatar"
                         />
+                        <Button
+                          onClick={() => setSelectedImage(null)}
+                          size={"icon"}
+                          variant={"destructive"}
+                          type="button"
+                          className="absolute -top-4 -right-4 rounded-full p-0.5 h-7 w-7"
+                        >
+                          <X />
+                        </Button>
                       </div>
                     ) : (
                       <UploadIcon className="break-words w-9" />
