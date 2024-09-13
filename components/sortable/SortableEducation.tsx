@@ -66,9 +66,9 @@ const SortableEducation: React.FC<SortableEducationProps> = ({
   console.log("HERE", educationHistory);
   return (
     <>
-      {sortableEducationList.map((index: any) => (
+      {sortableEducationList.map((item: any, index: any) => (
         <div
-          key={index - 1}
+          key={index}
           className="w-full flex gap-x-3 items-center justify-between"
         >
           <Accordion type="multiple" className="w-full">
