@@ -48,10 +48,6 @@ export default function DraggableCourse({
     setCourseInstitution,
     setCourseStartDate,
     setCourseEndDate,
-    sortableCourseList,
-    setSortableCourseList,
-    setToggledCourse,
-    toggledCourse,
   } = useCourse();
   const handleDeleteDiv = (index: any) => {
     // setSortableCourseList((sortableCourseList: any[]) =>
