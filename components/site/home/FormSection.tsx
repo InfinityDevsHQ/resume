@@ -924,7 +924,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     }}
                   />
                 </div>
-                <div className="break-words flex items-center space-x-2">
+                <div className="break-words flex items-center space-x-2 my-4">
                   <Switch
                     onClick={() => {
                       setLanguageToggledProgress(!languageToggledProgress);
