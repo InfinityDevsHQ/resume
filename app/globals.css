@@ -32,3 +32,7 @@ span.block.text-charcoal.text-left {
   @apply text-sm;
   color: rgb(117, 117, 117);
 }
+.whitish p,
+div {
+  color: white !important;
+}
