@@ -135,7 +135,7 @@ export default function PDFDoc({
     const end = start + chunkSize;
     const chunkContent = (
       <>
-        <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] h-full py-8 px-4">
+        <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] !h-full py-8 px-4 ">
           {/* Personal Details */}
           <div>
             <div>
@@ -290,7 +290,7 @@ export default function PDFDoc({
             </>
           )}
         </div>
-        <div className="break-words xl:w-[70%] w-[65%] bg-white h-full py-8 px-4 space-y-3">
+        <div className="break-words xl:w-[70%] w-[65%] bg-white !h-full py-8 px-4 space-y-3">
           {/* Professional Summary */}
           {professionalSummary && (
             <div>

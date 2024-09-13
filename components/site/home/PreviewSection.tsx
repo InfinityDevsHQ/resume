@@ -183,7 +183,7 @@ const PreviewSection: React.FC<PreviewSectionProps> = ({
             </div>
           </div>
           <div
-            className={`xl:w-[480px] md:w-[65%] sm:w-[75%] w-[80%] h-[580px] break-words overflow-hidden md:mt-8 mt-16`}
+            className={`xl:w-[550px] md:w-[65%] sm:w-[75%] w-[80%] h-[60vh] xl:h-[720px] overflow-y-auto break-words overflow-hidden md:mt-8 mt-16`}
           >
             <PDFDoc
               skillsToggledProgress={skillsToggledProgress}
