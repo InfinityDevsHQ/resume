@@ -23,7 +23,7 @@ import DraggableCourse from "./draggable/draggable-course";
 import { useCourse } from "@/statemanagement/useCourse";
 
 export default function SortableCourse() {
-  const { sortableCourseList, setCourse } = useCourse();
+  const { sortableCourseList, setSortableCourseList } = useCourse();
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -32,20 +32,36 @@ export default function SortableCourse() {
     })
   );
 
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      const oldIndex = sortableCourseList.findIndex(
+        (item) => item === active.id
+      );
+      const newIndex = sortableCourseList.findIndex((item) => item === over.id);
+      setSortableCourseList(arrayMove(sortableCourseList, oldIndex, newIndex));
+    }
+  };
+
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
       modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+      onDragEnd={handleDragEnd}
     >
       <div>
         <Accordion type="multiple" className="w-full space-y-2">
           <SortableContext
             strategy={verticalListSortingStrategy}
-            items={sortableCourseList}
+            items={sortableCourseList.map((item) => item)} // Ensure each item has a unique ID
           >
             {sortableCourseList?.map((item: any, index: number) => (
-              <DraggableCourse key={index} index={index} course={item} />
+              <DraggableCourse
+                key={item.id} // Ensure key is unique
+                index={index}
+                course={item} // Pass the entire course object
+              />
             ))}
           </SortableContext>
         </Accordion>
