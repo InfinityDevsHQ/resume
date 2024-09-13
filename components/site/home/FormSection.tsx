@@ -845,11 +845,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     }}
                   />
                 </div>
-                <SortableCourse
-                  setSortableCourseList={setSortableCourseList}
-                  setToggledCourse={setToggledCourse}
-                  toggledCourse={toggledCourse}
-                />
+                <SortableCourse />
                 <div>
                   <Button
                     onClick={handleAddSortableCourseList}

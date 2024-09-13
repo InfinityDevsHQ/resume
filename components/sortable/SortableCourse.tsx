@@ -22,17 +22,7 @@ import {
 import DraggableCourse from "./draggable/draggable-course";
 import { useCourse } from "@/statemanagement/useCourse";
 
-interface SortableCourseProps {
-  setSortableCourseList: any;
-  setToggledCourse: any;
-  toggledCourse: any;
-}
-
-const SortableCourse: React.FC<SortableCourseProps> = ({
-  setSortableCourseList,
-  setToggledCourse,
-  toggledCourse,
-}) => {
+export default function SortableCourse() {
   const { sortableCourseList, setCourse } = useCourse();
 
   const sensors = useSensors(
@@ -41,31 +31,7 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-  // const handleDegreeDragEnd = (event: any) => {
-  //   const { active, over } = event;
-  //   if (active.id !== over?.id) {
-  //     const oldIndex = sortableCourseList.indexOf(active.id);
-  //     const newIndex = sortableCourseList.indexOf(over?.id);
-  //     const newSortableActivitiesList = arrayMove(
-  //       sortableCourseList,
-  //       oldIndex,
-  //       newIndex
-  //     );
-  //     setCourse(newSortableActivitiesList);
-  //     const activityHistoryArray = Object.values(activityHistory);
-  //     const newActivityHistoryArray = arrayMove(
-  //       activityHistoryArray,
-  //       oldIndex,
-  //       newIndex
-  //     );
-  //     const updatedActivityHistory: { [key: number]: ActivityEntryTypes } = {};
-  //     newSortableActivitiesList.forEach((id, index) => {
-  //       updatedActivityHistory[id as number] = newActivityHistoryArray[index];
-  //     });
 
-  //     useCourse.setState({ activityHistory: updatedActivityHistory });
-  //   }
-  // };
   return (
     <DndContext
       sensors={sensors}
@@ -86,6 +52,4 @@ const SortableCourse: React.FC<SortableCourseProps> = ({
       </div>
     </DndContext>
   );
-};
-
-export default SortableCourse;
+}

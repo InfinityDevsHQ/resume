@@ -3,7 +3,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { CSS, useNodeRef } from "@dnd-kit/utilities";
+import { CSS } from "@dnd-kit/utilities";
 
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
