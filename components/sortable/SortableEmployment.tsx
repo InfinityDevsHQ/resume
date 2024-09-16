@@ -86,11 +86,13 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                       "Not specified"
                     )}
                   </span>
+
                   <span className="block text-charcoal text-left">
                     {employmentHistory[index]?.employmentEndDate ||
                     employmentHistory[index]?.employmentStartDate ? (
                       <>
-                        {employmentHistory[index]?.employmentStartDate &&
+                        {employmentHistory[index]
+                          ?.employmentStartDate instanceof Date &&
                           employmentHistory[
                             index
                           ]?.employmentStartDate?.toLocaleDateString("en-US", {
@@ -98,7 +100,8 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
                             month: "short",
                             day: "2-digit",
                           })}{" "}
-                        {employmentHistory[index]?.employmentEndDate && (
+                        {employmentHistory[index]?.employmentEndDate instanceof
+                          Date && (
                           <>
                             -{" "}
                             {employmentHistory[
