@@ -64,7 +64,7 @@ const SortableEmployment: React.FC<SortableEmploymentProps> = ({
   } = useEmploymentHistory();
   return (
     <>
-      {sortableEmploymentList.map((index: any) => (
+      {sortableEmploymentList?.map((index: any) => (
         <div
           key={index}
           className="w-full flex gap-x-3 items-center justify-between"

@@ -135,9 +135,9 @@ export default function PDFDoc({
     const end = start + chunkSize;
     const chunkContent = (
       <>
-        <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] !h-full py-8 px-4 whitish">
+        <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] !h-full py-10 px-4 whitish space-y-1 lg:space-y-4">
           {/* Personal Details */}
-          <div>
+          <div className="pb-4 lg:pb-6">
             <div>
               {selectedImage && (
                 <Avatar className="break-words mx-auto h-14 w-14">
@@ -145,12 +145,16 @@ export default function PDFDoc({
                 </Avatar>
               )}
             </div>
-            <div className="break-words text-center mt-3">
-              <h3 className="break-words text-white font-normal text-base">
+            <div className="break-words text-center">
+              <h3 className="break-words text-white font-normal text-base lg:text-lg">
                 {firstName} {lastName}
               </h3>
             </div>
-            <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+
+            {jobTitle && firstName && (
+              <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+            )}
+
             <div className="break-words text-center mt-1">
               <h1 className="break-words text-white font-normal text-[9px] leading-[14px]">
                 {jobTitle}
@@ -233,27 +237,29 @@ export default function PDFDoc({
             </>
           )}
           {/*  Skills */}
-          {sortableSkillsList?.length > 0 && (
-            <>
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                {skillTitle}
-              </h1>
-              {sortableSkillsList.map((item: any, index: any) => (
-                <div key={index} className="break-words space-y-1 mt-1">
-                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                    {skillsHistory[index]?.skillsTitle}
-                  </h6>
-                  {skillsHistory[index]?.skillsTitle &&
-                    skillsToggledProgress && (
-                      <Progress
-                        value={skillsHistory[index]?.skillsLevel || 60}
-                        className="break-words w-[100%] h-1 bg-[#808080]"
-                      />
-                    )}
-                </div>
-              ))}
-            </>
-          )}
+          <span>
+            {sortableSkillsList?.length > 0 && (
+              <>
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                  {skillTitle}
+                </h1>
+                {sortableSkillsList.map((item: any, index: any) => (
+                  <div key={index} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                      {skillsHistory[index]?.skillsTitle}
+                    </h6>
+                    {skillsHistory[index]?.skillsTitle &&
+                      skillsToggledProgress && (
+                        <Progress
+                          value={skillsHistory[index]?.skillsLevel || 60}
+                          className="break-words w-[100%] h-1 bg-[#808080]"
+                        />
+                      )}
+                  </div>
+                ))}
+              </>
+            )}
+          </span>
           {/*  Hobbies */}
           {toggledHobbies && (
             <>
@@ -274,23 +280,25 @@ export default function PDFDoc({
               <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
                 {languagesTitle}
               </h1>
-              {sortableLanguageList.map((item: any, index: any) => (
-                <div key={index + 1} className="break-words space-y-1 mt-1">
-                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                    {languageHistory[index + 1]?.languageTitle}
-                  </h6>
-                  {languageHistory[index + 1]?.languageTitle && (
-                    <Progress
-                      value={languageHistory[index + 1]?.languageLevel || 66}
-                      className="break-words w-[100%] h-1 bg-[#808080]"
-                    />
-                  )}
-                </div>
-              ))}
+              <span>
+                {sortableLanguageList.map((item: any, index: any) => (
+                  <div key={index + 1} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                      {languageHistory[index + 1]?.languageTitle}
+                    </h6>
+                    {languageHistory[index + 1]?.languageTitle && (
+                      <Progress
+                        value={languageHistory[index + 1]?.languageLevel || 66}
+                        className="break-words w-[100%] h-1 bg-[#808080]"
+                      />
+                    )}
+                  </div>
+                ))}
+              </span>
             </>
           )}
         </div>
-        <div className="break-words xl:w-[70%] w-[65%] bg-white !h-full py-8 px-4 space-y-3 blackish">
+        <div className="break-words xl:w-[70%] w-[65%] bg-white !h-full py-10 px-4 space-y-3 blackish">
           {/* Professional Summary */}
           {professionalSummary && (
             <div>
@@ -301,12 +309,12 @@ export default function PDFDoc({
             </div>
           )}
           {/* Employment History */}
-          {sortableEmploymentList.length > 0 && (
+          {sortableEmploymentList?.length > 0 && (
             <div className="break-words space-y-2">
               <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                 {employmentHistoryTitle}
               </h1>
-              {sortableEmploymentList.map((index: any) => {
+              {sortableEmploymentList?.map((index: any) => {
                 return (
                   <div key={index}>
                     <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
@@ -319,15 +327,22 @@ export default function PDFDoc({
                       )}
                     </h6>
                     <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                      {employmentHistory[
-                        index
-                      ]?.employmentStartDate?.toLocaleDateString()}{" "}
+                      {employmentHistory[index]?.employmentStartDate
+                        .split("T")[0]
+                        .replaceAll("-", "/")
+                        .split("/")
+                        .reverse()
+                        .join("/")}
+                      {"  "}
                       {employmentHistory[index]?.employmentEndDate && (
                         <>
-                          -{" "}
-                          {employmentHistory[
-                            index
-                          ]?.employmentEndDate?.toLocaleDateString()}
+                          -{"  "}
+                          {employmentHistory[index]?.employmentEndDate
+                            .split("T")[0]
+                            .replaceAll("-", "/")
+                            .split("/")
+                            .reverse()
+                            .join("/")}
                         </>
                       )}
                     </h6>
@@ -552,7 +567,6 @@ export default function PDFDoc({
         </div>
       </>
     );
-
     return renderToStaticMarkup(chunkContent);
   });
   return (
