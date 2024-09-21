@@ -17,7 +17,7 @@ type PDFDocProps = {
   countryName: string;
   email: string;
   address: string;
-  postalCode: string;
+  postalCode: number | any;
   nationality: string;
   dateOfBirth: string;
   jobTitle: string;
@@ -204,7 +204,7 @@ export default function PDFDoc({
             </div>
           )}
           {nationality && (
-            <div>
+            <div className="pb-4">
               <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
                 nationality
               </h1>
@@ -327,22 +327,34 @@ export default function PDFDoc({
                       )}
                     </h6>
                     <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                      {employmentHistory[index]?.employmentStartDate
-                        .split("T")[0]
-                        .replaceAll("-", "/")
-                        .split("/")
-                        .reverse()
-                        .join("/")}
+                      {employmentHistory[index]?.employmentStartDate &&
+                      typeof employmentHistory[index]?.employmentStartDate ===
+                        "string"
+                        ? employmentHistory[index]?.employmentStartDate
+                            ?.split("T")[0]
+                            .replaceAll("-", "/")
+                            .split("/")
+                            .reverse()
+                            .join("/")
+                        : employmentHistory[
+                            index
+                          ]?.employmentStartDate?.toLocaleDateString()}
                       {"  "}
                       {employmentHistory[index]?.employmentEndDate && (
                         <>
                           -{"  "}
-                          {employmentHistory[index]?.employmentEndDate
-                            .split("T")[0]
-                            .replaceAll("-", "/")
-                            .split("/")
-                            .reverse()
-                            .join("/")}
+                          {employmentHistory[index]?.employmentEndDate &&
+                          typeof employmentHistory[index]?.employmentEndDate ===
+                            "string"
+                            ? employmentHistory[index]?.employmentEndDate
+                                ?.split("T")[0]
+                                .replaceAll("-", "/")
+                                .split("/")
+                                .reverse()
+                                .join("/")
+                            : employmentHistory[
+                                index
+                              ]?.employmentEndDate?.toLocaleDateString()}
                         </>
                       )}
                     </h6>
@@ -573,9 +585,9 @@ export default function PDFDoc({
     <>
       <Document ref={targetRef}>
         {contentChunks.map((chunk) => (
-          <Page key={chunk} size={"A4"}>
+          <Page key={chunk} size={"A4"} style={{ width: "100%" }}>
             <div
-              className="w-full h-full min-h-[1121px] flex"
+              className="w-full h-full min-h-fit flex overflow-hidden pdf-converter"
               dangerouslySetInnerHTML={{
                 __html: chunk,
               }}

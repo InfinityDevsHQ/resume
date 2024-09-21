@@ -45,3 +45,26 @@ div {
 div {
   @apply break-words !text-black/95 !font-normal !text-[8px] !leading-[13px];
 }
+
+.custom-html-style > ul > li {
+  vertical-align: middle;
+  list-style: none;
+  margin-bottom: 4px;
+}
+
+.custom-html-style li::before {
+  content: "\2022";
+  color: #000;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* .custom-html-style p {
+  @apply !m-0 py-1.5;
+} */
+
+.pdf-converter > a {
+  color: white;
+  text-decoration: underline;
+}
