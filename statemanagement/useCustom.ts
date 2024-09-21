@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type CustomEntryTypes = {
   customTitle: string;
@@ -12,6 +13,10 @@ type CustomEntryTypes = {
 
 type CustomHistoryTypes = {
   customHistory: { [key: number]: CustomEntryTypes };
+  customSectionTitle: string;
+  setCustomSectionTitle: (title: string) => void;
+  sortableCustomSectionList: number[];
+  setSortableCustomSectionList: (list: number[]) => void;
   setCustomTitle: (index: number, customTitle: string) => void;
   setCustomCity: (index: number, customCity: string) => void;
   setCustomStartDate: (
@@ -22,61 +27,78 @@ type CustomHistoryTypes = {
   setCustomDescription: (index: number, customDescription: string) => void;
 };
 
-export const useCustom = create<CustomHistoryTypes>((set) => ({
-  customHistory: {},
+export const useCustom = create<CustomHistoryTypes>()(
+  persist(
+    (set) => ({
+      customHistory: {},
+      customSectionTitle: "custom section", // default value
+      sortableCustomSectionList: [], // default empty list
 
-  setCustomTitle: (index, customTitle) =>
-    set((state) => ({
-      customHistory: {
-        ...state.customHistory,
-        [index]: {
-          ...state.customHistory[index],
-          customTitle,
-        },
-      },
-    })),
+      setCustomSectionTitle: (title) =>
+        set(() => ({
+          customSectionTitle: title,
+        })),
 
-  setCustomCity: (index, customCity) =>
-    set((state) => ({
-      customHistory: {
-        ...state.customHistory,
-        [index]: {
-          ...state.customHistory[index],
-          customCity,
-        },
-      },
-    })),
+      setSortableCustomSectionList: (list) =>
+        set(() => ({
+          sortableCustomSectionList: list,
+        })),
 
-  setCustomStartDate: (index, customStartDate) =>
-    set((state) => ({
-      customHistory: {
-        ...state.customHistory,
-        [index]: {
-          ...state.customHistory[index],
-          customStartDate,
-        },
-      },
-    })),
+      setCustomTitle: (index, customTitle) =>
+        set((state) => ({
+          customHistory: {
+            ...state.customHistory,
+            [index]: {
+              ...state.customHistory[index],
+              customTitle,
+            },
+          },
+        })),
 
-  setCustomEndDate: (index, customEndDate) =>
-    set((state) => ({
-      customHistory: {
-        ...state.customHistory,
-        [index]: {
-          ...state.customHistory[index],
-          customEndDate,
-        },
-      },
-    })),
+      setCustomCity: (index, customCity) =>
+        set((state) => ({
+          customHistory: {
+            ...state.customHistory,
+            [index]: {
+              ...state.customHistory[index],
+              customCity,
+            },
+          },
+        })),
 
-  setCustomDescription: (index, customDescription) =>
-    set((state) => ({
-      customHistory: {
-        ...state.customHistory,
-        [index]: {
-          ...state.customHistory[index],
-          customDescription,
-        },
-      },
-    })),
-}));
+      setCustomStartDate: (index, customStartDate) =>
+        set((state) => ({
+          customHistory: {
+            ...state.customHistory,
+            [index]: {
+              ...state.customHistory[index],
+              customStartDate,
+            },
+          },
+        })),
+
+      setCustomEndDate: (index, customEndDate) =>
+        set((state) => ({
+          customHistory: {
+            ...state.customHistory,
+            [index]: {
+              ...state.customHistory[index],
+              customEndDate,
+            },
+          },
+        })),
+
+      setCustomDescription: (index, customDescription) =>
+        set((state) => ({
+          customHistory: {
+            ...state.customHistory,
+            [index]: {
+              ...state.customHistory[index],
+              customDescription,
+            },
+          },
+        })),
+    }),
+    { name: "custom-section", storage: createJSONStorage(() => localStorage) }
+  )
+);

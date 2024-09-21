@@ -1,28 +1,28 @@
 "use client";
 
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type EducationEntryTypes = {
   educationSchool: string;
   educationDegree: string;
-  educationStartDate: Date | null | any;
-  educationEndDate: Date | null | any;
+  educationStartDate: Date | null;
+  educationEndDate: Date | null;
   educationDescription: string;
   educationCity: string;
 };
 
 type EducationHistoryTypes = {
   educationHistory: { [key: number]: EducationEntryTypes };
+  sortableEducationList: number[];
+  setSortableEducationList: (sortableList: number[]) => void;
   setEducationSchool: (index: number, educationSchool: string) => void;
   setEducationDegree: (index: number, educationDegree: string) => void;
   setEducationStartDate: (
     index: number,
-    educationStartDate: Date | null | any
+    educationStartDate: Date | null
   ) => void;
-  setEducationEndDate: (
-    index: number,
-    educationEndDate: Date | null | any
-  ) => void;
+  setEducationEndDate: (index: number, educationEndDate: Date | null) => void;
   setEducationDescription: (
     index: number,
     educationDescription: string
@@ -30,72 +30,135 @@ type EducationHistoryTypes = {
   setEducationCity: (index: number, educationCity: string) => void;
 };
 
-export const useEducation = create<EducationHistoryTypes>((set) => ({
-  educationHistory: {},
+export const useEducation = create<EducationHistoryTypes>()(
+  persist(
+    (set) => ({
+      educationHistory: {},
+      sortableEducationList: [],
 
-  setEducationSchool: (index, educationSchool) =>
-    set((state) => ({
-      educationHistory: {
-        ...state.educationHistory,
-        [index]: {
-          ...state.educationHistory[index],
-          educationSchool,
-        },
-      },
-    })),
+      setSortableEducationList: (sortableList) =>
+        set(() => ({
+          sortableEducationList: sortableList,
+        })),
 
-  setEducationDegree: (index, educationDegree) =>
-    set((state) => ({
-      educationHistory: {
-        ...state.educationHistory,
-        [index]: {
-          ...state.educationHistory[index],
-          educationDegree,
-        },
-      },
-    })),
+      setEducationSchool: (index, educationSchool) =>
+        set((state) => ({
+          educationHistory: {
+            ...state.educationHistory,
+            [index]: {
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
+              educationSchool,
+            },
+          },
+        })),
 
-  setEducationStartDate: (index, educationStartDate) =>
-    set((state) => ({
-      educationHistory: {
-        ...state.educationHistory,
-        [index]: {
-          ...state.educationHistory[index],
-          educationStartDate,
-        },
-      },
-    })),
+      setEducationDegree: (index, educationDegree) =>
+        set((state) => ({
+          educationHistory: {
+            ...state.educationHistory,
+            [index]: {
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
+              educationDegree,
+            },
+          },
+        })),
 
-  setEducationEndDate: (index, educationEndDate) =>
-    set((state) => ({
-      educationHistory: {
-        ...state.educationHistory,
-        [index]: {
-          ...state.educationHistory[index],
-          educationEndDate,
-        },
-      },
-    })),
+      setEducationStartDate: (index, educationStartDate) =>
+        set((state) => ({
+          educationHistory: {
+            ...state.educationHistory,
+            [index]: {
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
+              educationStartDate,
+            },
+          },
+        })),
 
-  setEducationDescription: (index, educationDescription) =>
-    set((state) => ({
-      educationHistory: {
-        ...state.educationHistory,
-        [index]: {
-          ...state.educationHistory[index],
-          educationDescription,
-        },
-      },
-    })),
+      setEducationEndDate: (index, educationEndDate) =>
+        set((state) => ({
+          educationHistory: {
+            ...state.educationHistory,
+            [index]: {
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity: state.educationHistory[index]?.educationCity || "",
+              educationEndDate,
+            },
+          },
+        })),
 
-  setEducationCity: (index, educationCity) =>
-    set((state) => ({
-      educationHistory: {
-        ...state.educationHistory,
-        [index]: {
-          ...state.educationHistory[index],
-          educationCity,
-        },
-      },
-    })),
-}));
+      setEducationDescription: (index, educationDescription) =>
+        set((state) => ({
+          educationHistory: {
+            ...state.educationHistory,
+            [index]: {
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationCity: state.educationHistory[index]?.educationCity || "",
+              educationDescription,
+            },
+          },
+        })),
+
+      setEducationCity: (index, educationCity) =>
+        set((state) => ({
+          educationHistory: {
+            ...state.educationHistory,
+            [index]: {
+              educationSchool:
+                state.educationHistory[index]?.educationSchool || "",
+              educationDegree:
+                state.educationHistory[index]?.educationDegree || "",
+              educationStartDate:
+                state.educationHistory[index]?.educationStartDate || null,
+              educationEndDate:
+                state.educationHistory[index]?.educationEndDate || null,
+              educationDescription:
+                state.educationHistory[index]?.educationDescription || "",
+              educationCity,
+            },
+          },
+        })),
+    }),
+    {
+      name: "internships",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

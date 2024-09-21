@@ -13,8 +13,9 @@ const SortableHobbies = () => {
       <div className="w-full flex gap-x-3 items-center justify-between">
         <div className="w-full space-y-2">
           <MdEditor
+            value={hobbiesDescription}
             onChange={(e) => {
-              setHobbiesDescription(e.html);
+              setHobbiesDescription(e.text);
             }}
             style={{ height: "170px", width: "full" }}
             renderHTML={(text) => mdParser.render(text)}

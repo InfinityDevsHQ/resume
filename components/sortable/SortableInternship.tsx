@@ -259,10 +259,10 @@ const SortableInternship: React.FC<SortableInternshipProps> = ({
                   <MdEditor
                     style={{ height: "170px", width: "full" }}
                     renderHTML={(text) => mdParser.render(text)}
+                    value={internshipHistory[index]?.internshipDescription}
                     onChange={(e) => {
                       SetCharCount(e.text.length);
-                      setInternshipDescription(index, e.html);
-                      console.log(e);
+                      setInternshipDescription(index, e.text);
                     }}
                   />
                   <div className="flex justify-between items-center">

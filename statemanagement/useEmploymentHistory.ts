@@ -1,14 +1,15 @@
 "use client";
 
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type EmploymentEntryTypes = {
   employmentJobTitle: string;
   employer: string;
   employmentCity: string;
   employmentDescription: string;
-  employmentStartDate: Date | null | any;
-  employmentEndDate: Date | null | any;
+  employmentStartDate: Date | null;
+  employmentEndDate: Date | null;
 };
 
 type EmploymentHistoryTypes = {
@@ -22,80 +23,100 @@ type EmploymentHistoryTypes = {
   ) => void;
   setEmploymentStartDate: (
     index: number,
-    employmentStartDate: Date | null | any
+    employmentStartDate: Date | null
   ) => void;
-  setEmploymentEndDate: (
-    index: number,
-    employmentEndDate: Date | null | any
-  ) => void;
+  setEmploymentEndDate: (index: number, employmentEndDate: Date | null) => void;
+
+  employmentHistoryTitle: string;
+  setEmploymentHistoryTitle: (title: string) => void;
+
+  sortableEmploymentList: number[];
+  setSortableEmploymentList: (list: number[]) => void;
 };
 
-export const useEmploymentHistory = create<EmploymentHistoryTypes>((set) => ({
-  employmentHistory: {},
+export const useEmploymentHistory = create<EmploymentHistoryTypes>()(
+  persist(
+    (set) => ({
+      employmentHistory: {},
+      employmentHistoryTitle: "employment history",
 
-  setEmploymentJobTitle: (index, employmentJobTitle) =>
-    set((state) => ({
-      employmentHistory: {
-        ...state.employmentHistory,
-        [index]: {
-          ...state.employmentHistory[index],
-          employmentJobTitle,
-        },
-      },
-    })),
+      // New sortable employment list state
+      sortableEmploymentList: [],
+      setSortableEmploymentList: (list: number[]) =>
+        set(() => ({ sortableEmploymentList: list })),
 
-  setEmployer: (index, employer) =>
-    set((state) => ({
-      employmentHistory: {
-        ...state.employmentHistory,
-        [index]: {
-          ...state.employmentHistory[index],
-          employer,
-        },
-      },
-    })),
+      setEmploymentHistoryTitle: (employmentHistoryTitle: string) =>
+        set(() => ({ employmentHistoryTitle })),
 
-  setEmploymentCity: (index, employmentCity) =>
-    set((state) => ({
-      employmentHistory: {
-        ...state.employmentHistory,
-        [index]: {
-          ...state.employmentHistory[index],
-          employmentCity,
-        },
-      },
-    })),
+      setEmploymentJobTitle: (index, employmentJobTitle) =>
+        set((state) => ({
+          employmentHistory: {
+            ...state.employmentHistory,
+            [index]: {
+              ...state.employmentHistory[index],
+              employmentJobTitle,
+            },
+          },
+        })),
 
-  setEmploymentDescription: (index, employmentDescription) =>
-    set((state) => ({
-      employmentHistory: {
-        ...state.employmentHistory,
-        [index]: {
-          ...state.employmentHistory[index],
-          employmentDescription,
-        },
-      },
-    })),
+      setEmployer: (index, employer) =>
+        set((state) => ({
+          employmentHistory: {
+            ...state.employmentHistory,
+            [index]: {
+              ...state.employmentHistory[index],
+              employer,
+            },
+          },
+        })),
 
-  setEmploymentEndDate: (index, employmentEndDate) =>
-    set((state) => ({
-      employmentHistory: {
-        ...state.employmentHistory,
-        [index]: {
-          ...state.employmentHistory[index],
-          employmentEndDate,
-        },
-      },
-    })),
+      setEmploymentCity: (index, employmentCity) =>
+        set((state) => ({
+          employmentHistory: {
+            ...state.employmentHistory,
+            [index]: {
+              ...state.employmentHistory[index],
+              employmentCity,
+            },
+          },
+        })),
 
-  setEmploymentStartDate: (index, employmentStartDate) =>
-    set((state) => ({
-      employmentHistory: {
-        ...state.employmentHistory,
-        [index]: {
-          ...state.employmentHistory[index],
-          employmentStartDate,
-        },
-      },
-    })),
-}));
+      setEmploymentDescription: (index, employmentDescription) =>
+        set((state) => ({
+          employmentHistory: {
+            ...state.employmentHistory,
+            [index]: {
+              ...state.employmentHistory[index],
+              employmentDescription,
+            },
+          },
+        })),
+
+      setEmploymentEndDate: (index, employmentEndDate) =>
+        set((state) => ({
+          employmentHistory: {
+            ...state.employmentHistory,
+            [index]: {
+              ...state.employmentHistory[index],
+              employmentEndDate,
+            },
+          },
+        })),
+
+      setEmploymentStartDate: (index, employmentStartDate) =>
+        set((state) => ({
+          employmentHistory: {
+            ...state.employmentHistory,
+            [index]: {
+              ...state.employmentHistory[index],
+              employmentStartDate,
+            },
+          },
+        })),
+    }),
+    {
+      name: "employments",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

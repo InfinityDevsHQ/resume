@@ -1,6 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { Frown, Languages, Pencil, Plus, Smile, TrashIcon } from "lucide-react";
+import {
+  Frown,
+  Languages,
+  Pencil,
+  Plus,
+  Smile,
+  TrashIcon,
+  X,
+} from "lucide-react";
 import MdEditor from "react-markdown-editor-lite";
 import MarkdownIt from "markdown-it";
 import "react-markdown-editor-lite/lib/index.css";
@@ -62,6 +70,9 @@ import { useProfessionalSummary } from "@/statemanagement/useProfessionalSummary
 import { useHobbies } from "@/statemanagement/useHobbies";
 import { Switch } from "@/components/ui/switch";
 import { useSkills } from "@/statemanagement/useSkills";
+import { useReference } from "@/statemanagement/useReference";
+import { useCourse } from "@/statemanagement/useCourse";
+import { useActivity } from "@/statemanagement/useActivities";
 
 type FormSecyionProps = {
   handleAddSortableEmploymentList: any;
@@ -87,8 +98,8 @@ type FormSecyionProps = {
   handleAddSortableActivitiesList: any;
   sortableActivitiesList: any;
   setSortableActivitiesList: any;
-  handleAddSortableCustomSectionList: any;
-  sortableCustomSectionList: any;
+  handleAddSortableCustomSectionList: () => void;
+  sortableCustomSectionList: number[];
   setSortableCustomSectionList: any;
   handleAddSortableSkillsBadgeList: any;
   sortableSkillsList: any;
@@ -207,17 +218,34 @@ const FormSection: React.FC<FormSecyionProps> = ({
   const [toggled, setToggled] = useState(false);
   const [charCount, SetCharCount] = useState(0);
   const { setHobbiesDescription } = useHobbies();
-  const [toggledCourse, setToggledCourse] = useState<boolean>(false);
+  const { toggledCourse, setToggledCourse } = useCourse();
   const [toggledInternship, setToggledInternship] = useState<boolean>(false);
   const [toggledLanguage, setToggledLanguage] = useState<boolean>(false);
-  const [toggledReference, setToggledReference] = useState<boolean>(false);
-  const [toggledActivities, setToggledActivities] = useState<boolean>(false);
-  const [toggledCustomSection, setToggledCustomSection] =
-    useState<boolean>(false);
-
+  const { toggledReference, setToggledReference } = useReference();
+  const { toggledActivities, setToggledActivities } = useActivity();
+  const [toggledCustomSection, setToggledCustomSection] = useState<boolean>(
+    !!sortableCustomSectionList.length
+  );
+  //Personal Data
+  const {
+    jobTitle,
+    firstName,
+    lastName,
+    email,
+    phone,
+    countryName,
+    city,
+    placeOfBirth,
+    dateOfBirth,
+    nationality,
+    postalCode,
+    address,
+    drivingLicense,
+  } = useProfessionalDetails();
   // Professional Summary
 
-  const { setProfessionalSummary } = useProfessionalSummary();
+  const { setProfessionalSummary, professionalSummary } =
+    useProfessionalSummary();
 
   // Professional Details
 
@@ -326,13 +354,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     autoComplete="off"
                     name="jobTitle"
                     placeholder="e.g Teacher"
+                    value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
                 </div>
                 <div className="break-words sm:w-1/2 w-full space-y-px">
                   <div className="break-words flex justify-start items-center gap-2">
                     {selectedImage ? (
-                      <div className="break-words size-16">
+                      <div className="break-words size-16 relative">
                         <Image
                           src={selectedImage}
                           width={60}
@@ -345,7 +374,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                       <UploadIcon className="break-words w-9" />
                     )}
 
-                    <Label className="break-words capitalize font-normal text-sm text-aquamarine-100 hover:text-aquamarine-200 cursor-pointer">
+                    <Label className="break-words flex items-center flex-col capitalize font-normal text-sm text-aquamarine-100 hover:text-aquamarine-200 cursor-pointer">
                       Upload Photo
                       <Input
                         type="file"
@@ -354,6 +383,14 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         className="break-words hidden"
                       />
                     </Label>
+                    {selectedImage && (
+                      <button
+                        onClick={() => setSelectedImage(null)}
+                        type="button"
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -365,6 +402,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Input
                     autoComplete="off"
                     name="firstName"
+                    value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
@@ -375,6 +413,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Input
                     autoComplete="off"
                     name="lastName"
+                    value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
@@ -387,6 +426,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   <Input
                     autoComplete="off"
                     name="email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -396,6 +436,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                   </Label>
                   <Input
                     autoComplete="off"
+                    value={phone}
                     name="phone"
                     onChange={(e) => setPhone(e.target.value)}
                   />
@@ -416,6 +457,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="countryName"
+                          value={countryName}
                           onChange={(e) => setCountryName(e.target.value)}
                         />
                       </div>
@@ -426,6 +468,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="city"
+                          value={city}
                           onChange={(e) => setCity(e.target.value)}
                         />
                       </div>
@@ -438,6 +481,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="address"
+                          value={address}
                           onChange={(e) => setAddress(e.target.value)}
                         />
                       </div>
@@ -448,6 +492,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="postalCode"
+                          value={drivingLicense}
                           onChange={(e) => setPostalCode(e.target.value)}
                         />
                       </div>
@@ -476,6 +521,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="drivingLicense"
+                          value={drivingLicense}
                           onChange={(e) => setDrivingLicense(e.target.value)}
                         />
                       </div>
@@ -501,6 +547,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="nationality"
+                          value={nationality}
                           onChange={(e) => setNationality(e.target.value)}
                         />
                       </div>
@@ -513,6 +560,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="placeOfBirth"
+                          value={placeOfBirth}
                           onChange={(e) => setPlaceOfBirth(e.target.value)}
                         />
                       </div>
@@ -539,6 +587,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                         <Input
                           autoComplete="off"
                           name="dateOfBirth"
+                          value={dateOfBirth}
                           onChange={(e) => setDateOfBirth(e.target.value)}
                         />
                       </div>
@@ -577,9 +626,10 @@ const FormSection: React.FC<FormSecyionProps> = ({
                 <MdEditor
                   style={{ height: "170px", width: "full" }}
                   renderHTML={(text) => mdParser.render(text)}
+                  value={professionalSummary}
                   onChange={(e) => {
                     SetCharCount(e.text.length);
-                    setProfessionalSummary(e.html);
+                    setProfessionalSummary(e.text);
                     console.log(e);
                   }}
                 />
@@ -811,12 +861,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     }}
                   />
                 </div>
-                <SortableCourse
-                  sortableCourseList={sortableCourseList}
-                  setSortableCourseList={setSortableCourseList}
-                  setToggledCourse={setToggledCourse}
-                  toggledCourse={toggledCourse}
-                />
+                <SortableCourse />
                 <div>
                   <Button
                     onClick={handleAddSortableCourseList}
@@ -879,7 +924,7 @@ const FormSection: React.FC<FormSecyionProps> = ({
                     }}
                   />
                 </div>
-                <div className="break-words flex items-center space-x-2">
+                <div className="break-words flex items-center space-x-2 my-4">
                   <Switch
                     onClick={() => {
                       setLanguageToggledProgress(!languageToggledProgress);

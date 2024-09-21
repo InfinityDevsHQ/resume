@@ -3,9 +3,11 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Document, Page } from "@react-pdf/renderer";
 import Link from "next/link";
+import MarkdownIt from "markdown-it";
 import { useRef, useState, useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 type PDFDocProps = {
+  skillsToggledProgress: boolean;
   targetRef: any;
   selectedImage: string | null;
   firstName: string;
@@ -15,7 +17,7 @@ type PDFDocProps = {
   countryName: string;
   email: string;
   address: string;
-  postalCode: string;
+  postalCode: number | any;
   nationality: string;
   dateOfBirth: string;
   jobTitle: string;
@@ -59,6 +61,7 @@ type PDFDocProps = {
 };
 
 export default function PDFDoc({
+  skillsToggledProgress,
   targetRef,
   selectedImage,
   firstName,
@@ -113,7 +116,7 @@ export default function PDFDoc({
   const contentRef = useRef<HTMLDivElement>(null);
   const [numPages, setNumPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const mdParser = new MarkdownIt();
   const chunkSize = 1121;
   useEffect(() => {
     if (contentRef.current) {
@@ -132,9 +135,9 @@ export default function PDFDoc({
     const end = start + chunkSize;
     const chunkContent = (
       <>
-        <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] h-full py-8 px-4">
+        <div className="break-words xl:w-[30%] w-[35%] bg-[#1d473a] !h-full py-10 px-4 whitish space-y-1 lg:space-y-4">
           {/* Personal Details */}
-          <div>
+          <div className="pb-4 lg:pb-6">
             <div>
               {selectedImage && (
                 <Avatar className="break-words mx-auto h-14 w-14">
@@ -142,12 +145,16 @@ export default function PDFDoc({
                 </Avatar>
               )}
             </div>
-            <div className="break-words text-center mt-3">
-              <h3 className="break-words text-white font-normal text-base">
+            <div className="break-words text-center">
+              <h3 className="break-words text-white font-normal text-base lg:text-lg">
                 {firstName} {lastName}
               </h3>
             </div>
-            <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+
+            {jobTitle && firstName && (
+              <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+            )}
+
             <div className="break-words text-center mt-1">
               <h1 className="break-words text-white font-normal text-[9px] leading-[14px]">
                 {jobTitle}
@@ -197,7 +204,7 @@ export default function PDFDoc({
             </div>
           )}
           {nationality && (
-            <div>
+            <div className="pb-4">
               <h1 className="break-words text-charcoal text-[8px] leading-[13px] font-normal uppercase">
                 nationality
               </h1>
@@ -230,26 +237,29 @@ export default function PDFDoc({
             </>
           )}
           {/*  Skills */}
-          {sortableSkillsList?.length > 0 && (
-            <>
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                {skillTitle}
-              </h1>
-              {sortableSkillsList.map((item: any, index: any) => (
-                <div key={index} className="break-words space-y-1 mt-1">
-                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                    {skillsHistory[index]?.skillsTitle}
-                  </h6>
-                  {skillsHistory[index]?.skillsTitle && (
-                    <Progress
-                      value={skillsHistory[index]?.skillsLevel || 60}
-                      className="break-words w-[100%] h-1 bg-[#808080]"
-                    />
-                  )}
-                </div>
-              ))}
-            </>
-          )}
+          <span>
+            {sortableSkillsList?.length > 0 && (
+              <>
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                  {skillTitle}
+                </h1>
+                {sortableSkillsList.map((item: any, index: any) => (
+                  <div key={index} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                      {skillsHistory[index]?.skillsTitle}
+                    </h6>
+                    {skillsHistory[index]?.skillsTitle &&
+                      skillsToggledProgress && (
+                        <Progress
+                          value={skillsHistory[index]?.skillsLevel || 60}
+                          className="break-words w-[100%] h-1 bg-[#808080]"
+                        />
+                      )}
+                  </div>
+                ))}
+              </>
+            )}
+          </span>
           {/*  Hobbies */}
           {toggledHobbies && (
             <>
@@ -258,7 +268,7 @@ export default function PDFDoc({
               </h1>
               <div>
                 <MarkdownDisplay
-                  html={hobbiesDescription || ""}
+                  html={mdParser.render(hobbiesDescription) || ""}
                   className="!break-words !text-white/85 !font-normal !text-[8px] !leading-[13px]"
                 />
               </div>
@@ -270,39 +280,41 @@ export default function PDFDoc({
               <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
                 {languagesTitle}
               </h1>
-              {sortableLanguageList.map((item: any, index: any) => (
-                <div key={index} className="break-words space-y-1 mt-1">
-                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                    {languageHistory[index]?.languageTitle}
-                  </h6>
-                  {languageHistory[index]?.languageTitle && (
-                    <Progress
-                      value={languageHistory[index]?.languageLevel || 66}
-                      className="break-words w-[100%] h-1 bg-[#808080]"
-                    />
-                  )}
-                </div>
-              ))}
+              <span>
+                {sortableLanguageList.map((item: any, index: any) => (
+                  <div key={index + 1} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                      {languageHistory[index + 1]?.languageTitle}
+                    </h6>
+                    {languageHistory[index + 1]?.languageTitle && (
+                      <Progress
+                        value={languageHistory[index + 1]?.languageLevel || 66}
+                        className="break-words w-[100%] h-1 bg-[#808080]"
+                      />
+                    )}
+                  </div>
+                ))}
+              </span>
             </>
           )}
         </div>
-        <div className="break-words xl:w-[70%] w-[65%] bg-white h-full py-8 px-4 space-y-3">
+        <div className="break-words xl:w-[70%] w-[65%] bg-white !h-full py-10 px-4 space-y-3 blackish">
           {/* Professional Summary */}
           {professionalSummary && (
             <div>
               <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                 {professionalSummaryTitle}
               </h1>
-              <MarkdownDisplay html={professionalSummary} />
+              <MarkdownDisplay html={mdParser.render(professionalSummary)} />
             </div>
           )}
           {/* Employment History */}
-          {sortableEmploymentList.length > 0 && (
+          {sortableEmploymentList?.length > 0 && (
             <div className="break-words space-y-2">
               <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                 {employmentHistoryTitle}
               </h1>
-              {sortableEmploymentList.map((index: any) => {
+              {sortableEmploymentList?.map((index: any) => {
                 return (
                   <div key={index}>
                     <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
@@ -315,15 +327,34 @@ export default function PDFDoc({
                       )}
                     </h6>
                     <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
-                      {employmentHistory[
-                        index
-                      ]?.employmentStartDate?.toLocaleDateString()}{" "}
+                      {employmentHistory[index]?.employmentStartDate &&
+                      typeof employmentHistory[index]?.employmentStartDate ===
+                        "string"
+                        ? employmentHistory[index]?.employmentStartDate
+                            ?.split("T")[0]
+                            .replaceAll("-", "/")
+                            .split("/")
+                            .reverse()
+                            .join("/")
+                        : employmentHistory[
+                            index
+                          ]?.employmentStartDate?.toLocaleDateString()}
+                      {"  "}
                       {employmentHistory[index]?.employmentEndDate && (
                         <>
-                          -{" "}
-                          {employmentHistory[
-                            index
-                          ]?.employmentEndDate?.toLocaleDateString()}
+                          -{"  "}
+                          {employmentHistory[index]?.employmentEndDate &&
+                          typeof employmentHistory[index]?.employmentEndDate ===
+                            "string"
+                            ? employmentHistory[index]?.employmentEndDate
+                                ?.split("T")[0]
+                                .replaceAll("-", "/")
+                                .split("/")
+                                .reverse()
+                                .join("/")
+                            : employmentHistory[
+                                index
+                              ]?.employmentEndDate?.toLocaleDateString()}
                         </>
                       )}
                     </h6>
@@ -354,7 +385,7 @@ export default function PDFDoc({
                       <>, {educationHistory[index]?.educationCity}</>
                     )}
                   </h6>
-                  <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
+                  {/* <h6 className="break-words text-black/95 font-normal text-[8px] leading-[13px]">
                     {educationHistory[
                       index
                     ]?.educationStartDate?.toLocaleDateString()}{" "}
@@ -366,9 +397,11 @@ export default function PDFDoc({
                         ]?.educationEndDate?.toLocaleDateString()}
                       </>
                     )}
-                  </h6>
+                  </h6> */}
                   <MarkdownDisplay
-                    html={educationHistory[index]?.educationDescription || ""}
+                    html={mdParser.render(
+                      educationHistory[index]?.educationDescription || ""
+                    )}
                   />
                 </div>
               ))}
@@ -405,7 +438,9 @@ export default function PDFDoc({
                     )}
                   </h6>
                   <MarkdownDisplay
-                    html={internshipHistory[index]?.internshipDescription || ""}
+                    html={mdParser.render(
+                      internshipHistory[index]?.internshipDescription || ""
+                    )}
                   />
                 </div>
               ))}
@@ -532,7 +567,9 @@ export default function PDFDoc({
                       )}
                     </h6>
                     <MarkdownDisplay
-                      html={customHistory[index]?.customDescription || ""}
+                      html={mdParser.render(
+                        customHistory[index]?.customDescription || ""
+                      )}
                     />
                   </div>
                 ))}
@@ -542,16 +579,15 @@ export default function PDFDoc({
         </div>
       </>
     );
-
     return renderToStaticMarkup(chunkContent);
   });
   return (
     <>
       <Document ref={targetRef}>
         {contentChunks.map((chunk) => (
-          <Page key={chunk} size={"A4"}>
+          <Page key={chunk} size={"A4"} style={{ width: "100%" }}>
             <div
-              className="w-full h-full min-h-[1121px] flex"
+              className="w-full h-full min-h-fit flex overflow-hidden pdf-converter"
               dangerouslySetInnerHTML={{
                 __html: chunk,
               }}

@@ -3,13 +3,23 @@ import React, { useState } from "react";
 import FormSection from "./FormSection";
 import PreviewSection from "./PreviewSection";
 import { useSkills } from "@/statemanagement/useSkills";
+import { useReference } from "@/statemanagement/useReference";
+import { useEmploymentHistory } from "@/statemanagement/useEmploymentHistory";
+import { useEducation } from "@/statemanagement/useEducation";
+import { useCustom } from "@/statemanagement/useCustom";
+import { useCourse } from "@/statemanagement/useCourse";
+import { useActivity } from "@/statemanagement/useActivities";
+import { useInternship } from "@/statemanagement/useInternship";
 
 const HomeWrapper = () => {
   // statemanagement
 
-  const [customSectionTitle, setCustomSectionTitle] =
-    useState<string>("custom section");
-
+  const {
+    sortableCustomSectionList,
+    setSortableCustomSectionList,
+    customSectionTitle,
+    setCustomSectionTitle,
+  } = useCustom();
   const [personalDetailsTitle, setPersonalDetailsTitle] =
     useState<string>("personal details");
 
@@ -23,24 +33,31 @@ const HomeWrapper = () => {
   );
 
   const [languagesTitle, setLanguagesTitle] = useState<string>("languages");
+  const {
+    internshipsTitle,
+    setInternshipsTitle,
+    sortableInternshipList,
+    setSortableInternshipList,
+  } = useInternship();
 
-  const [coursesTitle, setCoursesTitle] = useState<string>("courses");
-
-  const [internshipsTitle, setInternshipsTitle] =
-    useState<string>("internships");
-
-  const [referencesTitle, setReferencesTitle] = useState<string>("references");
+  const { referencesTitle, setReferencesTitle } = useReference();
 
   const [skillTitle, setSkillTitle] = useState<string>("skills");
 
   const [hobbiesTitle, setHobbiesTitle] = useState<string>("hobbies");
 
-  const [activitiesTitle, setActivitiesTitle] = useState<string>(
-    "extra curricular activities"
-  );
-
-  const [employmentHistoryTitle, setEmploymentHistoryTitle] =
-    useState<string>("employment history");
+  const {
+    activitiesTitle,
+    setActivitiesTitle,
+    sortableActivitiesList,
+    setSortableActivitiesList,
+  } = useActivity();
+  const {
+    employmentHistoryTitle,
+    setEmploymentHistoryTitle,
+    sortableEmploymentList,
+    setSortableEmploymentList,
+  } = useEmploymentHistory();
 
   const [clickedBadges, setClickedBadges] = useState<Set<string>>(new Set());
 
@@ -54,57 +71,37 @@ const HomeWrapper = () => {
 
   const [toggledHobbies, setToggledHobbies] = useState<boolean>(false);
 
-  const [sortableActivitiesList, setSortableActivitiesList] = useState<
-    number[]
-  >([]);
-
   const [sortableReferenceList, setSortableReferenceList] = useState<number[]>(
     []
   );
-
   const [sortableLanguageList, setSortableLanguageList] = useState<number[]>(
     []
   );
-
-  const [sortableEmploymentList, setSortableEmploymentList] = useState<
-    number[]
-  >([]);
-
-  const [sortableInternshipList, setSortableInternshipList] = useState<
-    number[]
-  >([]);
-
-  const [sortableCourseList, setSortableCourseList] = useState<number[]>([]);
-
-  const [sortableEducationList, setSortableEducationList] = useState<number[]>(
-    []
-  );
-
-  const [sortableCustomSectionList, setSortableCustomSectionList] = useState<
-    number[]
-  >([]);
+  const {
+    sortableCourseList,
+    setSortableCourseList,
+    coursesTitle,
+    setCoursesTitle,
+  } = useCourse();
+  const { sortableEducationList, setSortableEducationList } = useEducation();
 
   const [sortableWebNSocialLinksList, setSortableWebNSocialLinksList] =
     useState<number[]>([]);
-
   const [sortableSkillsList, setSortableSkillsList] = useState<number[]>([]);
-
   const [pdfName, setPdfName] = useState("Untitled");
-
-  // Add More
-
   const handleAddSortableEmploymentList = () => {
-    setSortableEmploymentList((sortableEmploymentList) => [
+    setSortableEmploymentList([
       ...sortableEmploymentList,
       sortableEmploymentList.length + 1,
     ]);
   };
 
   const handleAddSortableEducationList = () => {
-    setSortableEducationList((sortableEducationList) => [
+    const newSortableList = [
       ...sortableEducationList,
       sortableEducationList.length + 1,
-    ]);
+    ];
+    setSortableEducationList(newSortableList);
   };
 
   const handleAddSortableWebNSocialLinksList = () => {
@@ -115,14 +112,17 @@ const HomeWrapper = () => {
   };
 
   const handleAddSortableCourseList = () => {
-    setSortableCourseList((sortableCourseList) => [
-      ...sortableCourseList,
-      sortableCourseList.length + 1,
-    ]);
+    useCourse.setState((state) => {
+      const newList: number[] = [
+        ...state.sortableCourseList,
+        state.sortableCourseList.length + 1,
+      ];
+      return { sortableCourseList: newList };
+    });
   };
 
   const handleAddSortableInternshipList = () => {
-    setSortableInternshipList((sortableInternshipList) => [
+    setSortableInternshipList([
       ...sortableInternshipList,
       sortableInternshipList.length + 1,
     ]);
@@ -136,14 +136,14 @@ const HomeWrapper = () => {
   };
 
   const handleAddSortableActivitiesList = () => {
-    setSortableActivitiesList((sortableActivitiesList) => [
+    setSortableActivitiesList([
       ...sortableActivitiesList,
       sortableActivitiesList.length + 1,
     ]);
   };
 
   const handleAddSortableCustomSectionList = () => {
-    setSortableCustomSectionList((sortableCustomSectionList) => [
+    setSortableCustomSectionList([
       ...sortableCustomSectionList,
       sortableCustomSectionList.length + 1,
     ]);

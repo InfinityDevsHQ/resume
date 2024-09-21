@@ -158,9 +158,9 @@ const Forest: React.FC<PreviewSectionProps> = ({
         ref={targetRef}
         className={`${className} break-words overflow-hidden flex`}
       >
-        <div className="break-words w-[30%] bg-[#1d473a] h-full py-8 px-4">
+        <div className="break-words w-[30%] bg-[#1d473a] h-full py-10 px-4 space-y-1 lg:space-y-4">
           {/* Personal Details */}
-          <div>
+          <div className="pb-4 lg:pb-6">
             <div>
               {selectedImage && (
                 <Avatar className="break-words mx-auto h-14 w-14">
@@ -168,12 +168,15 @@ const Forest: React.FC<PreviewSectionProps> = ({
                 </Avatar>
               )}
             </div>
-            <div className="break-words text-center mt-3">
-              <h1 className="break-words text-white font-normal text-base">
+            <div className="break-words text-center ">
+              <h1 className="break-words text-white font-normal text-base lg:text-lg">
                 {firstName} {lastName}
               </h1>
             </div>
-            <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+            {jobTitle && firstName && (
+              <span className="break-words block h-[1px] w-[22px] bg-white mx-auto mt-1"></span>
+            )}
+
             <div className="break-words text-center mt-1">
               <h1 className="break-words text-white font-normal text-[9px] leading-[14px]">
                 {jobTitle}
@@ -256,26 +259,28 @@ const Forest: React.FC<PreviewSectionProps> = ({
             </>
           )}
           {/*  Skills */}
-          {sortableSkillsList.length > 0 && (
-            <>
-              <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
-                {skillTitle}
-              </h1>
-              {sortableSkillsList.map((item: any, index: any) => (
-                <div key={index} className="break-words space-y-1 mt-1">
-                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                    {skillsHistory[index]?.skillsTitle}
-                  </h6>
-                  {skillsHistory[index]?.skillsTitle && (
-                    <Progress
-                      value={skillsHistory[index]?.skillsLevel || 60}
-                      className="break-words w-[100%] h-1 bg-[#808080]"
-                    />
-                  )}
-                </div>
-              ))}
-            </>
-          )}
+          <span>
+            {sortableSkillsList.length > 0 && (
+              <>
+                <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
+                  {skillTitle}
+                </h1>
+                {sortableSkillsList.map((item: any, index: any) => (
+                  <div key={index} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                      {skillsHistory[index]?.skillsTitle}
+                    </h6>
+                    {skillsHistory[index]?.skillsTitle && (
+                      <Progress
+                        value={skillsHistory[index]?.skillsLevel || 60}
+                        className="break-words w-[100%] h-1 bg-[#808080]"
+                      />
+                    )}
+                  </div>
+                ))}
+              </>
+            )}
+          </span>
           {/*  Hobbies */}
           {toggledHobbies && (
             <>
@@ -290,24 +295,27 @@ const Forest: React.FC<PreviewSectionProps> = ({
             </>
           )}
           {/*  Languages */}
+
           {sortableLanguageList.length > 0 && (
             <>
               <h1 className="break-words text-white text-[10px] leading-[14px] font-medium capitalize">
                 {languagesTitle}
               </h1>
-              {sortableLanguageList.map((item: any, index: any) => (
-                <div key={index} className="break-words space-y-1 mt-1">
-                  <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
-                    {languageHistory[index]?.languageTitle}
-                  </h6>
-                  {languageHistory[index]?.languageTitle && (
-                    <Progress
-                      value={languageHistory[index]?.languageLevel || 66}
-                      className="break-words w-[100%] h-1 bg-[#808080]"
-                    />
-                  )}
-                </div>
-              ))}
+              <span>
+                {sortableLanguageList.map((item: any, index: any) => (
+                  <div key={index} className="break-words space-y-1 mt-1">
+                    <h6 className="break-words text-white/85 font-normal text-[8px] leading-[13px]">
+                      {languageHistory[index]?.languageTitle}
+                    </h6>
+                    {languageHistory[index]?.languageTitle && (
+                      <Progress
+                        value={languageHistory[index]?.languageLevel || 66}
+                        className="break-words w-[100%] h-1 bg-[#808080]"
+                      />
+                    )}
+                  </div>
+                ))}
+              </span>
             </>
           )}
         </div>
@@ -325,12 +333,12 @@ const Forest: React.FC<PreviewSectionProps> = ({
           )}
 
           {/* Employment History */}
-          {sortableEmploymentList.length > 0 && (
+          {sortableEmploymentList?.length > 0 && (
             <div className="break-words space-y-2">
               <h1 className="break-words text-black/85 text-[10px] leading-[14px] font-bold mb-1 capitalize">
                 {employmentHistoryTitle}
               </h1>
-              {sortableEmploymentList.map((item: any, index: any) => (
+              {sortableEmploymentList?.map((item: any, index: any) => (
                 <div key={index}>
                   <h6 className="break-words text-black/85 text-[9px] leading-[14px] font-semibold">
                     {employmentHistory[index]?.employmentJobTitle}
